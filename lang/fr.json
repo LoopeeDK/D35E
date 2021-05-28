@@ -513,7 +513,7 @@
   "D35E.SkillTypeAdventure": "Aventure",
   "D35E.SkillTypeBackground": "Antécédent",
 
-  "D35E.ACP": "MAT",
+  "D35E.ACP": "Malus d'armure",
   "D35E.ACPTooltip": "Malus d'armure aux tests",
   "D35E.CS": "CC",
   "D35E.CSTooltip": "Compétence de classe",
