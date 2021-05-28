@@ -69,7 +69,7 @@
   "D35E.ApplyHealing": "Appliquer les soins",
   "D35E.ApplyCriticalHealing": "Appliquer les soins critiques",
 
-  "D35E.RollsForInitiative": "{0} lancés de jet d'initiative !",
+  "D35E.RollsForInitiative": "{0} lance un jet d'initiative !",
 
   "D35E.FlagsInstructions": "Configurer les capacités et traits du personnage qui ont des comportements sur le système D35E",
   "D35E.FlagsTitle": "Configurer les traits spéciaux",
@@ -577,7 +577,7 @@
   "D35E.NotEquipped": "Pas équipé",
   "D35E.Carried": "Transporté",
   "D35E.Identified": "Identifié",
-  "D35E.Unidentified": "Unidentified",
+  "D35E.Unidentified": "Non-identifié",
   "D35E.Exhaustion": "Fatigue",
   "D35E.FlyManeuverability": "Manoeuvrabilité en vol",
   "D35E.FlyManeuverabilityShort": "Manoeuv. Vol",
