@@ -6,14 +6,20 @@ export const displayChatActionButtons = function(message, html, data) {
   if (chatCard.length > 0) {
 
     // If the user is the message author or the actor owner, proceed
+
+    const buttons = chatCard.find("button[data-action]:not(.everyone)");
+    buttons.each((a, btn) => {
+      if (game.settings.get("D35E", "allowPlayersApplyActions"))
+        $(btn).addClass('everyone')
+    });
     const actor = game.actors.get(data.message.speaker.actor);
     if (actor && actor.owner) return;
     else if (game.user.isGM || (data.author.id === game.user.id)) return;
 
-    // Otherwise conceal action buttons
-    const buttons = chatCard.find("button[data-action]");
+    // Otherwise make buttons disabled, but show the actions action buttons
     buttons.each((a, btn) => {
-      btn.style.display = "none"
+      if (!game.settings.get("D35E", "allowPlayersApplyActions"))
+        btn.disabled = true
     });
   }
 };
@@ -44,14 +50,17 @@ export const createCustomChatMessage = async function(chatTemplate, chatTemplate
 
   // Dice So Nice integration
   if (chatData.roll != null && rolls.length === 0) rolls = [chatData.roll];
-  if (game.dice3d != null) {
+  if (game.dice3d) {
+    let promises = []
     for (let roll of rolls) {
-      await game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind);
-      chatData.sound = null;
+      promises.push(game.dice3d.showForRoll(roll, game.user, true, chatData.whisper, chatData.blind));
     }
+    await Promise.all(promises)
+    chatData.sound = null;
   }
 
   ChatMessage.create(chatData);
+  return true;
 };
 
 export const hideRollInfo = function(app, html, data) {
@@ -71,9 +80,30 @@ export const hideGMSensitiveInfo = function(app, html, data) {
   if (game.user.isGM) return;
 
   let speaker = app.data.speaker,
-    actor = speaker != null ? (speaker.token ? game.actors.tokens[speaker.token] : game.actors.get(speaker.actor)) : null;
-  if (!actor || (actor && actor.hasPerm(game.user, "LIMITED"))) return;
+    actor = speaker != null ? (speaker.actor ? game.actors.get(speaker.actor) : game.actors.tokens[speaker.token]) : null;
+  //console.log('D35E | Message | Cleaning ', actor, app, html)
+  if (!actor || (actor && actor.testUserPermission(game.user, "LIMITED"))) return;
 
   // Hide info
   html.find(".gm-sensitive").remove();
+
+
+  if (game.settings.get("D35E", "playersNoDamageDetails")) {
+    html.find(".toggle-content").remove();
+  }
+
+  if (game.settings.get("D35E", "playersNoDCDetails")) {
+    html.find(".dc-value").text("?");
+  }
 };
+
+
+export const enableToggles = function(app, html, data) {
+  html.on('click', '.toggle-header', (event) => {
+    event.preventDefault();
+    const header = event.currentTarget;
+    const card = header.closest(".toggle-box");
+    const content = card.querySelector(".toggle-content");
+    $(content).slideToggle(400)
+  })
+}

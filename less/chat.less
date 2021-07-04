@@ -8,6 +8,21 @@
   font-style: normal;
   font-size: 12px;
 
+  &.item-card {
+    h2 {
+      padding: 3px 0;
+      border: none;
+      flex: 1;
+      margin: 0;
+      line-height: 36px;
+      font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+      font-size: 20px;
+      color: black;
+      opacity: 0.9;
+      margin-bottom: 4px;
+    }
+  }
+
   .card-header {
     padding: 3px 0;
     border-top: 2px groove #FFF;
@@ -46,7 +61,14 @@
 
   .card-buttons {
     margin: 5px 0;
-
+    img {
+      height: 24px;
+      float: left;
+      vertical-align: middle;
+      margin-right: -32px;
+      margin-top: 4px;
+      margin-left: 8px;
+    }
     span {
       display: block;
       line-height: 28px;
@@ -57,9 +79,25 @@
     button {
       font-size: 12px;
       height: 24px;
-      line-height: 20px;
+      line-height: 24px;
       margin: 2px 0;
+
+      &[disabled] {
+        img {
+          filter: grayscale(1);
+        }
+      }
+      img.target {
+        display: none;
+      }
+      &:hover {
+        img.target {
+          display: block;
+        }
+      }
     }
+
+
   }
 
   .card-footer {
@@ -73,7 +111,7 @@
       border-radius: 3px;
 
       h3 {
-        color: #4C6D9F;
+        color: #782e22;;
         font-size: 16px;
         text-align: center;
       }
@@ -103,14 +141,16 @@
     border: 1px solid #999;
     border-radius: 3px;
 
-    .dice-roll:nth-child(n+2) .dice-flavor {
-      margin-top: 12px;
-    }
+    &:not(.compact) {
+      .dice-roll:nth-child(n+2) .dice-flavor {
+        margin-top: 12px;
+      }
 
-    .dice-roll:first-child > .dice-flavor {
-      color: #4C6D9F;
-      font-size: 16px;
-      text-align: center;
+      .dice-roll:first-child > .dice-flavor {
+        color: #782e22;;
+        font-size: 16px;
+        text-align: center;
+      }
     }
   }
 
@@ -187,6 +227,34 @@
     font-size: 14px;
   }
 
+  .toggle-header {
+    margin-bottom: -3px;
+  }
+
+  .dice-tooltips {
+    padding: 0px 4px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    margin-bottom: 8px;
+    flex: 0;
+    background: rgba(255,255,255,0.2);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 0;
+
+    .dice-formula {
+      position: relative;
+      margin: 0;
+      line-height: 24px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.1);
+      border: 1px solid #999;
+      border-radius: 3px;
+      box-shadow: 0 0 2px #FFF inset;
+      word-break: break-all;
+    }
+  }
+
   div.defense {
     table {
       width: 100%;
@@ -197,10 +265,38 @@
       }
     }
   }
+
+  .special-action-info {
+    line-height: 24px;
+  }
+
+  .special-action-sublabel {
+    display: block;
+    border: none;
+    font-family: "Signika";
+    font-size: 10px;
+    line-height: 10px;
+    margin-top: -2px;
+  }
 }
 
 .chat-card.defense-card {
   .saving-throws {
     margin-top: 4px;
   }
+}
+
+.dmg-type-icon {
+  display: inline;
+    width: 14px;
+    border: none;
+    vertical-align: middle;
+    margin-bottom: 2px;
+}
+
+.damage-divider {
+  font-size: 20px;
+  text-align: center;
+  align-self: flex-end;
+  flex: 0 30px;
 }

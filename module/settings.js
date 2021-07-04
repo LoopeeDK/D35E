@@ -1,5 +1,6 @@
 import { HealthConfig } from "./config/health.js";
 import { isMinimumCoreVersion } from "./lib.js";
+import {CurrencyConfig} from "./config/currency.js";
 
 export const registerSystemSettings = function() {
   /**
@@ -9,8 +10,8 @@ export const registerSystemSettings = function() {
     name: "System Migration Version",
     scope: "world",
     config: false,
-    type: Number,
-    default: 0
+    type: String,
+    default: "0.0.0"
   });
 
   // Health configuration
@@ -25,6 +26,18 @@ export const registerSystemSettings = function() {
     }
   );
 
+
+  game.settings.registerMenu(isMinimumCoreVersion("0.5.6") ? "D35E" : "system",
+      "currencyConfig", {
+        name: "SETTINGS.D35ECurrencyConfigName",
+        label: "SETTINGS.D35ECurrencyConfigLabel",
+        hint: "SETTINGS.D35ECurrencyConfigHint",
+        icon: "fas fa-coins",
+        type: CurrencyConfig,
+        restricted: true
+      }
+  );
+
   game.settings.register("D35E", "healthConfig", {
     name: "SETTINGS.D35EHealthConfigName",
     scope: "world",
@@ -35,6 +48,28 @@ export const registerSystemSettings = function() {
       game.actors.entities.forEach(o => { o.update({}); });
       Object.values(game.actors.tokens).forEach(o => { o.update({}); });
     }
+  });
+
+  game.settings.register("D35E", "currencyConfig", {
+    name: "SETTINGS.D35ECurrencyConfigName",
+    scope: "world",
+    default: CurrencyConfig.defaultSettings,
+    type: Object,
+    config: false,
+    onChange: () => {
+      game.actors.entities.forEach(o => { o.update({}); });
+      Object.values(game.actors.tokens).forEach(o => { o.update({}); });
+    }
+  });
+
+
+  game.settings.register("D35E", "autosizeWeapons", {
+    name: "SETTINGS.D35EAutosizeWeaponsN",
+    hint: "SETTINGS.D35EAutosizeWeaponsL",
+    scope: "world",
+    config: true,
+    default: true,
+    type: Boolean,
   });
 
   /**
@@ -97,7 +132,6 @@ export const registerSystemSettings = function() {
       [...game.actors.entities, ...Object.values(game.actors.tokens)].filter(o => {
         return o.data.type === "character";
       }).forEach(o => {
-        o.update({});
         if (o.sheet != null && o.sheet._state > 0) o.sheet.render();
       });
     },
@@ -110,6 +144,18 @@ export const registerSystemSettings = function() {
     name: "SETTINGS.D35ENoExpN",
     hint: "SETTINGS.D35ENoExpL",
     scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
+  /**
+   * Option to display class features in other tabs as well
+   */
+  game.settings.register("D35E", "classFeaturesInTabs", {
+    name: "SETTINGS.D35EClassFeaturesInTabsN",
+    hint: "SETTINGS.D35EClassFeaturesInTabsL",
+    scope: "client",
     config: true,
     default: false,
     type: Boolean,
@@ -148,6 +194,54 @@ export const registerSystemSettings = function() {
   });
 
   /**
+   * Option to use automatically scale weapon attacks using BAB
+   */
+  game.settings.register("D35E", "autoScaleAttacksBab", {
+    name: "SETTINGS.D35EAutoScaleAttackBABN",
+    hint: "SETTINGS.D35EAutoScaleAttackBABH",
+    scope: "world",
+    config: true,
+    default: true,
+    type: Boolean
+  });
+
+  game.settings.register("D35E", "allowNoAmmo", {
+    name: "SETTINGS.D35EAllowNoAmmoN",
+    hint: "SETTINGS.D35EAllowNoAmmoH",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
+
+  game.settings.register("D35E", "useAutoAmmoRecovery", {
+    name: "SETTINGS.D35EAutoAmmoRecoveryN",
+    hint: "SETTINGS.D35EAutoAmmoRecoveryH",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
+
+  game.settings.register("D35E", "noAutoSpellpointsCost", {
+    name: "SETTINGS.D35ENoAutoSpellpoinCost",
+    hint: "SETTINGS.D35ENoAutoSpellpoinCostH",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
+
+  game.settings.register("D35E", "spellpointCostCustomFormula", {
+    name: "SETTINGS.D35ESpellpointsCostFormula",
+    hint: "SETTINGS.D35ESpellpointsCostFormulaH",
+    scope: "world",
+    config: true,
+    default: "",
+    type: String
+  });
+
+  /**
    * Option to automatically collapse Item Card descriptions
    */
   game.settings.register("D35E", "autoCollapseItemCards", {
@@ -162,6 +256,113 @@ export const registerSystemSettings = function() {
     }
   });
 
+
+  game.settings.register("D35E", "hideSpellDescriptionsIfHasAction", {
+    name: "SETTINGS.D35EHideSpellDescriptionsIfHasActionN",
+    hint: "SETTINGS.D35EHideSpellDescriptionsIfHasActionL",
+    scope: "client",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: () => {
+      ui.chat.render();
+    }
+  });
+
+  game.settings.register("D35E", "showPartyHud", {
+    name: "SETTINGS.D35EShowPartyHudN",
+    hint: "SETTINGS.D35EShowPartyHudL",
+    scope: "client",
+    config: true,
+    default: false,
+    type: String,
+    choices: {
+      "full": "Full Party HUD",
+      "narrow": "Narrow Party HUD",
+      "none": "No party HUD"
+    },
+    onChange: () => {
+      ui.nav.render()
+    }
+  });
+
+
+  game.settings.register("D35E", "customSkin", {
+    name: "SETTINGS.D35ECustomSkinN",
+    hint: "SETTINGS.D35ECustomSkinL",
+    scope: "client",
+    config: true,
+    default: true,
+    type: Boolean,
+    onChange: () => {
+      $('body').toggleClass('d35ecustom', game.settings.get("D35E", "customSkin"));
+    },
+  });
+
+  game.settings.register("D35E", "colorblindColors", {
+    name: "SETTINGS.D35EColorblindN",
+    hint: "SETTINGS.D35EColorblindL",
+    scope: "client",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: () => {
+      $('body').toggleClass('color-blind', game.settings.get("D35E", "colorblindColors"));
+    },
+  });
+
+
+  game.settings.register("D35E", 'transparentSidebarWhenUsingTheme', {
+    name: `SETTINGS.D35ETransparentSidebarWhenUsingThemeN`,
+    hint: 'SETTINGS.D35ETransparentSidebarWhenUsingThemeH',
+    default: false,
+    type: Boolean,
+    config: true,
+    scope: 'client',
+    onChange: () => {
+      $('body').toggleClass('transparent-sidebar', game.settings.get("D35E", "transparentSidebarWhenUsingTheme"));
+    },
+  });
+
+
+  game.settings.register("D35E", "saveAttackWindow", {
+    name: "SETTINGS.D35ESaveAttackWindowN",
+    hint: "SETTINGS.D35ESaveAttackWindowL",
+    scope: "client",
+    config: true,
+    default: false,
+    type: Boolean
+  });
+
+  game.settings.register("D35E", "hidePlayersList", {
+    name: "SETTINGS.D35ENoPlayersListN",
+    hint: "SETTINGS.D35ENoPlayersListL",
+    scope: "client",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: () => {
+      $('body').toggleClass('no-players-list', game.settings.get("D35E", "hidePlayersList"));
+    },
+  });
+
+  game.settings.register("D35E", "playersNoDamageDetails", {
+    name: "SETTINGS.D35EPlayersNoDamageDetailsN",
+    hint: "SETTINGS.D35EPlayersNoDamageDetailsL",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
+
+  game.settings.register("D35E", "playersNoDCDetails", {
+    name: "SETTINGS.D35EPlayersNoDCDetailsN",
+    hint: "SETTINGS.D35EPlayersNoDCDetailsL",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
   /**
    * Option to change measure style
    */
@@ -198,4 +399,173 @@ export const registerSystemSettings = function() {
     // type: Boolean,
   // });
 
+
+  game.settings.register("D35E", '__onboarding', {
+    name: `Tutorial shown`,
+    hint: 'Basic system usage tutorial already shown. Uncheck to view again after reload.',
+    default: false,
+    type: Boolean,
+    config: true,
+    scope: 'client',
+  });
+
+  game.settings.register("D35E", '__onboardingHidden', {
+    name: `SETTINGS.D35EDisableTutorialN`,
+    hint: 'SETTINGS.D35EDisableTutorialL',
+    default: false,
+    type: Boolean,
+    config: true,
+    scope: 'world',
+  });
+
+
+
+  game.settings.register("D35E", 'hideSpells', {
+    name: `SETTINGS.D35EHideSpellDescriptionsN`,
+    hint: 'SETTINGS.D35EHideSpellDescriptionsH',
+    default: false,
+    type: Boolean,
+    config: true,
+    scope: 'client',
+  });
+
+
+
+  game.settings.register("D35E", "allowPlayersApplyActions", {
+    name: "SETTINGS.D35EAllowPlayersApplyActionsN",
+    hint: "SETTINGS.D35EAllowPlayersApplyActionsH",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
+
+
+  game.settings.register("D35E", "repeatAnimations", {
+    name: "SETTINGS.D35ERepeatAnimationsN",
+    hint: "SETTINGS.D35ERepeatAnimationsL",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
+
+
+  game.settings.register("D35E", "globalDisableTokenLight", {
+    name: "SETTINGS.D35EDisableTokenLightsN",
+    hint: "SETTINGS.D35EDisableTokenLightsL",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
+
+  game.settings.register("D35E", "globalDisableTokenVision", {
+    name: "SETTINGS.D35EDisableTokenVisionN",
+    hint: "SETTINGS.D35EDisableTokenVisionL",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
+
+
+  /**
+   * Hide token conditions
+   */
+  game.settings.register("D35E", "hideTokenConditions", {
+    name: "SETTINGS.D35EHideTokenConditionsN",
+    hint: "SETTINGS.D35EHideTokenConditionsH",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: () => {
+      let promises = [];
+      const actors = [
+        ...Array.from(game.actors.entities.filter((o) => getProperty(o.data, "token.actorLink"))),
+        ...Object.values(game.actors.tokens),
+      ];
+      for (let actor of actors) {
+        promises.push(actor.toggleConditionStatusIcons());
+      }
+      return Promise.all(promises);
+    },
+  });
+
+  /**
+   * Display default token conditions alongside system ones
+   */
+  game.settings.register("D35E", "coreEffects", {
+    name: "SETTINGS.D35ECoreEffectsN",
+    hint: "SETTINGS.D35ECoreEffectsH",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: () => {
+      window.location.reload();
+    },
+  });
+
+  /**
+   * Display default token conditions alongside system ones
+   */
+  game.settings.register("D35E", "currencyNames", {
+    name: "SETTINGS.D35ECurrencyNamesN",
+    hint: "SETTINGS.D35ECurrencyNamesH",
+    scope: "world",
+    config: true,
+    default: "",
+    type: String,
+    onChange: () => {
+      window.location.reload();
+    },
+  });
+
+  game.settings.register("D35E", 'apiKeyWorld', {
+    name: "SETTINGS.D35EApiKeyWorldN",
+    hint: "SETTINGS.D35EApiKeyWorldH",
+    default: "",
+    type: String,
+    config: true,
+    scope: 'world',
+  });
+
+  game.settings.register("D35E", 'apiKeyPersonal', {
+    name: "SETTINGS.D35EApiKeyPersonalN",
+    hint: "SETTINGS.D35EApiKeyPersonalH",
+    default: "",
+    type: String,
+    config: true,
+    scope: 'client',
+  });
+
+  game.settings.register("D35E", "demoWorld", {
+    name: "Demo Mode",
+    hint: "This setting enables features related to Demo Mode. Do not set it in live games.",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
+
+  game.settings.register("D35E", "randomizeHp", {
+    name: "Randomize npc hp",
+    hint: "This setting randomizes npc hp on canvas drop.",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
+
+  // game.settings.register("D35E", 'displayItemsInContainers', {
+  //   name: `SETTINGS.D35EDisplayItemsInContainersN`,
+  //   hint: 'SETTINGS.D35EDisplayItemsInContainersH',
+  //   default: false,
+  //   type: Boolean,
+  //   config: true,
+  //   scope: 'client',
+  // });
 };

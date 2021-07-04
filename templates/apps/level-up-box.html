@@ -1,0 +1,33 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+
+    <p>You have advanced to a new level!</p>
+    <h2>Class and Skills</h2>
+    <p>You can set Class and Skills gained this level on the Features - Classes tab.</p>
+
+    <h2>Level up changes</h2>
+    {{#if hasNewAbility}}
+    <h3>Abilities</h3>
+    <p>You have reached a level that allows you to increase one of your abilities.</p>
+    <div class="form-group spellcasting-ability flexrow">
+        <label><span>{{localize "D35E.Ability"}}</span></label>
+        <select name="ability" data-dtype="String">
+            {{#select levelup.ability}}
+            {{#each config.abilities as |abl a|}}
+            <option value="{{a}}">{{abl}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    {{/if}}
+    {{#if hasNewFeat}}
+    <h3>Feat</h3>
+    <p>You have reached a level that allows you to have a new Feat. <a onclick="game.packs.get('D35E.feats').render(true)" style="color: #782e22;">Open Feats compendium.</a></p>
+    {{/if}}
+    {{#unless hasNewAbility}}
+    {{#unless hasNewFeat}}
+    On this level there are no major changes to your character.
+    {{/unless}}
+    {{/unless}}
+
+  <button type="submit" name="submit" value="1"><i class="far fa-save"></i> {{localize "D35E.LevelUp"}}</button>
+</form>

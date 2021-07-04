@@ -1,0 +1,32 @@
+<div class="D35E chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if
+     tokenId}}data-token-id="{{tokenId}}" {{/if}}>
+<header class="card-header flexrow">
+  {{#if name}}<h3>Turn {{undeadName}}</h3>{{/if}}
+</header>
+
+
+<div class="chat-attack">
+    <div class="dice-roll max-hd flexcol">
+      <div class="dice-flavor">Maximum HD</div>
+      <div class="dice-result">
+        <h4 class="dice-total">{{maxHD}}</h4>
+        <div class="dice-formula">{{level}} {{diffHD}}</div>
+      </div>
+      <strong style="order: 3">Dice roll</strong>
+      <div class="dice-result" style="order: 3">
+        <h4 class="dice-total">{{maxHDResult.total}}</h4>
+        {{{maxHDResult.tooltip}}}
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-attack">
+    <div class="dice-roll damage-hd-roll">
+      <div class="dice-flavor">HD Turned</div>
+      <div class="dice-result">
+        <h4 class="dice-total">{{damageHD.total}}</h4>
+        {{{damageHD.tooltip}}}
+      </div>
+    </div>
+  </div>
+</div>

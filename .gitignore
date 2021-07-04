@@ -7,5 +7,15 @@
 # Node Modules
 node_modules/
 /test-scripts
-/icons
 /tokens
+source/*.json
+icons/
+dnd35e.zip
+
+*.zip
+
+*.logoist
+
+add-foundry-release.sh
+
+.DS_Store
