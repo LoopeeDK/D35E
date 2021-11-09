@@ -1,6 +1,8 @@
 import { ActorSheetPF } from "../sheets/base.js";
 import { CR } from "../../lib.js";
 
+import {Roll35e} from "../../roll.js"
+
 /**
  * An Actor sheet for NPC type characters in the D&D5E system.
  * Extends the base ActorSheetPF class.
@@ -15,7 +17,7 @@ export class ActorSheetPFNPC extends ActorSheetPF {
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
       classes: ["D35E", "sheet", "actor", "npc"],
-      width: 720,
+      width: 725,
       height: 800
     });
   }
@@ -47,7 +49,10 @@ export class ActorSheetPFNPC extends ActorSheetPF {
 
     // Challenge Rating
     const cr = parseFloat(data.data.details.cr || 0);
+    const total = parseFloat(data.data.details.totalCr || 0);
     data.labels.cr = CR.fromNumber(cr);
+    data.labels.totalCr = CR.fromNumber(total)
+    data.labels.totalExp = total*75*4;
     return data;
   }
 
@@ -64,9 +69,11 @@ export class ActorSheetPFNPC extends ActorSheetPF {
   async _updateObject(event, formData) {
 
     // Format NPC Challenge Rating
+
     let crv = "data.details.cr";
     let cr = formData[crv];
-    formData[crv] = CR.fromString(cr);
+    if (cr)
+      formData[crv] = CR.fromString(cr);
 
     // Parent ActorSheet update steps
     super._updateObject(event, formData);
@@ -85,6 +92,8 @@ export class ActorSheetPFNPC extends ActorSheetPF {
 
     // Rollable Health Formula
     html.find(".health .rollable").click(this._onRollHealthFormula.bind(this));
+
+
   }
 
   /* -------------------------------------------- */
@@ -98,7 +107,7 @@ export class ActorSheetPFNPC extends ActorSheetPF {
     event.preventDefault();
     const formula = this.actor.data.data.attributes.hp.formula;
     if ( !formula ) return;
-    const hp = new Roll(formula).roll().total;
+    const hp = new Roll35e(formula).roll().total;
     AudioHelper.play({src: CONFIG.sounds.dice});
     this.actor.update({"data.attributes.hp.value": hp, "data.attributes.hp.max": hp});
   }

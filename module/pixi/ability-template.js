@@ -1,61 +1,78 @@
+import { D35E } from "../config.js";
+import {Roll35e} from "../roll.js";
+
 /**
  * A helper class for building MeasuredTemplates for 5e spells and abilities
  * @extends {MeasuredTemplate}
  */
-export class AbilityTemplate extends MeasuredTemplate {
+export default class AbilityTemplate extends MeasuredTemplate {
 
   /**
-   * A factory method to create an AbilityTemplate instance using provided data
-   * @param {string} type -             The type of template ("cone", "circle", "rect" or "ray")
-   * @param {number} distance -         The distance/size of the template
-   * @return {AbilityTemplate|null}     The template object, or null if the data does not produce a template
+   * A factory method to create an AbilityTemplate instance using provided data from an Item5e instance
+   * @param {ItemD35E} item               The Item object for which to construct the template
+   * @return {AbilityTemplate|null}     The template object, or null if the item does not produce a template
    */
-  static fromData(options) {
-    let type = options.type;
-    let distance = options.distance;
-    if (!type) return null;
-    if (!distance) return null;
-    if (!["cone", "circle", "rect", "ray"].includes(type)) return null;
-
+  static fromItem(item, multiplier = 1, rollData = {}) {
+    const target = getProperty(item.data, "data.measureTemplate") || {};
+    const templateShape = D35E.areaTargetTypes[target.type];
+    if ( !templateShape ) return null;
+    let baseSize = new Roll35e(`${target.size}`, rollData).roll().total;
+    let size = baseSize*multiplier || 5;
     // Prepare template data
     const templateData = {
-      t: type,
+      t: templateShape,
       user: game.user._id,
-      distance: distance || 5,
+      distance: size,
       direction: 0,
       x: 0,
       y: 0,
-      fillColor: options.color ? options.color : game.user.color,
-      texture: options.texture ? options.texture : null,
+      fillColor: target.customColor || game.user.color,
       _id: randomID(16),
+
     };
 
+    let path = target.customTexture;
+
+
     // Additional type-specific data
-    switch (type) {
-      case "cone":
+    switch ( templateShape ) {
+      case "cone": // 5e cone RAW should be 53.13 degrees
         if (game.settings.get("D35E", "measureStyle") === true) templateData.angle = 90;
-        else templateData.angle = 53.13;
+        templateData.angle = 53.13;
         break;
-      case "rect":
-        templateData.distance = distance || 5;
+      case "rect": // 5e rectangular AoEs are always cubes
+        templateData.distance = Math.hypot(target.size*multiplier, target.size*multiplier);
         templateData.width = target.value;
         templateData.direction = 45;
         break;
-      case "ray":
-        templateData.width = 5;
+      case "ray": // 5e rays are most commonly 1 square (5 ft) in width
+        templateData.width = target.width ?? canvas.dimensions.distance;
         break;
       default:
         break;
     }
 
-    // Return the template constructed from the item data
-    return new this(templateData);
-  }
 
-  /* -------------------------------------------- */
+    const cls = CONFIG.MeasuredTemplate.documentClass;
+    const template = new cls(templateData, { parent: canvas.scene });
+
+    template.item = item
+
+    if (path) {
+      loadTexture(path).then((tex) => {
+        template.texture = tex;
+        template.data.texture = path;
+        template.refresh();
+      })
+    }
+
+    const object = new this(template);
+    return object;
+  }
 
   /**
    * Creates a preview of the spell template
+   *
    * @param {Event} event   The initiating click event
    */
   async drawPreview(event) {
@@ -71,21 +88,22 @@ export class AbilityTemplate extends MeasuredTemplate {
 
   /**
    * Activate listeners for the template preview
+   *
    * @param {CanvasLayer} initialLayer  The initially active CanvasLayer to re-activate after the workflow is complete
    * @returns {Promise<boolean>} Returns true if placed, or false if cancelled
    */
   activatePreviewListeners(initialLayer) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const handlers = {};
       let moveTime = 0;
 
       const pfStyle = game.settings.get("D35E", "measureStyle") === true;
 
       // Update placement (mouse-move)
-      handlers.mm = event => {
+      handlers.mm = (event) => {
         event.stopPropagation();
         let now = Date.now(); // Apply a 20ms throttle
-        if ( now - moveTime <= 20 ) return;
+        if (now - moveTime <= 20) return;
         const center = event.data.getLocalPosition(this.layer);
         let pos = canvas.grid.getSnappedPosition(center.x, center.y, 2);
         this.data.x = pos.x;
@@ -96,7 +114,7 @@ export class AbilityTemplate extends MeasuredTemplate {
       };
 
       // Cancel the workflow (right-click)
-      handlers.rc = (event, canResolve=true) => {
+      handlers.rc = (event, canResolve = true) => {
         this.layer.preview.removeChildren();
         canvas.stage.off("mousemove", handlers.mm);
         canvas.stage.off("mousedown", handlers.lc);
@@ -112,33 +130,44 @@ export class AbilityTemplate extends MeasuredTemplate {
       };
 
       // Confirm the workflow (left-click)
-      handlers.lc = event => {
+      handlers.lc = async (event) => {
         handlers.rc(event, false);
 
         // Confirm final snapped position
-        const destination = canvas.grid.getSnappedPosition(this.x, this.y, 2);
-        this.data.x = destination.x;
-        this.data.y = destination.y;
+        this.data.update(this.data);
 
         // Create the template
-        canvas.scene.createEmbeddedEntity("MeasuredTemplate", this.data);
-        resolve(true);
+        const result = await canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.data]);
+        resolve(result);
       };
 
       // Rotate the template by 3 degree increments (mouse-wheel)
-      handlers.mw = event => {
+      handlers.mw = (event) => {
         if (event.ctrlKey) event.preventDefault(); // Avoid zooming the browser window
         event.stopPropagation();
         let delta, snap;
-        if (pfStyle && this.data.t === "cone") {
-          delta = 90;
-          snap = event.shiftKey ? delta : 45;
+        if (event.ctrlKey) {
+          if (this.data.t === "rect") {
+            delta = Math.sqrt(canvas.dimensions.distance * canvas.dimensions.distance);
+          } else {
+            delta = canvas.dimensions.distance;
+          }
+          this.data.distance += delta * -Math.sign(event.deltaY);
+        } else {
+          if (pfStyle && this.data.t === "cone") {
+            delta = 90;
+            snap = event.shiftKey ? delta : 45;
+          } else {
+            delta = canvas.grid.type > CONST.GRID_TYPES.SQUARE ? 30 : 15;
+            snap = event.shiftKey ? delta : 5;
+          }
+          if (this.data.t === "rect") {
+            snap = Math.sqrt(Math.pow(5, 2) + Math.pow(5, 2));
+            this.data.distance += snap * -Math.sign(event.deltaY);
+          } else {
+            this.data.direction += snap * Math.sign(event.deltaY);
+          }
         }
-        else {
-          delta = canvas.grid.type > CONST.GRID_TYPES.SQUARE ? 30 : 15;
-          snap = event.shiftKey ? delta : 5;
-        }
-        this.data.direction += (snap * Math.sign(event.deltaY));
         this.refresh();
       };
 
@@ -148,10 +177,14 @@ export class AbilityTemplate extends MeasuredTemplate {
       canvas.stage.on("mousedown", handlers.lc);
       canvas.app.view.oncontextmenu = handlers.rc;
       canvas.app.view.onwheel = handlers.mw;
+      this.hitArea = new PIXI.Polygon([]);
     });
   }
 
   refresh() {
+    if (!this.template) return;
+    if (!canvas.scene) return;
+
     super.refresh();
 
     if (this.active) {

@@ -1,0 +1,2088 @@
+<style>
+    .welcome-screen .window-content {
+        background: url(systems/D35E/ui/parchment-dark.jpg) repeat !important;
+        color: white;
+    }
+
+    .social-button {
+        flex: 0 140px;
+        text-align: center;
+        max-height: 26px;
+        margin-top: 3px;
+        margin-left: 4px;
+    }
+
+    .welcome-screen a.patreon {
+        background-color: #F96854;
+        padding: 4px 10px;
+        color: white;
+        border-radius: 16px;
+        text-decoration: none;
+        border: 1px #f38374 solid;
+    }
+
+    .welcome-screen a.discord {
+        flex: 0 100px;
+        background-color: #7289DA;
+        padding: 4px 10px;
+        color: white;
+        border-radius: 16px;
+        text-decoration: none;
+        border: 1px #9eacde solid;
+    }
+
+    .welcome-screen a.github {
+        flex: 0 100px;
+        background-color: #333;
+        padding: 4px 10px;
+        color: white;
+        border-radius: 16px;
+        text-decoration: none;
+        border: 1px #6a6969 solid;
+    }
+
+    .welcome-screen .window-content>* {
+        flex: 0;
+    }
+
+    .welcome-screen h1 {
+        margin: 0 !important;
+    }
+
+    .welcome-screen h3 {
+        margin: 0 !important;
+    }
+
+    .welcome-screen a.btn {
+        background: url(systems/D35E/icons/ui/long-button.png);
+        background-size: 100% 100%;
+        border: none;
+        color: white;
+        line-height: 32px;
+        padding: 0;
+        border-radius: 0;
+        height: 24px;
+        text-align: center;
+        margin: 0 0.7rem;
+        max-height: 32px;
+        text-decoration: none;
+    }
+
+    .welcome-screen a.btn.bottom {
+        margin-top: auto;
+        margin-bottom: 4px;
+    }
+
+    .welcome-screen a.btn.mid {
+        margin-top: 4px;
+        margin-bottom: 16px;
+    }
+
+    .welcome-tabs {
+        border: 1px #782e22 solid;
+        border-radius: 4px;
+        padding: 2px;
+    }
+
+    .welcome-tabs a.item {
+        line-height: 26px;
+        padding: 4px 4px 5px;
+        border-radius: 2px;
+    }
+
+    .welcome-tabs a.item.active {
+        background-color: #782e22;
+    }
+
+    .welcome-content h2.news {
+        font-family: "Nodesto", sans-serif;
+        text-align: center;
+        border: none;
+        flex: 0;
+        font-size: 28px;
+        text-shadow: 0px 0px 10px rgba(255, 100, 0, 0.76);
+    }
+</style>
+
+<h1 style="text-align: center"><img src="systems/D35E/icons/ui/logo.png"
+        style="height: 64px; border: none; float: left">
+    <span style='font-family: "Nodesto", sans-serif;
+        text-shadow: 0px 0px 10px rgba(255, 100, 0, 0.76);'>3.5e SRD</span>
+    <br><span style="font-size: 14px">3.5 SRD implementation for Foundry VTT</span></h1>
+<div class="flexrow">
+    <nav class="welcome-tabs">
+        <a class="item" data-tab="welcome">{{ localize "D35E.Welcome" }}</a>
+        <a class="item" data-tab="changelog">{{ localize "D35E.Changelog" }}</a>
+        <a class="item" data-tab="ogl">OGL</a>
+        <a class="item" data-tab="licenses">{{ localize "D35E.Licenses" }}</a>
+    </nav>
+</div>
+
+<section class="welcome-content">
+    <div class="tab" data-tab="welcome">
+
+        <p>Welcome to 3.5E SRD implementation for Foundry VTT! It was created from love for one of the best versions of
+            most popular Role Playing Game and
+            aims to provide full 3.5E SRD implementation and system flexible enough for anything else.</p>
+
+
+        <p style="font-weight: bold; text-align: right;">Happy GMing,<br>Rughalt</p>
+        <h2>News</h2>
+        <div class="flexrow">
+<!--            <div class="flexcol" style="background: url(systems/D35E/icons/ui/parchment-2.png) repeat;-->
+<!--    border-top-left-radius: 4px;-->
+<!--    min-height: 400px;-->
+<!--    height: 400px;-->
+<!--    border: none;-->
+<!--    max-height: 410px;-->
+<!--    border-bottom-left-radius: 4px;-->
+<!--    margin-bottom: 4px;">-->
+<!--                &lt;!&ndash;                <h2 class="news" style="padding: 0 0.7rem; flex: 0">Player's Companion</h2>&ndash;&gt;-->
+<!--                <img src="systems/D35E/ui/logo-35e-companion.png" style="padding: 0 0.7rem; flex: 0">-->
+<!--                <img src="systems/D35E/ui/companion-screen.png" style="padding: 0 0.7rem; flex: 0">-->
+<!--                <p style="padding: 0 0.7rem; flex: 0; color: black">-->
+<!--                    Player's Companion is a new way to experience character sheet both when playing the game and-->
+<!--                    offline!<em style="opacity: 0.8">Some parts of Player's Companion are Patreon only feature!</em>-->
+<!--                </p>-->
+
+<!--            </div>-->
+<!--            <div class="flexcol" style="background: url(systems/D35E/icons/ui/parchment-2.png) repeat;-->
+<!--    border-top-right-radius: 4px;-->
+<!--    min-height: 400px;-->
+<!--    height: 400px;-->
+<!--    border: none;-->
+<!--    max-height: 410px;-->
+<!--    border-bottom-right-radius: 4px;-->
+<!--    margin-bottom: 4px;">-->
+<!--                <p style="padding: 0 0.7rem; flex: 0; color: black">-->
+<!--                    <strong>Offline Character Sheet</strong> allows you to view your character sheet anywhere you are - -->
+<!--                    and does not-->
+<!--                    require Foundry server to be running! When your Foundry instance is up, you can make rolls from the-->
+<!--                    Player's Companion - so no need to go to Foundry to use a weapon or roll that skill check! With-->
+<!--                    Offline Character Sheet you can-->
+<!--                </p>-->
+<!--                <ul style="padding: 0 0.7rem; flex: 0; color: black !important; font-style: italic; margin-left: 1rem;">-->
+<!--                    <li>Roll Skill and Ability Checks</li>-->
+<!--                    <li>Use Items and Attacking</li>-->
+<!--                    <li>Casting Spells</li>-->
+<!--                    <li>Hero Features overview</li>-->
+<!--                </ul>-->
+<!--                <p style="padding: 0 0.7rem; flex: 0; color: black">-->
+<!--                    <strong>Compendium Browsers</strong> allows you to view 3.5e SRD compendium data outside the game,-->
+<!--                    wherever you are. With power full search engine you can easily find any item, spell or power!-->
+<!--                </p>-->
+<!--                <a class="btn bottom" href="https://companion.legaciesofthedragon.com">Learn-->
+<!--                    more about Companion</a>-->
+
+<!--            </div>-->
+            <div class="flexcol" style="max-height: 410px">
+                <h2 class="news" style="padding: 0 0.7rem; flex: 0">Linked Items</h2>
+                <img src="systems/D35E/icons/ui/welcome-screen/0.87-templates.png" style="padding: 0 0.7rem; flex: 0">
+                <p style="padding: 0 0.7rem; flex: 0">
+                    Starting with version 0.94.2, items can now finally link to other items - they will be added and removed along the source item! This allows to create a lot of different and complex effects!<br><br>
+
+                </p>
+            </div>
+            <div class="flexcol" style="max-height: 410px">
+                <h2 class="news" style="padding: 0 0.7rem; flex: 0">Auras</h2>
+                <img src="systems/D35E/icons/ui/welcome-screen/0.95-aura.png" style="padding: 0 0.7rem; flex: 0">
+                <p style="padding: 0 0.7rem; flex: 0">
+                    Version 0.95 introduces Auras! Auras allow characters to affect nearby tokens - pass changes and combat
+                    modifiers! Now Paladin can really create an Aura of Courage!<br><br> <em>Auras are a work in progress! They may break and contain bugs!</em>
+
+                </p>
+            </div>
+                        <div class="flexcol" style="max-height: 410px">
+
+                            <h2 class="news" style="padding: 0 0.7rem; flex: 0">Community & Help</h2>
+                            <p style="padding: 0 0.7rem; flex: 0">
+                                Have trouble using the system? Want to meet other 3.5e SRD users? Visit 3.5e SRD Discord Community server
+                                and read the documentation!
+                            </p>
+                            <a class="btn mid" href="https://discord.gg/wDyUaZH"  style="margin-bottom: 2px">Join Community Discord</a>
+                            <a class="btn mid" target="_blank" href="https://docs.legaciesofthedragon.com/">Visit Documentation</a>
+                            <h2 class="news" style="padding: 0 0.7rem; flex: 0">Support us!</h2>
+                            <p style="padding: 0 0.7rem; flex: 0">
+                                Like the system? You can support the development (and get access to exclusive content) on out Patreon!
+                            </p>
+
+                            <a class="btn mid" target="_blank"
+                               href="https://www.patreon.com/Rughalt">Visit Patreon Page</a>
+                            <!--        <h2 class="news" style="padding: 0 0.7rem; flex: 0">Custom Theme</h2>-->
+                            <!--        <p style="padding: 0 0.7rem; flex: 0">-->
+                            <!--            Did you know DND 3.5E comes with custom skin for Foundry? You - or any of your players - can enable it in options for themselves!-->
+                            <!--        </p>-->
+                        </div>
+        </div>
+
+        <h2></h2>
+
+        <div class="flexrow">
+            <p style="display: flex; flex-flow: row nowrap; align-items: center; justify-content: flex-start;"><input
+                    type="checkbox" class='show-again' id="welcome-screen-show-again" /> <label
+                    for="welcome-screen-show-again">Don't show this screen again until next update.</label></p>
+            <a href="https://discord.gg/wDyUaZH" class="discord social-button" style="float: right">Discord</a><a
+                class="github social-button" style="float: right"
+                href="https://www.github.com/Rughalt/D35E">GitHub</a><a class="patreon social-button"
+                style="float: right" href="https://www.patreon.com/Rughalt">Become a
+                Patron</a>
+        </div>
+    </div>
+    <div class="tab" data-tab="changelog" style="overflow-y: scroll; height: 570px;">
+        <h2>v0.98.0</h2>
+        <h3 id="new-features">New Features</h3>
+        <ul>
+        <li>Autocalculation of non-spell ability DC<ul>
+        <li>4 autocalculation modes (HD, ½ HD, Racial HD and ½ Racial HD)</li>
+        <li>Ability selection</li>
+        </ul>
+        </li>
+        <li>Special actions<ul>
+        <li><code>Activate</code> special action allows for activating auras</li>
+        <li><code>Deactivete</code> special actions added, allowing for deactivation of auras/buffs</li>
+        </ul>
+        </li>
+        <li>Ability to set Caster Level when creating consumables</li>
+        <li>Ability to link Feats to equipement items</li>
+        </ul>
+        <h3 id="fixes">Fixes</h3>
+        <ul>
+        <li>Fixed DR/ER application (applying DR/ER as a last step)</li>
+        <li>Spells-turned-enhancement fixes (usage, caster level)</li>
+        </ul>
+        <h3 id="github-changelist">Github changelist</h3>
+        <ul>
+        <li><a href="https://github.com/Rughalt/D35E/issues/814">814</a> - Resistances applying before a saving throw  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/813">813</a> - Bug: Templates increase base feats as though they added hit dice  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/812">812</a> - Bug: Special actions can&#39;t activate auras  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/808">808</a> - QoL: I can´t delete an attack from the full attack item  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/807">807</a> - Bug: Can´t use some spells from the inside a magic item  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/804">804</a> - When you edit a buff, you can&#39;t see the descrition text unless you push the edit text button.  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/803">803</a> - Bug: Some weapons don´t do damage   </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/802">802</a> - FR: Add improved cover as a default condition  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/799">799</a> - FR: link feats to items  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/798">798</a> - FR: Add a fillable &quot;concealment miss chance&quot; option to the roll defense window.  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/794">794</a> - Magic Item with use per day or unlimited use not working  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/793">793</a> - Non-active class ability description display problems  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/790">790</a> - Bonus Arcane Spellcaster Level not working  </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/788">788</a> - Although you cancel casting a spell, the spells per day counter changes.   </li>
+        </ul>
+
+        <h2>v0.97.4</h2>
+        <h3 id="toc_0">Fixes</h3>
+
+        <ul>
+        <li>Hotfix for attack rolls chat messages</li>
+        </ul>
+
+        <h3 id="toc_1">All changes</h3>
+
+        <ul>
+        <li><a href="https://github.com/Rughalt/D35E/issues/787">787</a> - Feature Request: Using formula in the Maximized field of the system Health Configuration. closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/720">720</a> - Feature Request - Being able to test in conditions (special actions) the combat status closed </li>
+        </ul>
+
+        <h2>v0.97</h2>
+        <h3 id="toc_0">Features</h3>
+
+        <ul>
+        <li>Premilimary support for more time based events
+
+        <ul>
+        <li>Long-lasting modules expire with the passage of world time</li>
+        <li>Support for Simple Calendar time progression when resting</li>
+        </ul></li>
+        <li>Rest Party button, that rests all characters tagged as Party Member </li>
+        <li>First version of Compendium item versioning
+
+        <ul>
+        <li>Displaying outdated items on character, no auto update</li>
+        </ul></li>
+        <li>Special Actions enhancements: Dropping a buff on special action will create a special action to add that buff</li>
+        <li>Size box can now use custom formulas</li>
+        <li>Better babele support in several part os the code</li>
+        <li>UI changes:
+
+        <ul>
+        <li>Highlighting hovered items in character sheet</li>
+        <li>Skin for Weather Control module</li>
+        </ul></li>
+        </ul>
+
+        <h3 id="toc_1">Bug Fixes</h3>
+
+        <ul>
+        <li>Non-active auras no longer should duplicate</li>
+        </ul>
+
+        <h3 id="toc_2">All changes</h3>
+
+        <ul>
+        <li><a href="https://github.com/Rughalt/D35E/issues/784">784</a> - Add special action to remove item by tag closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/783">783</a> - regen and damage bug closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/779">779</a> - Character item in Item directory closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/777">777</a> - Aura bug closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/776">776</a> - Barbare enraged wrong time calculation closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/774">774</a> - Bug: Named feats break with Babele translations closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/765">765</a> - Feature request: Highlight selected item in inventory closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/764">764</a> - future request - custom formula in the &ldquo;size&rdquo; box (cone, circle.. ) closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/761">761</a> - Wish List, Heals, CL closed </li>
+        </ul>
+
+        <h2>v0.96.4</h2>
+        <h3 id="toc_0">Features</h3>
+
+        <ul>
+            <li>Enhancement system can store information about the CL and Spellcasting Ability so staffs can work correctly</li>
+        </ul>
+
+        <h3 id="toc_1">All changes</h3>
+
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/771">771</a> - Aura bug closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/769">769</a> - Base spell compendium scorching ray formula wrong closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/768">768</a> - Bug: Missing non active class features on the class description closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/760">760</a> - DC value of spells in staffs closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/759">759</a> - Magic Missile + Mirror Image closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/713">713</a> - Divine Power Buff closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/697">697</a> - Aura (Enhencement) closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/522">522</a> - @attributes.bab.value is not recognize in buffs closed </li>
+        </ul>
+
+        <h2>v0.96.2</h2>
+        <h3 id="toc_0">Features</h3>
+
+        <ul>
+            <li>Items can now have their own separate Caster Level value, that will replace <code>@cl</code> field when rolling and available Caster Level is lower (in case of items other then spells - always)</li>
+            <li>Added Speak Language as a skill </li>
+        </ul>
+
+        <h3 id="toc_1">All changes</h3>
+
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/754">754</a> - &ldquo;Bludgeoning and piercing&rdquo; miss from the Base Weapon Damage closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/752">752</a> - [BUG] Conditional modifiers in weapon  closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/751">751</a> - Hill Giant missing default Throw Rock attack closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/750">750</a> - Missing Apply½ + Spell resistance + saving throw on items that cast spells closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/748">748</a> - Staffs - how they should work closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/743">743</a> - Repeating &ldquo;deactivated buff&rdquo; in chat closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/737">737</a> - [BUG] Buff elapsed time closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/735">735</a> - zombie template closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/724">724</a> - Typo with override token vision closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/721">721</a> - Feature Request: Speak language as class skill closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/719">719</a> - Dispel Psionics nut subject to Power Resistance closed </li>
+        </ul>
+
+        <h2>v0.96.1</h2>
+        <h3 id="toc_0">All changes</h3>
+
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/747">747</a> - Missing translations for monster advancement closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/745">745</a> - Feature Request: energyDrain affect caster level closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/741">741</a> - full attack chat card printed when rest of attack is private closed</li>
+        </ul>
+
+        <h2>v0.96.0</h2>
+        <h3 id="toc_0">SRD</h3>
+
+        <ul>
+            <li>Updated Monsters
+
+                <ul>
+                    <li>Aboleth (and partially Aboleth Psionic)</li>
+                    <li>Allip</li>
+                    <li>Behir</li>
+                    <li>Darkmantle</li>
+                    <li>Dire Boar</li>
+                    <li>Dire Shark</li>
+                    <li>Dragon Turtle</li>
+                    <li>Magmin</li>
+                    <li>Mummy</li>
+                    <li>Salamander family (Flamebrother, Average and Noble)</li>
+                </ul></li>
+        </ul>
+
+        <h3 id="toc_1">Features</h3>
+
+        <ul>
+            <li>Monster Advancer
+
+                <ul>
+                    <li>HD/Size changes support</li>
+                    <li>Advanced monster preview</li>
+                    <li>Currently no natural damage auto-scaling</li>
+                </ul></li>
+            <li>Spell Resistance Rolls
+
+                <ul>
+                    <li>Combat changes related to SR/PR and magic penetration</li>
+                </ul></li>
+            <li>Attack targeting improvements
+
+                <ul>
+                    <li>Tokens targetted by attacker are displayed in attack chat cart</li>
+                    <li>Tokens can be easily selected directly from chat cart, so applying damage is easier</li>
+                </ul></li>
+        </ul>
+
+        <h3 id="toc_2">All changes</h3>
+
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/738">738</a> - Automatic buff from spells (mage armor/bless) do not get active closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/733">733</a> - Custom Skills not tallying ranks correctly closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/732">732</a> - [Bug] Resource Value Not Registering closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/731">731</a> - [Bug] Small Item Images Causes Clipping. closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/730">730</a> - [Suggestion] Spell Card Insert Description/Public Notes closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/725">725</a> - Light Color is blank in bestiary entries closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/723">723</a> - Dwarf, Hill Race missing some defaults closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/722">722</a> - Feature Request: show Special abilities etc. in Statblock Sheet closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/710">710</a> - picture makes bottom of page unviewable closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/673">673</a> - Suggestion: Applying damage would select the token targeted by the player closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/496">496</a> - Dwarf, Moutian : Missing Features closed </li>
+        </ul>
+
+        <h2>v0.95.5</h2>
+        <h3 id="toc_0">New features</h3>
+
+        <ul>
+            <li>Improved Incorporeal support
+
+                <ul>
+                    <li>Characters/NPC can now be marked as incorporeal</li>
+                    <li>Incorporeal attacks, negative energy, positive energey, force attacks and incorporeal monsters now deal correct damage to incorporeal creatures</li>
+                    <li>Non magical weapons and magical weapons handling is correct (no damage for non-magical, 50% chance of damage for magical)</li>
+                    <li>Ghost Touch enhancement gives &ldquo;incorporeal&rdquo; status to weapon (fixes <a href="https://github.com/Rughalt/D35E/issues/691">691</a>)</li>
+                </ul></li>
+            <li>NPCs Display they XP value, approximated from their CR as if the party at their CR would face them.</li>
+        </ul>
+
+        <h3 id="toc_1">All changes</h3>
+
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/718">718</a> - Tattoo misspelled on Detail dropdown in Item closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/717">717</a> - Bard refuses to level up for some reason closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/714">714</a> - Disable &ldquo;RACE&rdquo; Button on character sheet closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/712">712</a> - Bug: Blank skill in skill page, cannot change assigned skill ranks closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/711">711</a> - two Improved Evasion in D35E Class Abilities Compendium closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/708">708</a> - weapon option Incorporeal/bug closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/706">706</a> - Grapple checks are not available for Context Notes. closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/691">691</a> - Incorporeal vs Ghost touch closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/672">672</a> - Exp Macro Fix! closed </li>
+        </ul>
+
+        <h2>v0.95.4</h2>
+        <h3 id="toc_9501">All changes:</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/705">705</a> - Cannot delete weight on item or set back to &ldquo;0&rdquo; closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/704">704</a> - Low-light Vision radio-button on custom Races closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/696">696</a> - Deleting an Aura on a character don&rsquo;t remove the bonus automatically on other player closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/676">676</a> - Paladin total caster level should be half its class level closed </li>
+        </ul>
+
+        <h2>v0.95.0</h2>
+        <h3 id="toc_9500">New Features</h3>
+        <ul>
+            <li>Psionic Focus Support</li>
+            <li>Auras
+                <ul>
+                    <li>Auras can apply to tokens around the character</li>
+                    <li>Auras can pass changes and combat changes as well as simple DOT effects</li>
+                </ul></li>
+        </ul>
+        <h3 id="toc_9501">All changes:</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/688">688</a> - Bug: Speed  on heavy and medium armor closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/687">687</a> - Weapon Finesse not working closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/686">686</a> - D35E.HandSizeForumla not recognizing @level closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/684">684</a> - Weapon Created From not displaying  closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/683">683</a> - Missing button to edit spell description!? closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/682">682</a> - Unable to use Spell Cards in any capacity closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/680">680</a> - Feature Request: Ability to hide Spell Cards closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/679">679</a> - text in effect text box/ spell description invisible closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/675">675</a> - Paladin class should know all spells of its class closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/674">674</a> - FR: adjust character speed with encumbrance and armour effects closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/670">670</a> - Extra Turning feat not working correctly closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/668">668</a> - Armor Item bug closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/665">665</a> - Damage Ability not applying on damage closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/662">662</a> - Deactivating temporary buff doesn&rsquo;t remove effect from character closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/661">661</a> - Feature request: Apply dmg/healing/half-dmg to normal rolls closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/652">652</a> - Spellcards description text dissapears closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/651">651</a> - Action button on Item Spell Uses does not work; throws Uncaught TypeError closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/650">650</a> - inventory on all characters shows 0 total weight closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/649">649</a> - Feature request: Inventory - gold weight closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/648">648</a> - big delay with temporary bonus add/remove closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/647">647</a> - Feature request: Armor class summary closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/646">646</a> - Feature request: Concealment closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/642">642</a> - Vanishing text on attack, effect and snippets closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/594">594</a> - HP rolling can&rsquo;t be hidden closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/585">585</a> - Add Psionic focus mechanic closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/572">572</a> - get the focus on the first field of a window by default closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/363">363</a> - Set default visibility on Chat Cards closed </li>
+        </ul>
+
+        <h2>v0.94.2</h2>
+        <h3 id="toc_0">New Features</h3>
+
+        <ul>
+        <li>Preliminary work on Psionic Focus support</li>
+        <li>Features (class abilities/traits/feats) linking support
+        
+        <ul>
+        <li>Features can now add other items to character </li>
+        <li>Added items are removed when feature is removed</li>
+        </ul></li>
+        </ul>
+        
+        <h3 id="toc_1">All changes:</h3>
+        
+        <ul>
+        <li><a href="https://github.com/Rughalt/D35E/issues/632">632</a> - Bug : prepare spell with Extend Spell = no result closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/630">630</a> - Debuff system in the buff tab of character sheet wiping ability data. closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/628">628</a> - spell browser shows both items from spell compendium and spell-like-abilities compendium closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/625">625</a> - Attack Roll Bonus formula display error in Combat Tab closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/622">622</a> - Add new race on sheet doesn&rsquo;t work closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/616">616</a> - Item weight not modified when put on small size monster closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/615">615</a> - Goblin race doesn&rsquo;t apply the size &ldquo;small&rdquo; closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/614">614</a> - Psicrystal not working closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/609">609</a> - AC tooltips are not complete until AC changes closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/584">584</a> - Feature request: Allow the usage of a formula in the critical threat range of an attack closed </li>
+        </ul>
+        
+        <h2>v0.94.1</h2>
+        <h3 id="toc_0">New Features</h3>
+
+        <ul>
+        <li>Ability to set up type of feat (Supernatural/Extraordinary/Other)</li>
+        </ul>
+
+        <h3 id="toc_1">All changes:</h3>
+
+        <ul>
+        <li><a href="https://github.com/Rughalt/D35E/issues/606">606</a> - clicks on Weapons Properties buttons register on oldest open weapon window closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/605">605</a> - Items missing names closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/604">604</a> - Feature request: Being able to add type of class feature (sortilegic, supernatural or extraordinary) closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/603">603</a> - Fast healing chat card is not applying healing to the character closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/602">602</a> - Gobelin race doesn&rsquo;t apply small size closed </li>
+        </ul>
+
+        <h2>v0.94.0</h2>
+        <h3 id="toc_0">New Features</h3>
+
+        <ul>
+        <li>Spell Cards system
+        
+        <ul>
+        <li>New item type - Card - that is similar to spell</li>
+        <li>New character sheet tab - Spell Cards - that allows managing Cards in a deck like enviroment ()</li>
+        </ul></li>
+        </ul>
+        
+        <h3 id="toc_1">All changes:</h3>
+        
+        <ul>
+        <li><a href="https://github.com/Rughalt/D35E/issues/601">601</a> - [feature request] Make radio button more visible closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/600">600</a> - Multi-class Rogue gets no Sneak Attack Bonus closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/598">598</a> - SRD says Medium Armour max for barbarian but Heavy Armour Proficiency assigned at 1st level closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/595">595</a> - Formula error in item {0} on characters with more than one class closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/592">592</a> - Bard has 3 spells per day at first level but should have 2 closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/591">591</a> - Leveling up after level 1 still gives x4 skill points per level to spend closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/581">581</a> - Change the cost of the points in the &ldquo;Point Buy&rdquo; screen. closed</li>
+        </ul>
+        <h2>v0.93.3</h2>
+        <h3 id="toc_0">SRD Update</h3>
+
+        <ul>
+        <li>Fixed magic items
+        
+        <ul>
+        <li>Rings of Epic Wizardy</li>
+        <li>Rings of Epic Psionics</li>
+        <li>Ring of Iron Skin</li>
+        <li>Ring of Protetction</li>
+        <li>Headband of Intellect</li>
+        </ul></li>
+        </ul>
+        
+        <h3 id="toc_1">New features:</h3>
+        
+        <ul>
+        <li>Buff list is now default subtab in buff section of character sheet</li>
+        </ul>
+        
+        <h3 id="toc_2">All changes:</h3>
+        
+        <ul>
+        <li><a href="https://github.com/Rughalt/D35E/issues/590">590</a> - the notes in the chat when you try a skill check are missing closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/589">589</a> - Buff cannot access @item.level on DR formula closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/588">588</a> - DR X/Bludgeoning considers &ldquo;Custom: B&rdquo; not bludgeoning closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/587">587</a> - Special actions in Combat Changes don&rsquo;t recognize @range as a variable closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/583">583</a> - Class skills not working. closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/582">582</a> - Actors don&rsquo;t have the Low Light Vision Check Box on the ProtoType Token closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/580">580</a> - Feats no longer get applied to the appropriate feat pools. closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/578">578</a> - NPC&rsquo;s only get base skill points at first level instead of 4 times closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/577">577</a> - Make buffs subtab default  closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/574">574</a> - [bug] adding a Common buff adds a missing icon in status list closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/571">571</a> - Soulknife Speed of Tought class ability is missing a UID closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/570">570</a> - [Bug] Full-Attack Combat item does not show on the quick bar. closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/560">560</a> - Ring of Protection +x closed </li>
+        <li><a href="https://github.com/Rughalt/D35E/issues/536">536</a> - Headband of Intellect doesn&rsquo;t have the +int ability score enhancement applied closed </li>
+        </ul>
+        
+
+        <h2>v0.93.2</h2>
+        <h3 id="new-features-">New features:</h3>
+        <ul>
+            <li>Ability to force automatical number of attack scaling from BAB per attack</li>
+        </ul>
+        <h3 id="all-changes-">All changes:</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/568">568</a> - Show in QuickBar for Class
+                Features/Feats creates multiple buttons. closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/567">567</a> - Weapon Name does not set properly on
+                Weapon Focus/Specialization closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/566">566</a> - Encumbrance Calculations Broken
+                closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/565">565</a> - Low-light vision doesn&#39;t work
+                propertly closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/562">562</a> - Feature request: Move &quot;automatic
+                scale number of attacks&quot; closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/523">523</a> - FR-Formulas in Item Value stat closed
+            </li>
+        </ul>
+
+        <h2>v0.93.1</h2>
+        <h3 id="new-features-">New features:</h3>
+        <ul>
+            <li>Added chat messages for Ability Damage and Ability Drain</li>
+        </ul>
+        <h3 id="fixes">Fixes</h3>
+        <ul>
+            <li>Fixed senses set up window</li>
+            <li>Multiple fixes to 0.8.x compatibility</li>
+        </ul>
+        <h3 id="all-changes-">All changes:</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/558">558</a> - clicking Submit on Senses dialog does
+                not dismiss dialog closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/554">554</a> - Carried Weight does not calculate
+                correctly closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/552">552</a> - D3E Treasure Generator not working in
+                0.8.6/0.93 closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/550">550</a> - Names of the playlists with custom
+                skin are showed up cutted. closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/549">549</a> - Bug: Class features requisites not
+                passing formula closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/542">542</a> - FR: Display outcome of special
+                actions in chat closed </li>
+        </ul>
+
+        <h2>v0.93.0</h2>
+        <h3 id="new-features-">New features:</h3>
+        <ul>
+            <li>Improved UX of item add drawer, with added item preview</li>
+            <li>Added ability to filter spells in spellbooks by prepared only</li>
+            <li>Multiple fixes antweaks for spellbooks<ul>
+                    <li>Ability to add custom number of prepared spell slots to any spellbooks/spell level (base
+                        class
+                        spells slots is available unde
+                        <code>@attributes.spells.spellbooks.primary.spells.spell1.classBase</code>)</li>
+                    <li>Prestige caster level correctly influences known spells</li>
+                    <li>Power points can be displayed in the token bars</li>
+                </ul>
+            </li>
+            <li>Thrown weapons create two attacks and use up ammunition correctly</li>
+        </ul>
+        <h3 id="fixes">Fixes</h3>
+        <ul>
+            <li>Fixed Ability damage and Ability Drain rolls</li>
+            <li>Multiple fixes to 0.8.x compatibility</li>
+        </ul>
+        <h3 id="all-changes-">All changes:</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/544">544</a> - Unable to add enhancements to items
+                closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/538">538</a> - Arrow recovery not working closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/535">535</a> - Can´t activate temporary buff closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/531">531</a> - Spellpoint System closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/530">530</a> - Issue/Bug: DR Immunity Magic Not
+                Working
+                closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/529">529</a> - Bonus Casting from prestige classes
+                not
+                applying to spells known closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/526">526</a> - FR: change weights on items depending
+                on
+                character size closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/521">521</a> - Spells with Templates don&#39;t
+                appear to
+                cast closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/520">520</a> - Error on boot up with Familars closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/519">519</a> - Error when opening level up window.
+                closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/518">518</a> - Error adding class levels closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/517">517</a> - Attacks have no visible description
+                on
+                their list. closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/516">516</a> - Jump&#39;s synergy bonus is listed as
+                speed bonus. closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/515">515</a> - Character sheet takes unusually long
+                time
+                to open. closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/514">514</a> - Error trying to move characters
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/513">513</a> - Error trying to open a
+                character&#39;s
+                sheet. closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/511">511</a> - Sometimes Tokens are not clickable
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/506">506</a> - FR: Add in the ability to place Class
+                Abilities (and others) into a Shared Data Module closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/505">505</a> - Non-active Class Features not
+                populating
+                closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/499">499</a> - Throwing weapon closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/495">495</a> - Display Max Power Points closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/490">490</a> - improvement for special action closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/487">487</a> - DOT Buffs closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/486">486</a> - Familiar group casing weirdness
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/485">485</a> - an idea we got for spell caster with
+                a
+                lot of spell closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/481">481</a> - Display special names for feats in
+                &quot;optional&quot; Action Types closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/478">478</a> - Spellcasting Prodigy - feat - bonus
+                in
+                &quot;Spellcasting Ability&quot; for a given spellbook closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/470">470</a> - Constitution Score &quot;none&quot;
+                closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/466">466</a> - Add spell name to &quot;item&quot;
+                data
+                object closed</li>
+        </ul>
+
+        <h2>v0.92.4</h2>
+        <h3>Changes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/476">476</a> - Link to D35E docs </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/475">475</a> - Unarmed Strike (Monk) stops working
+                after
+                adding Weapon Focus </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/472">472</a> - Resistance and Damage Reduction in
+                Changes Tab not refering to things outside of itself such as Class </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/469">469</a> - racial HD bug sheet </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/467">467</a> - Paladin Lay On Hands is doing damage
+                instead of healing </li>
+        </ul>
+        <h2>v0.92.2</h2>
+        <h3>Changes</h3>
+        <ul>
+            <li>Custom Currency Support<ul>
+                    <li>Add Custom Currency in World settings (along with its weight, value in gold, and currency
+                        group)
+                    </li>
+                    <li>Currently not supported in loot sheet (needs support on Loot Sheet Mod site)</li>
+                </ul>
+            </li>
+            <li>Damage Reduction - added ability to set &quot;Immunity unless Type&quot;</li>
+            <li>Incorporeal damage type<ul>
+                    <li>Ability to set Attack as Incorporeal</li>
+                    <li>Ability to add damage reduction unless Incorporeal</li>
+                </ul>
+            </li>
+            <li>Natural attacks can be set as equivalent to Magic and Epic for purposes of Damage Reduction</li>
+            <li>Ability to add/remove HP on actor by typing +10 or -20 in the HP attribute field.</li>
+            <li>Ability to add combat changes to Equipement</li>
+            <li>Ability to set requirements for Classes</li>
+            <li>Ability to remove unusable items from characters (like Enhancements or Materials)</li>
+            <li>Added buton to fix containers lot because cyclic dependency</li>
+        </ul>
+        <h3>All changes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/462">462</a> - Add class information to spell rolls
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/461">461</a> - Different attributes for spell DCs
+                and
+                spells per day </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/458">458</a> - Incorporeal not working </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/457">457</a> - Weapons with returning are being
+                treated
+                as ammo and never replenish </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/454">454</a> - Equipment Combat Changes. </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/453">453</a> - Fast healing/Regeneration is no
+                longer
+                working. </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/448">448</a> - See the roll of HP when a character
+                levels up </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/442">442</a> - Request: Miss Chance </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/433">433</a> - Feature request: Show non-active
+                class
+                features on character sheet </li>
+        </ul>
+
+        <h2>v0.92</h2>
+        <h3>Features</h3>
+        <ul>
+            <li>Metamagic Feats Support - support for metamagic feat is in! You can mak spell as being maximized,
+                enhanced or widened with ease!<ul>
+                    <li>Metamagic feats allow for easy creation of spells in most instances</li>
+                    <li>Epic level spell support</li>
+                    <li>Most of Metamagic spell changes - Maximized, Widened, Enhanced, Enlarged etc... work out of
+                        the
+                        box with implemented spells</li>
+                </ul>
+            </li>
+            <li>Custom Item Tags: Custom tags are used when generating resource names, class names for roll data.
+            </li>
+            <li>Skill &quot;Combat Changes&quot;<ul>
+                    <li>Skills are the latest art of the system to get Combat Change support</li>
+                    <li>All standard Combat Chances features are available</li>
+                    <li>You can limit skills using condition <code>&#39;@skillId&#39; ===
+                            &#39;&lt;skillShortId&gt;&#39;</code>. <code>featSkillBonus</code> is used to set value
+                        added to skill roll.</li>
+                </ul>
+            </li>
+            <li>Approximate damage, range and attack display on character sheet near the weapons</li>
+            <li>Improved Feat requirements system<ul>
+                    <li>Feats can now require other feats (using Custom Item Tags as reference)</li>
+                </ul>
+            </li>
+            <li>Ability to add rolling from Roll Table as a part of action. Drag and drop Roll Table from compendium
+                to
+                item and it will be rolled according to formula or randomly. Added <code>@attack&lt;n&gt;</code>
+                field
+                to Roll Table formula data to reference possible attack roll.</li>
+            <li>Thrown weapons do not require ammunition - they require having enough quantity to be used</li>
+            <li>Special Action <code>eval</code> that evaluates <em>one line</em> javascript code. <strong>Use with
+                    care, we are not responsible for breaking things</strong></li>
+        </ul>
+        <h3>Changes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/447">447</a> - Etherealness enchantment bug </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/446">446</a> - natural armor bug </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/441">441</a> - Tumble and Total Defense </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/439">439</a> - Jump and High Speed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/432">432</a> - Allow taking half damage from
+                particular
+                energy types </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/431">431</a> - unidentified magic item reveals
+                spell-like properties in player&#39;s sheet </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/429">429</a> - Damage Ability choice not remembered
+                in
+                Attack dialog </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/428">428</a> - Apply half damage with no check is
+                applying Full Damage </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/426">426</a> - Unarmed strike not usable from
+                Unarmed
+                strike &#39;item&#39; </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/424">424</a> - Bard feature &#39;Bardic
+                Knowledge&#39;
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/421">421</a> - Add &quot;Emission Angle&quot; to
+                item
+                light sources </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/418">418</a> - Darts are ranged weapons without
+                ammunitions </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/417">417</a> - Fast Healing, Regeneration for
+                Changes
+                Mechanic </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/408">408</a> - Allow embedded expressions in object
+                references in special actions </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/406">406</a> - Critical Confirmation Bonus </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/405">405</a> - Request Extend the slider mechanic to
+                have multiple </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/404">404</a> - Add optional &quot;combat&quot;
+                changes
+                for skill checks </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/403">403</a> - Allow for special actions on attacks
+                to
+                be applied only once during a full attack </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/402">402</a> - Limited Uses always subtracts by 1
+                regardless of other values. </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/399">399</a> - Familiar Hit Points </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/392">392</a> - Request Have the ability to set a cap
+                in
+                multi use abilities </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/389">389</a> - Clothing and Weight </li>
+        </ul>
+
+        <h2>v0.90</h2>
+        <h3>Features</h3>
+        <ul>
+            <li>Support for Legacies of the Dragon - Player&#39;s Companion</li>
+            <li>Special Action extensions<ul>
+                    <li>Automatic applying of &quot;on self&quot; actions where applicable</li>
+                    <li>Buff data is passed to buff special actions, and can be used as <code>@buff</code></li>
+                    <li>Ability to change Traits
+                        Ability to add and subtract values using Special Actions</li>
+                </ul>
+            </li>
+            <li>Combat Changes<ul>
+                    <li>Ability to add special action as part of a Combat Change</li>
+                    <li>Ability to have sliders/ranges in Combat Change, to allow use implementing effects such as
+                        Combat Expertise</li>
+                </ul>
+            </li>
+            <li>Ammunition changes<ul>
+                    <li>Forcing all ranged weapons to use/select ammo instead of using &quot;generic umlimited&quot;
+                        ammunition</li>
+                </ul>
+            </li>
+            <li>Inventory cleanup functionality</li>
+            <li>Basic Feat requirements function</li>
+        </ul>
+        <h3>Quality of Life Changes</h3>
+        <ul>
+            <li>Encounter Generator fix</li>
+            <li>Fix for saving things in Attack Dialog</li>
+            <li>Saving values in Defense Dialog and Saving Throw dialog</li>
+        </ul>
+        <h3>All changes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/398">398</a> - Allow ammo recovery to be turned off
+                closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/396">396</a> - Critical Damage Doesn&#39;t have the
+                Bracket showing the damage types closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/394">394</a> - Math for Even Number Ability Score
+                Penalties closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/388">388</a> - Backpack Description Copy Paste Error
+                closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/387">387</a> - Full attack wield modes not
+                translating
+                into the attack dialog closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/384">384</a> - Healing items say damage in the chat
+                card
+                closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/382">382</a> - Monk, Wholeness of body little bug
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/380">380</a> - Request self use action which doesnt
+                use
+                the chat card closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/379">379</a> - Rounding error in inventory for total
+                inventory value closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/378">378</a> - Max charges not updating for items
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/377">377</a> - Blackguard sneak attack formula
+                error:
+                @classes.blackguard.level not provided in roll data. closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/374">374</a> - Missing localization:
+                D35E.LockEditingByPlayers closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/373">373</a> - Missing localization: D35E.Value
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/372">372</a> - Missing localization:
+                D35E.RaceSubtypePlural closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/371">371</a> - Missing localization: D35E.Image
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/370">370</a> - Missing localization:
+                D35E.ChargesToDecuct closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/369">369</a> - Missing localization: Spell/Ability
+                Attack Count field closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/368">368</a> - Missing localization: D35E.VsTouchAc
+                closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/366">366</a> - Encounter Generator not loading
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/365">365</a> - Request Automatic ammunition recovery
+                closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/364">364</a> - Ammunition Detail closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/362">362</a> - Request Combat Changes can add
+                special
+                actions closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/360">360</a> - [Request] Special actions to modify /
+                toggle arrays closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/359">359</a> - Buff &quot;Activate Special
+                actions&quot;
+                doesn&#39;t have buff item&#39;s data when passing to actor entity for applyActionOnSelf closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/358">358</a> - [Request] Spells/Abilities that have
+                an
+                attack but no damage. closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/357">357</a> - [Request] Power Attack Scale used for
+                other items. closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/356">356</a> - Buffs are expiring one round too
+                short
+                closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/355">355</a> - Power attack is not remembering its
+                value
+                when save attack form toggled on closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/354">354</a> - Trolls are not taking lethal damage
+                from
+                anything closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/352">352</a> - GM&#39;s cant access the Character
+                HUD
+                movement icon closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/351">351</a> - Prayer spell broken closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/350">350</a> - Wildcard Tokens closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/349">349</a> - Request: Feats to make changes to
+                Arcane
+                Spell Failure closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/327">327</a> - Request: Lock Character Sheet
+                Components
+                closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/325">325</a> - Shapechange and Natural Armor closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/320">320</a> - Toggle use of ammunition during
+                ranged
+                attacks closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/318">318</a> - Price updates from enhancements
+                overriding base price not adding to them closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/223">223</a> - Shapechange/Wildshape/Polymorph
+                changes
+                closed </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/149">149</a> - Inventory Grouping closed </li>
+        </ul>
+
+        <h2>v0.89</h2>
+        <h3>Features</h3>
+        <ul>
+            <li>Psionic powers additional points
+                <ul>
+                    <li>Psionic powers can use additional Power Points. You can reference this value using
+                        <code>@useAmount</code>
+                        variable in rolls
+                    </li>
+                    <li>Rules regarding Power Point usage are not enforced on selection, but when using attack.</li>
+                </ul>
+            </li>
+            <li>Ability damage/Restoration
+                <ul>
+                    <li>Special action syntax <code>AbilityDamage str 1d6 on target</code></li>
+                </ul>
+            </li>
+            <li>Grapple rolls, with counter rolls and applying &quot;Grappled&quot; state</li>
+            <li>Buffs End of Effect announcement</li>
+        </ul>
+        <h3>Quality of Life Changes</h3>
+        <ul>
+            <li>Spells can be dragged to Trap actors creating attacks</li>
+            <li>Ability to set per-skill visibility on Summary screen</li>
+            <li>Partial spell saves</li>
+            <li>Nonlethal damage on Token bars</li>
+        </ul>
+        <h3>Bug Fixes and Changes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/346">346</a> - Weapon size on large monsters is
+                still
+                medium closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/345">345</a> - Shapechange Condition icon is
+                repeated
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/344">344</a> - Add a condfig option to disable
+                tutorial
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/343">343</a> - Buff with special actions gets
+                toggled
+                twice on activation closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/342">342</a> - Ride skill have armor check penalty,
+                it
+                should not closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/340">340</a> - Apply half damage should have a
+                minimum
+                of 1 closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/339">339</a> - Custom Class skills are not bold
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/338">338</a> - Deprecated terms used to roll dice
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/337">337</a> - Orcs and orcas mixed up in
+                stats/sizes/icons closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/336">336</a> - No images show for prismatic dragons
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/335">335</a> - Armor enhancement is adding the
+                incorrect
+                type of enhancement closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/334">334</a> - Concealment on defence dialog doesnt
+                work
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/333">333</a> - Incorrect intelligence on Adder
+                familiar
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/332">332</a> - Lights from characters are throwing
+                up an
+                error message on start up closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/330">330</a> - Buffs activated from chat apply to
+                actor
+                master sheets, not their unlinked tokens closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/328">328</a> - Buffs on NPC sheets behave
+                incorrectly
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/326">326</a> - Add nonlethal damage and temporary HP
+                as
+                options for token display bars closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/324">324</a> - Haste is affecting spells which it
+                shouldnt closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/322">322</a> - Moving the party list opens character
+                sheet closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/321">321</a> - Companions can&#39;t be added to the
+                party list closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/319">319</a> - Unidentified Item Default Name closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/315">315</a> - Bard Inspire courage maths
+                calculation
+                incorrect closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/313">313</a> - Haste not removing extra attack when
+                haste has is not active closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/306">306</a> - Tiefling not set as Outsider closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/305">305</a> - Rogue lvl 10 missing special ability
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/303">303</a> - Add the ability to add spells to trap
+                attacks closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/302">302</a> - Polymorph Does Not Override Racial
+                Traits
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/301">301</a> - Toggle spell description cards from
+                appearing in chat closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/294">294</a> - Magic Item Charges recharge closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/290">290</a> - Activated Spells/Abilities on Summary
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/289">289</a> - Item usage linking closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/281">281</a> - End Effect announce and debuff
+                capability
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/274">274</a> - Request: Allow the attack dialog to
+                save
+                attack options selected or persist them closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/262">262</a> - Limiting Spells Known closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/247">247</a> - Ability Damage/Restoration closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/246">246</a> - Per Skill visibility setting closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/238">238</a> - Spell saves with partial closed</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/236">236</a> - Make the Grapple roll complete closed
+            </li>
+        </ul>
+
+
+        <h2>v0.88.3</h2>
+        <h3>Bug Fixes and Changes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/295">295</a> - Bag of holding not behaving as
+                container
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/292">292</a> - Bigger text boxes for notes closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/291">291</a> - Wands missing secondary attacks
+                closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/288">288</a> - Calculation of non-class skill rank
+                is
+                wrong closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/287">287</a> - Containers Hide Contents When
+                Inventory
+                Collapsed closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/285">285</a> - Resource Update Loop does not
+                correctly
+                check value after update. closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/284">284</a> - Toggle ability for players to see
+                expanded damage chat cards closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/283">283</a> - Same dice roll used for multiple
+                attacks
+                when they should be new rolls for each closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/277">277</a> - Hide from players the DC level closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/276">276</a> - Attack dialog add -4 for firing into
+                combat without precise shot (or add in a generic -4) closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/272">272</a> - Closing a spell folder stops spells
+                from
+                appearing in spell like abilities closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/271">271</a> - No shaken condition present closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/270">270</a> - Damage Reduction not clear on what is
+                full immunity closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/268">268</a> - Support for animated tokens closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/267">267</a> - Self Apply Button and self special
+                action
+                button closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/266">266</a> - Add an item that has all lighting
+                effects
+                and animations closed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/251">251</a> - Haste not applying extra attack on
+                full
+                attack closed
+            </li>
+        </ul>
+
+        <h2>v0.88</h2>
+        <h3>Features</h3>
+        <ul>
+            <li>Variable attack number
+                <ul>
+                    <li>Spell with multiple attack parts, like Magic Missile or Scorching Ray can now scale number
+                        of
+                        rolled damages/attacks based on things like Caster Leve
+                    </li>
+                    <li>Weapon attacks can be set to use BAB automatic scaling</li>
+                </ul>
+            </li>
+            <li>Condensed chat cards
+                <ul>
+                    <li>Attack chat card has been condensed to better work with limited space available for chat
+                    </li>
+                    <li>Damage chat card not by default displays only damage dealt, with rest of details available
+                        on
+                        demand
+                    </li>
+                </ul>
+            </li>
+            <li>Trap Support - New actor type - Trap - with optimized character sheet</li>
+            <li>Character Sheet UX Changes
+                <ul>
+                    <li>Slide toggle for categories in inventory and spellbook tab</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/260">#260</a> - Allow Special Actions... players
+                setting
+                works correctly now
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/261">#261</a> - Saving throws roll animation from
+                Dice
+                so Nice!
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/259">#259</a> - Single attack no longer rolls full
+                attack
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/255">#255</a> - Spells use correct class information
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/244">#244</a> - Add item dialog correctly adds item
+                after search
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/229">#229</a> - Race can be dragged to world
+                directory
+                from NPC char sheet
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/117">#117</a> - Modifiers from Changes tab to attack
+                rolls are added to Attack bonuses fields
+            </li>
+        </ul>
+
+        <h2>v0.87.13</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li>Fixed Bugbear, Lacedon, Ghoul, Dire Rat, Thoqqua, Water Mephit, Ghast, Ogre, Ogre Mage</li>
+            <li>Fixed Monk entry</li>
+        </ul>
+        <h3>Features</h3>
+        <ul>
+            <li>Moved inventory from tabs to separated list, improved in-place add overlay</li>
+        </ul>
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/206">#206</a> - Armor Check penalty on Swim Skill
+                should
+                be doubled Bug
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/115">#115</a> - Monk&#39;s and regular unarmed
+                strike
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/130">#130</a> - SRD Monk issues</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/209">#209</a> - Arcane Trickster Prestige Class
+                issues
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/208">#208</a> - Class Features do not display
+                properly
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/200">#200</a> - Ability damage modifications apply
+                correct carry weight ranges, but it does not apply related maluses until you modify the inventory
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/191">#191</a> - Set buff &quot;x&quot; field
+                data.level
+                to random Value
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/170">#170</a> - Fast Clicking breaks how Full attack
+                should work
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/90">#90</a> - Make all bonuses showed for attack
+                bonuses
+                fields on mouse over.
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/184">#184</a> - Ranger doesn&#39;t have armor and
+                weapon
+                proficiencies
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/201">#201</a> - HP reg and Buff lost while rest</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/199">#199</a> - Apply half Damage and the Chatcard
+            </li>
+        </ul>
+
+        <h2>v0.87.12</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li>Implemented Improved Critical, Epic Weapon Focus, Multiweapon Fighting, Multiattack</li>
+            <li>Implemented automatic ability modifier change for creatures with one natural attack</li>
+            <li>Reimported monsters from SRD</li>
+        </ul>
+        <h3>Features</h3>
+        <ul>
+            <li>Saving Throws system rework
+                <ul>
+                    <li>Saving Throw Combat Modifiers (working like attacks and AC combat modifiers)</li>
+                    <li>Saving Throw common types (Will/Reflex/Fortitude Negates or Half) with possibility of
+                        assigning
+                        different Ability modifier to roll
+                    </li>
+                </ul>
+            </li>
+            <li>Added <code>featSpellDCBonus</code> combat change that raises spell DC</li>
+            <li>Attacks created from unidentified weapons now create attacks with base weapon stats</li>
+        </ul>
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li>Magic Items abilities not resetting on rest</li>
+            <li>Item Type and Action Type in Combat Changes have more meaningful names now.</li>
+            <li>Bag of Holding (and similar items) now correctly do not count content weights to Character carrying
+                weight
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/177">#177</a> - Skill points now correctly calculate
+                for
+                cross and non-class skills
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/179">#179</a> - Skill points now correctly reset
+                after
+                reducing them to 0 in level up data.
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/176">#176</a> - Ability damage correctly changes
+                carry
+                weight
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/185">#185</a> - Disabled abilities disappear from
+                Class
+                Progression table
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/194">#194</a> - Input for sub-skill name now takes
+                all
+                available space
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/194">#169</a> - Wrong special action order in spell
+                fixed
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/62">#62</a> - Swarms have correct token size</li>
+        </ul>
+        <h2>v0.87.10</h2>
+        <h1>Changelog</h1>
+        <h3 id="features">Features</h3>
+        <ul>
+            <li>Automated AC checking when applying damage
+                <ul>
+                    <li>Added support for Optional AC modifiers, added Optional AC modifiers to feats in compendium
+                    </li>
+                </ul>
+            </li>
+            <li>Fortification - keeping information about fortification critical hit immunity
+                <ul>
+                    <li>Automatically resolved on Apply Dialog critical hit check</li>
+                    <li>Possibility to add via changes</li>
+                    <li>Implemented in all Racial HD and Templates in Compendium, added to Fortification enhancement
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <h3 id="changes">Changes</h3>
+        <ul>
+            <li>Added new Sneak Attack class feature that uses Combat Changes mechanism. It will replace old one on
+                chars on update.
+            </li>
+            <li>Added new Turn/Rebuke undead feature (to allow non-standard Turn/Rebuke creatures in future). It
+                will be
+                added to chars on update.
+            </li>
+        </ul>
+        <h3 id="bug-fixes">Bug Fixes</h3>
+        <ul>
+            <li>Fixed rolling skills from summary tab on Character sheet</li>
+            <li>Fixed some icons having &quot;.PNG&quot; file extension instead of &quot;.png&quot;</li>
+            <li>Fixed classes/races with EL set to empty breaking Exp calculation</li>
+            <li>Fixed domain spell slot assignments</li>
+            <li>Fixed class skills/non-class when using level progression</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/162">#162</a> - Token light radius fixes</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/168">#168</a> - Added Change target for Touch AC
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/166">#166</a> - +1 Armor Enhancement correctly adds
+                +1
+                by default
+            </li>
+            <li>Other minor fixes</li>
+        </ul>
+
+        <h2>v0.87.8</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li>Added most basic Templates (except Lycanthrope)</li>
+            <li>Added basic support for Domains and Spell Schools (spell list, description)</li>
+            <li>Added short spell descriptions to all Spells and Powers</li>
+            <li>Added spell list for Psychic Warrior</li>
+        </ul>
+        <h3>Features</h3>
+        <ul>
+            <li>Damage Types implementation with Resistances and Damage Reduction
+                <ul>
+                    <li>You can now set complex Damage Reduction schemes and Energy Resistances</li>
+                    <li>Weapons can be set to use correct Damage types on Attacks (with simple mapping provided for
+                        existing attacks).
+                    </li>
+                    <li>Ability to create custom Energy types for damage</li>
+                    <li>Automatic DR/ER resolving when using Apply Damage functionality</li>
+                    <li>Basic Material support for Weapons (you can find basic materials in Materials Compendium)
+                    </li>
+                    <li><strong>Warning!</strong> Old Damage Reduction and Energy Resistances will not be migrated
+                        automatically to new version! You have to do it manually.
+                    </li>
+                </ul>
+            </li>
+            <li>Spell School and Domain Support
+                <ul>
+                    <li>Added support for Spell School and Domain slot for classes that support it</li>
+                    <li>Spells from Spell School or Domain have their own spell slot that does not use slots for
+                        normal
+                        spells.
+                    </li>
+                    <li><strong>Warning!</strong> Classes that were added to characters before this udate will net
+                        to
+                        have the option &quot;Has special spell slot (Domain/School)&quot; enabled manually
+                    </li>
+                </ul>
+            </li>
+            <li>Template support
+                <ul>
+                    <li>Added special class type &quot;Template&quot;, that has its level automatically set to actor
+                        HD
+                    </li>
+                    <li>Most of the templates are drag-and-drop, with only very complex ones needing manual
+                        character
+                        alteration
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <h3>Quality of Life Improvements</h3>
+        <ul>
+            <li>Spells now display short description in the spell list (this can be turned off in options)</li>
+            <li>More links to the compendium on character sheet to ease access to pre-generated data</li>
+            <li>Skill screen has been reworked to better show which skills have ranks, which require training and
+                more
+            </li>
+        </ul>
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li>Fixed enhancements to be in line with new Damage Types system</li>
+            <li>Changed how Undead 0 Constitution is handled by the system.</li>
+        </ul>
+
+        <h2>v0.87.7</h2>
+        <h3>Features</h3>
+        <ul>
+            <li> Reworked Class and Racial Abilities
+            <li>
+                <ul>
+                    <li> You can now add Ability from all scanned compendia directly on Race or Class Item details
+                    <li> You can disable default Abilities to add Alternative Class Features
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li> Fixed inifinte loop when updating Tokens with containers
+            <li><a href="https://github.com/Rughalt/D35E/issues/138">#138</a> - Fixed buff tracking for linked
+                actors
+            <li><a href="https://github.com/Rughalt/D35E/issues/135">#135</a> - Fixed spell with no material
+                component
+                toggle selected displaying message.
+        </ul>
+        <h2>v0.87.2</h2>
+        <h3>Features</h3>
+        <ul>
+            <li> Added simple Statblock NPC char sheet. It currently displays basic statistics that are needed in
+                combat
+                and allows updating health and rolling attacks, special abilities and saves
+            <li> Added ability to unlink Token size from Actor size, so they can be set independently
+            <li> Added ability to list Class Features in lists by type (Client setting, default off)
+            <li> Added integration with Dice So Nice! for Attack rolls.
+        </ul>
+
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li> Fixed permission error for Minion distance calculation
+            <li> Fixed wrong color in selects when using Custom Theme
+        </ul>
+
+
+        <h2>v0.87.1</h2>
+        <h3>Features</h3>
+        <ul>
+            <li> Added and assigned over 100 icons to Spells from SRD
+        </ul>
+
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li> Fixed message about Constitution Drain not existing in roll data
+            <li> Fixes attack effect rolls not appearing correctly
+        </ul>
+
+        <h2>v0.87.0</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li>Implemented numerous Magical Items
+        </ul>
+        <h3>Features</h3>
+        <ul>
+            <li>Minions - Familiars, Animal Companions and Paladin Mounts
+            <li>
+
+                <ul>
+                    <li>Ability to assign Characters to NPCa as Masters. NPC that has a Master assigned becomes a
+                        Minion, and has access to Masters data
+                    </li>
+                    <li>Compendium with basic Minion Classes (Familiar, Animal Companion and Paladin Mount) and
+                        Minions
+                        (all Wizard Familiars and Paladins' Heavy War Horse mount), ready to be used
+                    </li>
+                    <li>Ability to use distance between Minion and Master as a variable in both Minion and Master
+                        formulas
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/119">#119</a> - Racial HDs counts towards Epic
+                calculations
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/120">#120</a> - Actor inventory weight calculated
+                wrongly using containers
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/118">#118</a> - Elemental and Giant types missed in
+                race
+                details
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/116">#116</a> - Ki strike and Purity of Body have
+                empty
+                "classes" list and not added automatically
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/110">#110</a> - Size modifiers to carrying weight
+                stops
+                applying if Strength is over 30 (thanks to @red5h4d0w)
+            </li>
+
+        </ul>
+
+
+        <h2>v0.86.9</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li> Added Point-Blank Shot, Greater Weapon Specialization and Greater Weapon Focus feats
+        </ul>
+
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li> Fix minor bugs related to Combat Changes
+            <li><a href="https://github.com/Rughalt/D35E/issues/107">#107</a> - Rapid shot doesn't apply -2 penalty
+                to
+                all attacks
+            <li><a href="https://github.com/Rughalt/D35E/issues/108">#108</a> - Spellbook jumps back to the top
+                every
+                time anything changes
+        </ul>
+
+        <h2>v0.86.7</h2>
+        <h3>Features</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/71">#71</a> - Add ability to set "Combat Changes" on
+                Items
+                <ul>
+                    <li> Currently implemented and Attack, Attack Optional and Spell types.
+                    <li><em>Weapon Focus</em>, <em>Weapon Finesse</em>, <em>Weapon Specialization</em> updated to
+                        use
+                        new system
+                    <li> Rangers' <em>Favored Enemy</em> updated to use new system
+                </ul>
+            </li>
+        </ul>
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/96">#96</a> - Typo in "Automate Class Features
+                addition/deletion" description field.
+            <li><a href="https://github.com/Rughalt/D35E/issues/97">#97</a> - Typo in an empty Class Feature
+                description
+                field
+            <li><a href="https://github.com/Rughalt/D35E/issues/99">#99</a> - Context notes bugs
+            <li><a href="https://github.com/Rughalt/D35E/issues/94">#94</a> - Turning "enraged" buff on and off
+                displays
+                an error
+            <li><a href="https://github.com/Rughalt/D35E/issues/95">#95</a> - Missed Spell Resistance field in the
+                NPC
+                charlist
+            <li><a href="https://github.com/Rughalt/D35E/issues/101">#101</a> - Bonus caster level from Archmage
+                doesn't
+                added automatically
+            <li><a href="https://github.com/Rughalt/D35E/issues/102">#102</a> - Max HP updates wrong
+        </ul>
+        <h2>v0.86.6</h2>
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/89">#89</a> - Natural armor field missed in the NPC
+                charlist
+            <li><a href="https://github.com/Rughalt/D35E/issues/91">#91</a> - Grapple Modifier doesn't add up
+            <li><a href="https://github.com/Rughalt/D35E/issues/92">#92</a> - Attack bonus/penalty for size is
+                reverted
+                for attack bonuses fields
+            <li><a href="https://github.com/Rughalt/D35E/issues/93">#93</a> - Some monsters dragged from compendium
+                can't be modified
+        </ul>
+        <h2>v0.86.5</h2>
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/86">#86</a> - Rolling grapple displays null in roll
+                data
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/85">#85</a> - Add size modifiers to rolls for base
+                Melee
+                and Ranged attack
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/84">#84</a> - Cannot set Ability scores from
+                Attribute
+                tab
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/83">#83</a> - Add ability to toggle Class Features
+                list
+                under classes
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/82">#82</a> - Using ECL for XP count if Level
+                Progression is disabled
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/80">#80</a> - Subskills do not work in Level Up
+                Details
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/78">#78</a> - Gracefully fail if cannot migrate a
+                pack
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/79">#79</a> - No scrollbars in default skin</li>
+        </ul>
+        <h2>v0.86.4</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li> Added Prestige Classes: Archmage, Assassin, Blackguard, Dwarven Defender, Eldricht Knight
+        </ul>
+        <h3>Features</h3>
+        <ul>
+            <li> Added compatibility with 0.7.X series
+            <li> Full Level Progression system rework:
+            <li> Ability to set which Class Level was gained at which Character Level
+            <li> Ability to set Hit Points per Level
+            <li> Ability to set Skill Points per level
+            <li> Compatibility with NPCs and old Characters (that will use simple progression system)
+            <li> Theme redesign, theme now enabled by default for new clients
+            <li> New change type: BAB
+            <li> Support for new 0.7.X series lighting effects
+            <li> New lighting options for items
+            <li> Added lighting to existing magic items and standard light sources
+            <li> Ported Vision Permission dialog from PF1
+            <li> Added ability to add custom class features when using special World Compendium
+        </ul>
+
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li> Fixes loading characters that had no Prestige Caster Level
+            <li><a href="https://github.com/Rughalt/D35E/issues/61">#61</a> - Fixed Ranger class Favorite Enemy
+            <li><a href="https://github.com/Rughalt/D35E/issues/57">#57</a> - Add possibility to give bab in the
+                changes
+                tab
+            <li><a href="https://github.com/Rughalt/D35E/issues/63">#63</a> - Monsters didn't get feats every 3
+                levels
+            <li><a href="https://github.com/Rughalt/D35E/issues/60">#60</a> - Spellslots tables are wrong
+            <li><a href="https://github.com/Rughalt/D35E/issues/64">#64</a> - Class details break when selecting
+                *None*
+                as saving throw progression.
+            <li><a href="https://github.com/Rughalt/D35E/issues/58">#58</a> - Damage value doesn't overriding
+            <li><a href="https://github.com/Rughalt/D35E/issues/59">#59</a> - Power attack not working properly
+            <li><a href="https://github.com/Rughalt/D35E/issues/75">#75</a> - Fighter didn't get bonus feat at lvl 1
+            <li><a href="https://github.com/Rughalt/D35E/issues/77">#77</a> - Fixed Ranger class Favorite Enemy
+        </ul>
+
+        <h2>v0.85.4</h2>
+        <h3>Features</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/55">#55</a> - Updated French translation by
+                @red5h4d0w
+            <li> Updated Class Abilities/Features rendering style
+        </ul>
+
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li> Fixed regression caused by displaying damage type for typeless damage
+        </ul>
+        <h2>v0.85.2</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li> Finished Base classes implementation
+            <li> Added Base classes descriptions and art
+        </ul>
+
+        <h3>Features</h3>
+        <ul>
+            <li> Onboarding/Tutorial for new players
+            <li> Automatic Class Features adding and removing
+            <li> Automatic Spell slot calculation
+            <li> Ability to set up spellbook from Class
+            <li> Point-Buy system based on Pathfinder 1 rules - ported from PF1
+        </ul>
+        <h2>v0.84.2</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li>Added various missing Enhancements from SRD</li>
+        </ul>
+        <h3>Features</h3>
+        <ul>
+            <li>Added ability to use Magic Item Abilities directly from Char Sheet</li>
+            <li>Added ability to create Enhancements from Spells and Buffs</li>
+        </ul>
+        <h2>v0.84.1</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li>Additional Spells have full implementation, thanks to BixSexy#9434</li>
+            <li>Base Weapon and Armor Enhancements</li>
+            <li>Specific Magic Weapons and Armor updates
+                <ul>
+                    <li>Specific Shields - added abilities and enhancements</li>
+                    <li>Specific Weapons - added abilities and enhancements</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>Features</h3>
+        <ul>
+            <li>Enhancement support</li>
+            <li>Base feats for attack rolls
+                <ul>
+                    <li>Power Attack (this also fixed <a href="https://github.com/Rughalt/D35E/issues/39">#39</a>)
+                    </li>
+                    <li>Manyshot and Greater Manyshot</li>
+                    <li>Rapid Shot</li>
+                </ul>
+            </li>
+            <li>Two-Weapon Fighting support for attack rolls
+                <ul>
+                    <li>Automatic penalty application</li>
+                    <li>Automatic additional attacks for Greater and Improved Two-Weapon Fighting Feats</li>
+                </ul>
+            </li>
+            <li>Ability to set damage type on Ammunition</li>
+        </ul>
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li>Fixed Ammunition Bonus Damage being incorrectly added to damage roll.</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/52">#52</a> Randomize HP rolls up to HD sides
+                instead of
+                levels
+            </li>
+        </ul>
+
+        <h2>v0.83.5</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li> Fixed imported spells/powers with added fixes by BixSexy#9434
+            <li> Fixed some monster import rules and added monster images/tokens
+        </ul>
+        <h3>Features</h3>
+        <ul>
+            <li> Reduced module size by reducing icons size to 128x128
+            <li> Moved Create Attack button on Weapon details screen to front
+            <li> Spells automatically set correct level when dropping on spellbook with class set up
+        </ul>
+        <h3>Bug Fixes</h3>
+        <ul>
+            <li> Dice are again So Nice, as duplicated rolls do not longer occur.
+        </ul>
+        <h2>v0.83.2</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li> Fixed Monster compendium to be SRD compliant
+        </ul>
+        <h3>Fixes</h3>
+        <ul>
+            <li> Removed DND copyrighted names from description and packge title and readme</li>
+            <li> Fixed spell icon</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/39">#39</a> - Turn Undead Uses is still not
+                calculating
+                correctly.
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/40">#40</a> - Dragging an Item from the sidebar into
+                a
+                character sheet doesn't retain Action data.
+            </li>
+        </ul>
+        <h2>v0.83</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li> Monster compendium
+            <li> Fixes for Racial HD compendium
+            <li> Conditions compendium
+        </ul>
+        <h3>Features</h3>
+        <ul>
+            <li> Shapechange feature - access it on Buff - Shapechange tab. Create shapechange buffs by dragging NPC
+                Actors into character sheet.
+            <li> Wildshape - melds used items and attacks, copies natural attack of monster and sets abilities
+            <li> Polymorph - melds natural attacks, copies natural attack of monster and sets abilities
+            <li> Alter self - changes appearance
+            <li><a href="https://github.com/Rughalt/D35E/issues/15">#15</a> - Rolling NPC Hit Die
+        </ul>
+        <h3>Fixes</h3>
+        <ul>
+            <li> Golem bonus HP now depends on size
+            <li> Undead HP and Fortitude are no longer calculated using their Charisma modifier anymore
+            <li> Sped up container updates
+            <li><a href="https://github.com/Rughalt/D35E/issues/33">#38</a> - Revealing details for unidentified
+                items
+            <li><a href="https://github.com/Rughalt/D35E/issues/33">#33</a> - Conditions Compendium using Pathfinder
+                conditions not 3.5
+            <li><a href="https://github.com/Rughalt/D35E/issues/34">#34</a> - Racial HD compendium bugs
+            <li><a href="https://github.com/Rughalt/D35E/issues/32">#32</a> - Bonus PowerPoints doesn't acount for
+                item/custom racial Ability Score modifiers
+            <li><a href="https://github.com/Rughalt/D35E/issues/35">#35</a> - Rogue class calculates sneak attack
+                damage
+                based on char level instead of rogue level
+            <li><a href="https://github.com/Rughalt/D35E/issues/36">#36</a> - Turn Undead Uses doesn't calculate
+                correctly
+        </ul>
+        <h2>v0.82.5</h2>
+        <h3>Fixes</h3>
+        <ul>
+            <li> Containers should no longer break performance</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/29">#29</a> - Unable to remove character from party
+                after sheet has been deleted.
+            </li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/30">#30</a> - Monk Class doesn't add Wisdom Mod to
+                AC
+            </li>
+        </ul>
+        <h2>v0.82</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li> Fixes for Base Classes implementation (Paladin, Barbarian, NPC classes)
+            <li> Added Soulknife special abilities
+            <li> Converted Backpacks etc. to Containers
+            <li> Added Magic Items from SRD - currently description and typing, no special properties
+        </ul>
+        <h3>New features</h3>
+        <ul>
+            <li> Container item type and ability to assign items to containers (with support for Bags of Holding)
+            <li> Toggleable custom skin for Foundry VTT
+            <li> Application of Attack damage/Special buffs for targeted tokens
+            <li> Ported spell- and power-based consumable creation from PF1
+        </ul>
+        <h3>Fixes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/19">#19</a> - Armor doesn't have option for
+                Masterwork
+                bug
+            <li><a href="https://github.com/Rughalt/D35E/issues/21">#21</a> - sizeRoll() given static value instead
+                variable when creating an attack
+            <li><a href="https://github.com/Rughalt/D35E/issues/13">#13</a> - Missing input for Ammo Bonus Damage
+                formula
+            <li><a href="https://github.com/Rughalt/D35E/issues/23">#23</a> - Applying a race from the compendium
+                places
+                a large color box on the NPC sheet in place of name or avatar
+            <li><a href="https://github.com/Rughalt/D35E/issues/20">#20</a> - Attacks created from weapons are
+                created
+                as Ranged Weapon Attacks.
+            <li><a href="https://github.com/Rughalt/D35E/issues/22">#22</a> - sizeRoll() increases the d4 and d6 by
+                2
+                steps instead of 1
+            <li><a href="https://github.com/Rughalt/D35E/issues/16">#16</a> - Missing Grapple box on Player
+                character
+                sheet
+            <li><a href="https://github.com/Rughalt/D35E/issues/17">#17</a> - Changes tab still references CMB/CMD
+                no
+                way to add to Grapple
+            <li><a href="https://github.com/Rughalt/D35E/issues/14">#14</a> - Grapple size modifier uses PF vales
+                not
+                3.5
+            <li><a href="https://github.com/Rughalt/D35E/issues/8">#8</a> - Class Compendium bugs
+            <li><a href="https://github.com/Rughalt/D35E/issues/25">#25</a> - Damage bonus applied twice if more
+                than
+                one type of damage is present
+            <li><a href="https://github.com/Rughalt/D35E/issues/24">#24</a> - Skill roll-up on character sheet
+                doesn't
+                show specialized skills
+        </ul>
+        <h2>v0.81</h2>
+        <h3>SRD</h3>
+        <ul>
+            <li> Finished Base Classes (without Wilder and Soulknife special abilities)</li>
+            <li> Finished Races (without new icons)</li>
+            <li> Finished Racial HD</li>
+            <li> Added images for existing base items</li>
+        </ul>
+        <h3>New features</h3>
+        <ul>
+            <li> Level adjustment for races</li>
+            <li> Buff time tracking</li>
+            <li> Use multiple items/features/classes charges at once</li>
+            <li> Ability to use ammunition with ranged weapon attacks</li>
+            <li> Ability to assign bonus damage to ammunition</li>
+            <li> Added party HUD</li>
+            <li> Added this screen</li>
+        </ul>
+        <h3>Fixes</h3>
+        <ul>
+            <li><a href="https://github.com/Rughalt/D35E/issues/2">#2</a> - Limited character sheet scrollbars</li>
+            <li><a href="https://github.com/Rughalt/D35E/issues/3">#3</a> - Saving throws rolled multiple times</li>
+        </ul>
+    </div>
+
+    <div class="tab" data-tab="ogl" style="overflow-y: scroll; height: 570px;">
+        <p><strong>Product Identity:</strong><br>The following items are hereby identified as Product Identity, as
+            defined in the Open Game License 1.0a, Section 1(e), and are not Open Content: All trademarks, registered
+            trademarks, proper names (characters, deities, etc.), dialogue, plots, storylines, locations, characters,
+            artworks, and trade dress. (Elements that have previously been designated as Open Game Content are not
+            included in this declaration.)<br><br><strong>Open Content:</strong><br>Except for material designated as
+            Product Identity (see above), the game mechanics of this Dragonshorn Studios game product are Open Game
+            Content, as defined in the Open Game License version 1.0a Section 1(d). No portion of this work other than
+            the material designated as Open Game Content may be reproduced in any form without written permission.</p>
+        <div></div>
+        <h1 id="open-game-license-version-10a" class="toc-header">OPEN GAME LICENSE Version 1.0a</h1>
+        <div></div>
+        <p>The following text is the property of Wizards of the Coast, Inc. and is Copyright 2000 Wizards of the Coast,
+            Inc ("Wizards"). All Rights Reserved.<br><br>1. Definitions:<br>(a)"Contributors" means the copyright and/or
+            trademark owners who have contributed Open Game Content;<br>(b)"Derivative Material" means copyrighted
+            material including derivative works and translations (including into other computer languages), potation,
+            modification, correction, addition, extension, upgrade, improvement, compilation, abridgment or other form
+            in which an existing work may be recast, transformed or adapted;<br>(c) "Distribute" means to reproduce,
+            license, rent, lease, sell, broadcast, publicly display, transmit or otherwise distribute;<br>(d) "Open Game
+            Content" means the game mechanic and includes the methods, procedures, processes and routines to the extent
+            such content does not embody the Product Identity and is an enhancement over the prior art and any
+            additional content clearly identified as Open Game Content by the Contributor, and means any work covered by
+            this License, including translations and derivative works under copyright law, but specifically excludes
+            Product Identity.<br>(e) "Product Identity" means product and product line names, logos and identifying
+            marks including trade dress; artifacts; creatures characters; stories, storylines, plots, thematic elements,
+            dialogue, incidents, language, artwork, symbols, designs, depictions, likenesses, formats, poses, concepts,
+            themes and graphic, photographic and other visual or audio representations; names and descriptions of
+            characters, spells, enchantments, personalities, teams, personas, likenesses and special abilities; places,
+            locations, environments, creatures, equipment, magical or supernatural abilities or effects, logos, symbols,
+            or graphic designs; and any other trademark or registered trademark clearly identified as Product identity
+            by the owner of the Product Identity, and which specifically excludes the Open Game Content;<br>(f)
+            "Trademark" means the logos, names, mark, sign, motto, designs that are used by a Contributor to identify
+            itself or its products or the associated products contributed to the Open Game License by the
+            Contributor<br>(g) "Use", "Used" or "Using" means to use, Distribute, copy, edit, format, modify, translate
+            and otherwise create Derivative Material of Open Game Content.<br>(h) "You" or "Your" means the licensee in
+            terms of this agreement.<br><br>2. The License: This License applies to any Open Game Content that contains
+            a notice indicating that the Open Game Content may only be Used under and in terms of this License. You must
+            affix such a notice to any Open Game Content that you Use. No terms may be added to or subtracted from this
+            License except as described by the License itself. No other terms or conditions may be applied to any Open
+            Game Content distributed using this License.<br><br>3. Offer and Acceptance: By Using the Open Game Content
+            You indicate Your acceptance of the terms of this License.<br><br>4. Grant and Consideration: In
+            consideration for agreeing to use this License, the Contributors grant You a perpetual, worldwide,
+            royalty-free, non-exclusive license with the exact terms of this License to Use, the Open Game
+            Content.<br><br>5. Representation of Authority to Contribute: If You are contributing original material as
+            Open Game Content, You represent that Your Contributions are Your original creation and/or You have
+            sufficient rights to grant the rights conveyed by this License.<br><br>6. Notice of License Copyright: You
+            must update the COPYRIGHT NOTICE portion of this License to include the exact text of the COPYRIGHT NOTICE
+            of any Open Game Content You are copying, modifying or distributing, and You must add the title, the
+            copyright date, and the copyright holder's name to the COPYRIGHT NOTICE of any original Open Game Content
+            you Distribute.<br><br>7. Use of Product Identity: You agree not to Use any Product Identity, including as
+            an indication as to compatibility, except as expressly licensed in another, independent Agreement with the
+            owner of each element of that Product Identity. You agree not to indicate compatibility or co-adaptability
+            with any Trademark or Registered Trademark in conjunction with a work containing Open Game Content except as
+            expressly licensed in another, independent Agreement with the owner of such Trademark or Registered
+            Trademark. The use of any Product Identity in Open Game Content does not constitute a challenge to the
+            ownership of that Product Identity. The owner of any Product Identity used in Open Game Content shall retain
+            all rights, title and interest in and to that Product Identity.<br><br>8. Identification: If you distribute
+            Open Game Content You must clearly indicate which portions of the work that you are distributing are Open
+            Game Content.<br><br>9. Updating the License: Wizards or its designated Agents may publish updated versions
+            of this License. You may use any authorized version of this License to copy, modify and distribute any Open
+            Game Content originally distributed under any version of this License.<br><br>10. Copy of this License: You
+            MUST include a copy of this License with every copy of the Open Game Content You Distribute.<br><br>11. Use
+            of Contributor Credits: You may not market or advertise the Open Game Content using the name of any
+            Contributor unless You have written permission from the Contributor to do so.<br><br>12. Inability to
+            Comply: If it is impossible for You to comply with any of the terms of this License with respect to some or
+            all of the Open Game Content due to statute, judicial order, or governmental regulation then You may not Use
+            any Open Game Material so affected.<br><br>13. Termination: This License will terminate automatically if You
+            fail to comply with all terms herein and fail to cure such breach within 30 days of becoming aware of the
+            breach. All sublicenses shall survive the termination of this License.<br><br>14. Reformation: If any
+            provision of this License is held to be unenforceable, such provision shall be reformed only to the extent
+            necessary to make it enforceable.<br><br>15. COPYRIGHT NOTICE<br>Open Game License v 1.0 Copyright 2000,
+            Wizards of the Coast, Inc.<br>System Reference Document Copyright 2000-2003, Wizards of the Coast, Inc.;
+            Authors Jonathan Tweet, Monte Cook, Skip Williams, Rich Baker, Andy Collins, David Noonan, Rich Redman,
+            Bruce R. Cordell, John D. Rateliff, Thomas Reid, James Wyatt, based on original material by E. Gary Gygax
+            and Dave Arneson.<br>Monster Manual II Copyright 2002, Wizards of the Coast, Inc.<br>Unearthed Arcana
+            Copyright 2004, Wizards of the Coast, Inc.; Andy Collins, Jesse Decker, David Noonan, Rich
+            Redman.<br>Pathfinder
+            Roleplaying Game Reference Document. © 2011, Paizo Publishing, LLC; Author: Paizo Publishing,
+            LLC.<br>Pathfinder
+            Roleplaying Game Core Rulebook. © 2009, Paizo Publishing, LLC; Author: Jason Bulmahn, based on material by
+            Jonathan Tweet, Monte Cook, and Skip Williams.<br>Foundry Virtual Tabletop © 2019, Foundry Gaming
+            LLC<br>&nbsp;
+        </p>
+        <div></div>
+    </div>
+
+    <div class="tab" data-tab="licenses" style="overflow-y: scroll; height: 570px;">
+        <p>Copyright © Antoni Sobkowicz / Dragonshorn Studios 2020. 'Legacies of the Dragon` name and logo are copyright
+            by Dragonshorn Studios.</p>
+        <p>Icons used in this system are copyright by J. W. Bjerk (eleazzaar) (www.jwbjerk.com/art, CC-BY 3.0), and
+            various authors at game-icons.net (CC-BY). Rest of icons provided in binary distribution are used with
+            permission of the authors and licensed to use only in this application. Any other use is prohibited.</p>
+        <p>Some artwork © Trevor Armstrong / Grimpress, used with permission. All rights reserved.</p>
+        <p>Some artwork © Daniel Comerci, used with permission. All rights reserved.</p>
+        <p>Some artwork © 2015 Dean Spencer, used with permission. All rights reserved.</p>
+        <p>Trap images by Forgotten Adventures (https://www.forgotten-adventures.net)</p>
+        <p>Some images from Publisher's Choice Quality Stock Art © Rick Hershey / Fat Goblin Games</p>
+        <p>Monster token border by RollAdvantage.</p>
+    </div>
+</section>

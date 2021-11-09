@@ -1,0 +1,76 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Item Sheet Header --}}
+    <div class="flexrow">
+        <div class="sheet-header-profile">
+            <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+        </div>
+
+        <header class="sheet-header flexrow">
+        <div class="header-details flexrow">
+            <h1 class="charname">
+                <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "D35E.ItemName"}}"/>
+            </h1>
+        </div>
+    </header>
+    </div>
+
+    <section class="sheet-content flexcol">
+    {{!-- Item Sheet Navigation --}}
+    <nav class="sheet-navigation tabs" data-group="primary">
+        <a class="item active" data-tab="description">{{ localize "D35E.Description" }}</a>
+        <a class="item" data-tab="children">{{ localize "D35E.Children" }}</a>
+        <a class="item" data-tab="details">{{ localize "D35E.Details" }}</a>
+        <a class="item" data-tab="changes">{{localize "D35E.Changes"}}</a>
+    </nav>
+
+    {{!-- Item Sheet Body --}}
+    <section class="primary-body">
+
+        {{!-- Description Tab --}}
+        {{> "systems/D35E/templates/items/parts/item-description.html"}}
+
+        {{!-- Details Tab --}}
+        <div class="tab details" data-group="primary" data-tab="details">
+
+            <div class="form-group">
+                <label>{{localize "D35E.LA"}}</label>
+                <input type="text" name="data.la" value="{{data.data.la}}" data-dtype="Number" />
+            </div>
+            {{!-- Racial Type --}}
+            <div class="form-group">
+                <label>{{localize "D35E.CreatureType"}}</label>
+                <select name="data.creatureType">
+                    {{#select data.data.creatureType}}
+                    {{#each config.creatureTypes as |name type|}}
+                    <option value="{{type}}">{{name}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+
+            <div class="form-group stacked">
+                <div class="data-selector">
+                    <a class="entry-selector" for="data.subTypes" data-fields="{{localize "D35E.RaceSubtypePlural"}}" data-dtypes="String"><i class="fas fa-edit"></i></a>
+                    <label for="data.subTypes">{{localize "D35E.RaceSubtypePlural"}}</label>
+                </div>
+            </div>
+
+            <h3 class="form-header">{{localize "D35E.Senses"}}</h3>
+            {{> "systems/D35E/templates/items/parts/item-senses.html"}}
+
+        </div>
+
+
+    <div class="tab flexcol" data-group="primary" data-tab="children">
+      {{> "systems/D35E/templates/items/parts/item-children.html"}}
+    </div> 
+
+        <div class="tab flexcol" data-group="primary" data-tab="changes">
+            {{> "systems/D35E/templates/items/parts/item-changes.html"}}
+
+            {{> "systems/D35E/templates/items/parts/item-notes.html"}}
+        </div>
+    </section>
+    </section>
+</form>

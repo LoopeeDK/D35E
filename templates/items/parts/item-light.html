@@ -1,0 +1,78 @@
+<div class="form-group stacked">
+  <label class="checkbox">
+    <input type="checkbox" name="data.light.emitLight" {{checked data.data.light.emitLight}}/> {{localize "D35E.LightEmitLight"}}
+  </label>
+</div>
+
+{{!-- Template Size --}}
+<div class="form-group">
+  <label>{{localize "D35E.BrightRadius"}}</label>
+  <div class="form-fields">
+    <input type="text" name="data.light.radius" value="{{data.data.light.radius}}" placeholder="0" data-dtype="Number" />
+  </div>
+</div>
+
+
+<div class="form-group">
+  <label>{{localize "D35E.DimRadius"}}</label>
+  <div class="form-fields">
+    <input type="text" name="data.light.dimRadius" value="{{data.data.light.dimRadius}}" placeholder="Leave empty for 2 times Bright Radius" data-dtype="Number" />
+  </div>
+</div>
+
+{{!-- Override Color --}}
+<div class="form-group">
+  <label>{{localize "D35E.CustomColor"}}</label>
+  <input type="color" name="data.light.color" value="{{data.data.light.color}}" data-dtype="String"/>
+</div>
+
+<div class="form-group">
+  <label>{{localize "D35E.LightAngle"}}</label>
+  <input type="text" name="data.light.lightAngle" value="{{data.data.light.lightAngle}}"  placeholder="360" data-dtype="Number" />
+</div>
+
+
+{{!-- Override Color --}}
+<div class="form-group">
+  <label>{{localize "D35E.CustomAlpha"}}</label>
+  <input type="range" min="0.0" max="1.0" step="0.1" name="data.light.alpha" value="{{data.data.light.alpha}}" data-dtype="Number"/>
+</div>
+
+
+<div class="form-group">
+  <label>{{localize "LIGHT.AnimationSpeed"}}</label>
+  <input type="range" min="1" max="10" step="1" name="data.light.animationSpeed" value="{{data.data.light.animationSpeed}}" data-dtype="Number"/>
+  <span>{{data.datalight.animationSpeed}}</span>
+</div>
+
+
+<div class="form-group">
+  <label>{{localize "LIGHT.AnimationIntensity"}}</label>
+  <input type="range" min="1" max="10" step="1" name="data.light.animationIntensity" value="{{data.data.light.animationIntensity}}" data-dtype="Number"/>
+  <span>{{data.datalight.animationIntensity}}</span>
+</div>
+
+{{#if is07Xup}}
+<div class="form-group select">
+  <label>{{localize "LIGHT.AnimationType"}}</label>
+  <select name="data.light.type">
+    {{#select data.data.light.type}}
+      <option value="">None</option>
+      <option value="torch">Torch</option>
+      <option value="pulse">Pulse</option>
+      <option value="chroma">Chroma</option>
+      <option value="wave">Pulsing Wave</option>
+      <option value="fog">Swirling Fog</option>
+      <option value="sunburst">Sunburst</option>
+      <option value="dome">Light Dome</option>
+      <option value="emanation">Mysterious Emanation</option>
+      <option value="hexa">Hexa Dome</option>
+      <option value="ghost">Ghostly Light</option>
+      <option value="energy">Energy Field</option>
+      <option value="roiling">Roiling Mass (Darkness)</option>
+      <option value="hole">Black Hole (Darkness)</option>
+
+    {{/select}}
+  </select>
+</div>
+{{/if}}

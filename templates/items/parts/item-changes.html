@@ -3,43 +3,80 @@
   <label class="header">{{localize "D35E.CheckFlags"}}</label>
   <div class="buff-flags">
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.loseDexToAC" {{checked data.changeFlags.loseDexToAC}}/> {{localize "D35E.ChangeFlagLoseDexToAC"}}
+      <input type="checkbox" name="data.changeFlags.loseDexToAC" {{checked data.data.changeFlags.loseDexToAC}}/> {{localize "D35E.ChangeFlagLoseDexToAC"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.noDex" {{checked data.changeFlags.noDex}}/> {{localize "D35E.ChangeFlagNoDex"}}
+      <input type="checkbox" name="data.changeFlags.uncannyDodge" {{checked data.data.changeFlags.uncannyDodge}}/> {{localize "D35E.UncannyDodge"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.noStr" {{checked data.changeFlags.noStr}}/> {{localize "D35E.ChangeFlagNoStr"}}
+      <input type="checkbox" name="data.changeFlags.noDex" {{checked data.data.changeFlags.noDex}}/> {{localize "D35E.ChangeFlagNoDex"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.oneInt" {{checked data.changeFlags.oneInt}}/> {{localize "D35E.ChangeFlagOneInt"}}
+      <input type="checkbox" name="data.changeFlags.noStr" {{checked data.data.changeFlags.noStr}}/> {{localize "D35E.ChangeFlagNoStr"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.oneWis" {{checked data.changeFlags.oneWis}}/> {{localize "D35E.ChangeFlagOneWis"}}
+      <input type="checkbox" name="data.changeFlags.noCon" {{checked data.data.changeFlags.noCon}}/> {{localize "D35E.ChangeFlagNoCon"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.oneCha" {{checked data.changeFlags.oneCha}}/> {{localize "D35E.ChangeFlagOneCha"}}
+      <input type="checkbox" name="data.changeFlags.noInt" {{checked data.data.changeFlags.noInt}}/> {{localize "D35E.ChangeFlagNoInt"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.noEncumbrance" {{checked data.changeFlags.noEncumbrance}}/> {{localize "D35E.ChangeFlagDwarflikeEncumbrance"}}
+      <input type="checkbox" name="data.changeFlags.oneInt" {{checked data.data.changeFlags.oneInt}}/> {{localize "D35E.ChangeFlagOneInt"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.mediumArmorFullSpeed" {{checked data.changeFlags.mediumArmorFullSpeed}}/> {{localize "D35E.ChangeFlagMediumArmorFullSpeed"}}
+      <input type="checkbox" name="data.changeFlags.oneWis" {{checked data.data.changeFlags.oneWis}}/> {{localize "D35E.ChangeFlagOneWis"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.heavyArmorFullSpeed" {{checked data.changeFlags.heavyArmorFullSpeed}}/> {{localize "D35E.ChangeFlagHeavyArmorFullSpeed"}}
+      <input type="checkbox" name="data.changeFlags.oneCha" {{checked data.data.changeFlags.oneCha}}/> {{localize "D35E.ChangeFlagOneCha"}}
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="data.changeFlags.noEncumbrance" {{checked data.data.changeFlags.noEncumbrance}}/> {{localize "D35E.ChangeFlagDwarflikeEncumbrance"}}
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="data.changeFlags.mediumArmorFullSpeed" {{checked data.data.changeFlags.mediumArmorFullSpeed}}/> {{localize "D35E.ChangeFlagMediumArmorFullSpeed"}}
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="data.changeFlags.heavyArmorFullSpeed" {{checked data.data.changeFlags.heavyArmorFullSpeed}}/> {{localize "D35E.ChangeFlagHeavyArmorFullSpeed"}}
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="data.changeFlags.multiAttack" {{checked data.data.changeFlags.multiAttack}}/> {{localize "D35E.ChangeFlagMultiAttack"}}
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="data.changeFlags.multiweaponAttack" {{checked data.data.changeFlags.multiweaponAttack}}/> {{localize "D35E.ChangeFlagMultiweaponAttack"}}
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="data.changeFlags.hasted" {{checked data.data.changeFlags.hasted}}/> {{localize "D35E.ChangeFlagHasted"}}
     </label>
   </div>
 </div>
 
+<div class="form-group">
+  <div class="form-group">
+    <label>{{localize "D35E.Size"}}</label>
+    <select class="actor-size" name="data.sizeOverride">
+      <option value="">None</option>
+      {{#select data.data.sizeOverride}}
+      {{#each config.actorSizes as |label size|}}
+      <option value="{{size}}">{{label}}</option>
+      {{/each}}
+      {{/select}}
+    </select>
+  </div>
+</div>
+
+<div class="form-group">
+  <label>Counter</label>
+  <input class="bordered" type="text" name="data.counterName" value="{{data.data.counterName}}" data-dtype="String"/>
+</div>
+
 <div>
   {{!-- Changes --}}
-  <h4 class="change-header">
+  <h3 class="form-header">
     {{localize "D35E.Changes"}}
-    <a class="change-control add-change"><i class="fas fa-plus"></i></a>
-  </h4>
+    <a class="change-control add-change" style="font-size: 15px; line-height: 15px;"><i class="fas fa-plus"></i></a>
+  </h3>
   <ol class="changes form-group">
-    {{#each data.changes as |change a|}}
+    {{#each data.data.changes as |change a|}}
     <li class="change flexrow" data-change="{{a}}">
       <input type="text" name="data.changes.{{a}}.0" value="{{lookup this "0"}}"
                                                      placeholder="{{localize "D35E.Formula"}}" />
@@ -68,5 +105,332 @@
       <a class="change-control delete-change"><i class="fas fa-minus"></i></a>
     </li>
     {{/each}}
+    {{#unless data.data.changes}}
+    <li class="change flexrow">
+      <div style="width: 100%; opacity: 0.7; text-align: center">{{localize "D35E.ThereAreNo"}} {{localize "D35E.Changes"}}. {{{localize "D35E.UsePlusToAdd"}}}</div>
+    </li>
+    {{/unless}}
   </ol>
+
+</div>
+<div>
+{{#if hasCombatChanges}}
+  {{!-- Changes --}}
+  <h3 class="form-header">
+    {{localize "D35E.CombatChangesSettings"}}
+  </h3>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.CustomName"}}</label>
+    <input type="text" name="data.combatChangeCustomDisplayName" value="{{data.data.combatChangeCustomDisplayName}}" placeholder="{{localize "D35E.LeaveEmptyForItemName"}}"/>
+  </div>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.CustomReferenceName"}}</label>
+    <input type="text" name="data.combatChangeCustomReferenceName" value="{{data.data.combatChangeCustomReferenceName}}" placeholder="{{localize "D35E.LeaveEmptyForItemName"}}"/>
+  </div>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.MaximumRange"}}</label>
+    <input type="text" value="{{data.data.combatChangesRange.max}}" disabled data-dtype="Number"/>
+  </div>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.MaximumRangeFormula"}}</label>
+    <input type="text" name="data.combatChangesRange.maxFormula" value="{{data.data.combatChangesRange.maxFormula}}" placeholder="{{localize "D35E.MaximumRangeFormula"}}"/>
+  </div>
+  <em>{{localize "D35E.RangeSliderAbout"}}</em>
+
+  <div class="form-group">
+    <label>{{localize "D35E.AdditionalSliders"}}</label>
+    <label class="checkbox" style="position: relative; flex: 0 20px">
+      <input type="checkbox" class="stylized" name="data.combatChangesAdditionalRanges.hasAdditionalRanges" {{checked data.data.combatChangesAdditionalRanges.hasAdditionalRanges}}/>
+      <span class="checkmark"></span>
+    </label>
+  </div>
+
+  {{#if data.data.combatChangesAdditionalRanges.hasAdditionalRanges}}
+
+  <strong>{{localize "D35E.Slider"}} 1</strong>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.Name"}} <em style="opacity: 0.9; font-weight: 500">({{localize "D35E.RangeSliderAccessWith"}}1)</em></label>
+    <input type="text" name="data.combatChangesAdditionalRanges.slider1.name" value="{{data.data.combatChangesAdditionalRanges.slider1.name}}" />
+  </div>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.MaximumRange"}}</label>
+    <input type="text" value="{{data.data.combatChangesAdditionalRanges.slider1.max}}" disabled data-dtype="Number"/>
+  </div>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.MaximumRangeFormula"}}</label>
+    <input type="text" name="data.combatChangesAdditionalRanges.slider1.maxFormula" value="{{data.data.combatChangesAdditionalRanges.slider1.maxFormula}}" placeholder="{{localize "D35E.MaximumRangeFormula"}}"/>
+  </div>
+  <strong>{{localize "D35E.Slider"}}2</strong>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.Name"}} <em style="opacity: 0.9; font-weight: 500">({{localize "D35E.RangeSliderAccessWith"}}2)</em></label>
+    <input type="text" name="data.combatChangesAdditionalRanges.slider2.name" value="{{data.data.combatChangesAdditionalRanges.slider2.name}}"/>
+  </div>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.MaximumRange"}}</label>
+    <input type="text" value="{{data.data.combatChangesAdditionalRanges.slider2.max}}" disabled data-dtype="Number"/>
+  </div>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.MaximumRangeFormula"}}</label>
+    <input type="text" name="data.combatChangesAdditionalRanges.slider2.maxFormula" value="{{data.data.combatChangesAdditionalRanges.slider2.maxFormula}}" placeholder="{{localize "D35E.MaximumRangeFormula"}}"/>
+  </div>
+  <strong>{{localize "D35E.Slider"}} 3</strong>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.Name"}} <em style="opacity: 0.9; font-weight: 500">({{localize "D35E.RangeSliderAccessWith"}}3)</em></label>
+    <input type="text" name="data.combatChangesAdditionalRanges.slider3.name" value="{{data.data.combatChangesAdditionalRanges.slider3.name}}"/>
+  </div>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.MaximumRange"}}</label>
+    <input type="text" value="{{data.data.combatChangesAdditionalRanges.slider3.max}}" disabled data-dtype="Number"/>
+  </div>
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.MaximumRangeFormula"}}</label>
+    <input type="text" name="data.combatChangesAdditionalRanges.slider3.maxFormula" value="{{data.data.combatChangesAdditionalRanges.slider3.maxFormula}}" placeholder="{{localize "D35E.MaximumRangeFormula"}}"/>
+  </div>
+  {{/if}}
+
+  <div class="form-group uses-per">
+    <label>{{localize "D35E.ChargesToDeduct"}}</label>
+    <select name="data.combatChangesUsesCost">
+      {{#select data.data.combatChangesUsesCost }}
+      <option value="chargesPerUse">{{localize "D35E.ChargesToDeduct"}}</option>
+      <option value="range">{{localize "D35E.CombatChangesRange"}}</option>
+      {{/select}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "D35E.ApplySpecialActionsOnce"}}</label>
+    <label class="checkbox" style="position: relative; flex: 0 20px">
+      <input type="checkbox" class="stylized" name="data.combatChangesApplySpecialActionsOnce" {{checked data.data.combatChangesApplySpecialActionsOnce}}/>
+      <span class="checkmark"></span>
+    </label>
+  </div>
+
+  <h4 class="change-header">
+    {{localize "D35E.CombatChanges"}}
+    <a class="combat-change-control add-change"><i class="fas fa-plus"></i></a>
+  </h4>
+  <ol class="changes form-group">
+    {{#each data.data.combatChanges as |change a|}}
+    <li class="change flexcol" data-change="{{a}}" style="border-left: 2px solid rgba(0,0,0,0.2); padding-left: 0.5rem; margin-bottom: 0.5rem;">
+      <div class="form-group" style="width: 100%; margin: 0">
+        <label>{{localize "D35E.ActionType"}}</label>
+        <select name="data.combatChanges.{{a}}.0" style="flex: 0 0 240px">
+        {{#select (lookup this "0") }}
+        {{#each ../config.combatChangeType as |name type|}}
+        <option value="{{type}}">{{localize name}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+      </div>
+
+      <div class="form-group" style="width: 100%; margin: 0">
+        <label>{{localize "D35E.SubActionType"}}</label>
+        <select name="data.combatChanges.{{a}}.1" style="flex: 0 0 240px">
+          {{#select (lookup this "1") }}
+          <option value="">{{localize "D35E.All"}}</option>
+          {{#each ../config.itemActionTypes as |name type|}}
+            <option value="{{type}}">{{localize name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+      <div class="form-group" style="width: 100%; margin: 0">
+        <label>{{localize "D35E.Condition"}}</label>
+      <input  class="bordered" type="text" name="data.combatChanges.{{a}}.2" value="{{lookup this "2"}}"
+      placeholder="{{localize "D35E.Condition"}} {{localize "D35E.Formula"}}" />
+      </div>
+
+      <div class="form-group" style="width: 100%; margin: 0">
+        <label>
+
+          {{localize "D35E.ModifiedField"}}
+
+        </label>
+      <input class="bordered"  type="text" name="data.combatChanges.{{a}}.3" value="{{lookup this "3"}}"
+      placeholder="{{localize "D35E.ModifiedFieldPlaceholder"}}" list="combatChangesFieldsList" />
+      </div>
+
+      <div class="form-group" style="width: 100%; margin: 0">
+        <label>{{localize "D35E.ModificationFormula"}}</label>
+      <input class="bordered" type="text" name="data.combatChanges.{{a}}.4" value="{{lookup this "4"}}"
+      placeholder="{{localize "D35E.ModificationFormula"}} {{localize "D35E.Formula"}}" />
+      </div>
+
+
+      <div class="form-group" style="width: 100%; margin: 0">
+        <label>{{localize "D35E.SpecialAction"}}</label>
+        <input class="bordered" type="text" name="data.combatChanges.{{a}}.5" value="{{lookup this "5"}}"
+        placeholder="{{localize "D35E.SpecialAction"}}" />
+      </div>
+
+      <div class="form-group" style="width: 100%; margin: 0">
+      <a style="flex: 1" class="combat-change-control delete-change">Remove <i class="fas fa-minus"></i></a>
+      </div>
+    </li>
+    {{/each}}
+    <datalist id="combatChangesFieldsList">
+      <option value="featAttackBonus">Attack - Bonus bonus to Base Attack</option>
+      <option value="featDamageBonus">Attack - Bonus to Base Damage (Crit affected, rolled once)</option>
+      <option value="&featDamagePrecision">Attack - Precision Damage Bonus</option>
+      <option value="&featDamage.">Attack - Any type Damage Bonus</option>
+      <option value="featAdditionalAttacksBAB">Attack - Bonus Atttacks at BAB</option>
+      <option value="featAC">Defense - Static bonus</option>
+      <option value="featSavingThrow">Saving Throw - Static bonus</option>
+      <option value="featGrapple">Grapple - Static bonus</option>
+      <option value="featSkillBonus">Skill - Static bonus</option>
+      <option value="featClBonus">Caster Level - Static bonus</option>
+      <option value="featSpellDCBonus">Spell DC - Static bonus</option>
+      <option value="featResistanceBonus">Spell Resistance - Static bonus</option>
+      <option value="featSpellPenetrationBonus">Spell Penetration Bonus - Static bonus</option>
+    </datalist>
+    {{#unless data.data.combatChanges}}
+    <li class="change flexrow">
+      <div style="width: 100%; opacity: 0.7; text-align: center">{{localize "D35E.ThereAreNo"}} {{localize "D35E.CombatChanges"}}. {{{localize "D35E.UsePlusToAdd"}}}</div>
+    </li>
+    {{/unless}}
+  </ol>
+  {{/if}}
+</div>
+<div>
+  {{#if hasRequirements}}
+  {{!-- Requirements --}}
+  <h3 class="form-header">
+    {{localize "D35E.Requirements"}}
+    <a class="requirement-control add-change" style="font-size: 15px; line-height: 15px;"><i class="fas fa-plus"></i></a>
+  </h3>
+  <ol class="changes form-group">
+    {{#each data.data.requirements as |change a|}}
+    <li class="change flexrow" data-change="{{a}}">
+      <input type="text" name="data.requirements.{{a}}.0" value="{{lookup this "0"}}"
+      placeholder="{{localize "D35E.Name"}}" />
+      <input type="text" name="data.requirements.{{a}}.1" value="{{lookup this "1"}}"
+      placeholder="{{localize "D35E.Formula"}}" />
+      <select name="data.requirements.{{a}}.2">
+        {{#select (lookup this "2") }}
+        <option value="">{{localize "D35E.None"}}</option>
+        {{#each ../config.requirements as |requirement type|}}
+        <option value="{{type}}">{{requirement}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+      <a class="requirement-control delete-change"><i class="fas fa-minus"></i></a>
+    </li>
+    {{/each}}
+    {{#unless data.data.requirements}}
+    <li class="change flexrow">
+      <div style="width: 100%; opacity: 0.7; text-align: center">{{localize "D35E.ThereAreNo"}} {{localize "D35E.Requirements"}}. {{{localize "D35E.UsePlusToAdd"}}}</div>
+    </li>
+    {{/unless}}
+  </ol>
+  {{/if}}
+</div>
+<div>
+  {{!-- Changes --}}
+  <h3 class="form-header">
+    {{localize "D35E.Resistances"}}
+    <a class="resistance-control add-change" style="font-size: 15px; line-height: 15px;"><i class="fas fa-plus"></i></a>
+  </h3>
+  <ol class="changes form-group">
+    {{#each data.data.resistances as |change a|}}
+    <li class="change flexrow" data-change="{{a}}">
+      <input type="text" name="data.resistances.{{a}}.0" value="{{lookup this "0"}}"
+      placeholder="{{localize "D35E.Formula"}}" />
+      <select name="data.resistances.{{a}}.1">
+        {{#select (lookup this "1") }}
+        <option value="">{{localize "D35E.None"}}</option>
+        {{#each ../energyDamageTypes as |damage type|}}
+        <option value="{{damage.uid}}">{{damage.name}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+      <label class="checkbox">
+        <input type="checkbox" name="data.resistances.{{a}}.2" {{checked (lookup this "2")}}/> {{ localize "D35E.Immunity" }}
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" name="data.resistances.{{a}}.3" {{checked (lookup this "3")}}/> {{ localize "D35E.Vulnerability" }}
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" name="data.resistances.{{a}}.4" {{checked (lookup this "4")}}/> {{ localize "D35E.Half" }}
+      </label>
+      <a class="resistance-control delete-change"><i class="fas fa-minus"></i></a>
+    </li>
+    {{/each}}
+    {{#unless data.data.resistances}}
+    <li class="change flexrow">
+      <div style="width: 100%; opacity: 0.7; text-align: center">{{localize "D35E.ThereAreNo"}} {{localize "D35E.Resistances"}}. {{{localize "D35E.UsePlusToAdd"}}}</div>
+    </li>
+    {{/unless}}
+  </ol>
+</div>
+<div>
+  {{!-- Changes --}}
+  <h3 class="form-header">
+    {{localize "D35E.DR"}}
+    <a class="dr-control add-change" style="font-size: 15px; line-height: 15px;"><i class="fas fa-plus"></i></a>
+  </h3>
+  <ol class="changes form-group">
+    {{#each data.data.damageReduction as |change a|}}
+    <li class="change flexrow" data-change="{{a}}">
+      <input type="text" name="data.damageReduction.{{a}}.0" value="{{lookup this "0"}}"
+      placeholder="{{localize "D35E.Formula"}}" />
+      <select name="data.damageReduction.{{a}}.1">
+        {{#select (lookup this "1") }}
+        <option value="">{{localize "D35E.None"}}</option>
+        {{#each ../baseDamageTypes as |damage type|}}
+        <option value="{{damage.uid}}">{{damage.name}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+      <label class="checkbox">
+        <input type="checkbox" name="data.damageReduction.{{a}}.2" {{checked (lookup this "2")}}/> {{ localize "D35E.Immunity" }}
+      </label>
+      <a class="dr-control delete-change"><i class="fas fa-minus"></i></a>
+    </li>
+    {{/each}}
+    {{#unless data.data.damageReduction}}
+    <li class="change flexrow">
+      <div style="width: 100%; opacity: 0.7; text-align: center">{{localize "D35E.ThereAreNo"}} {{localize "D35E.DR"}}. {{{localize "D35E.UsePlusToAdd"}}}</div>
+    </li>
+    {{/unless}}
+  </ol>
+</div>
+<div>
+  {{!-- Creation Changes --}}
+  <h3 class="form-header">
+    {{localize "D35E.CreationChanges"}}
+    <a class="creation-changes-control add-change" style="font-size: 15px; line-height: 15px;"><i class="fas fa-plus"></i></a>
+  </h3>
+  <ol class="changes form-group">
+    {{#each data.data.creationChanges as |change a|}}
+    <li class="change flexrow" data-change="{{a}}">
+
+      <select name="data.creationChanges.{{a}}.0">
+        {{#select (lookup this "0") }}
+        <option value="">{{localize "D35E.None"}}</option>
+        {{#each ../fieldList as |field|}}
+        <option value="{{field}}">{{field}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+      <input type="text" name="data.creationChanges.{{a}}.1" value="{{lookup this "1"}}"
+      placeholder="{{localize "D35E.Formula"}}" />
+      <a class="creation-changes-control delete-change"><i class="fas fa-minus"></i></a>
+    </li>
+    {{/each}}
+    {{#unless data.data.creationChanges}}
+    <li class="change flexrow">
+      <div style="width: 100%; opacity: 0.7; text-align: center">{{localize "D35E.ThereAreNo"}} {{localize "D35E.CreationChanges"}}. {{{localize "D35E.UsePlusToAdd"}}}</div>
+    </li>
+    {{/unless}}
+  </ol>
+</div>
+<div>
+  <h3 class="form-header">
+    {{localize "D35E.Other"}}
+  </h3>
+  <div class="form-group">
+    <label>Custom Tag</label>
+    <input type="text" name="data.customTag" value="{{data.data.customTag}}" data-dtype="String"/>
+  </div>
 </div>

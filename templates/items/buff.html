@@ -1,8 +1,12 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
 
   {{!-- Item Sheet Header --}}
-  <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+  <div class="flexrow" style="flex: 0">
+    <div class="sheet-header-profile">
+      <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+    </div>
+
+    <header class="sheet-header flexrow">
 
     <div class="header-details flexrow">
       <h1 class="charname">
@@ -19,16 +23,20 @@
           {{labels.buffType}}
         </li>
         <li class="tooltip">
-          <span class="tooltipcontent">@item.level : {{data.level}}</span>
-          <input type="text" name="data.level" value="{{#if data.level}}{{data.level}}{{/if}}" placeholder="{{localize "D35E.Level"}}"/>
+          <span class="tooltipcontent">@item.level : {{data.data.level}}</span>
+          <input type="text" name="data.level" value="{{#if data.data.level}}{{data.data.level}}{{/if}}" placeholder="{{localize "D35E.Level"}}"/>
         </li>
       </ul>
     </div>
   </header>
+  </div>
 
+  <section class="sheet-content flexcol">
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
     <a class="item active" data-tab="description">{{ localize "D35E.Description" }}</a>
+    <a class="item" data-tab="timeline">{{ localize "D35E.Timeline" }}</a>
+    <a class="item" data-tab="special-actions">{{ localize "D35E.SpecialActions" }}</a>
     <a class="item" data-tab="changes">{{ localize "D35E.Changes" }}</a>
   </nav>
 
@@ -37,25 +45,120 @@
 
     {{!-- Description Tab --}}
     <div class="tab flexcol active" data-group="primary" data-tab="description">
-      {{editor content=data.description.value target="data.description.value" button=true owner=owner editable=editable}}
+      {{editor content=data.data.description.value target="data.description.value" button=true owner=owner editable=editable}}
     </div>
 
-    {{!-- Changes Tab --}}
+    {{!-- Timeline Tab --}}
+    <div class="tab flexcol" data-group="primary" data-tab="timeline">
+        <em style="flex: none">{{localize "D35E.TimelineInfo"}}</em>
+        <div class="form-group">
+          <label>{{localize "D35E.TimelineEnabled"}}</label>
+          <input type="checkbox" name="data.timeline.enabled" {{checked data.data.timeline.enabled}}/>
+        </div>
+        {{!-- Total time --}}
+        <div class="form-group">
+          <label>{{localize "D35E.TimelineFormula"}}</label>
+          <input type="text" name="data.timeline.formula" value="{{data.data.timeline.formula}}" data-dtype="String" />
+        </div>
+        {{!-- Total time --}}
+        <div class="form-group">
+          <label>{{localize "D35E.TimelineTotal"}}</label>
+          <input type="text" name="data.timeline.total" value="{{data.data.timeline.total}}" data-dtype="Number" disabled />
+        </div>
+
+        {{!-- Elapsed time --}}
+        <div class="form-group">
+          <label>{{localize "D35E.TimelineElapsed"}}</label>
+          <input type="text" name="data.timeline.elapsed" value="{{data.data.timeline.elapsed}}" data-dtype="Number"/>
+        </div>
+
+        <div class="form-group">
+          <label>{{localize "D35E.TimelineDeleteOnExpiry"}}</label>
+          <input type="checkbox" name="data.timeline.deleteOnExpiry" {{checked data.data.timeline.deleteOnExpiry}}/>
+        </div>
+    </div>
+    <div class="tab flexcol" data-group="primary" data-tab="special-actions">
+      <h4 class="attack-header">
+        {{localize "D35E.Activate"}} {{localize "D35E.SpecialActions"}}
+        <a class="a-special-control add-special"><i class="fas fa-plus"></i></a>
+      </h4>
+      <ol class="special-parts form-group">
+        {{#each data.data.activateActions as |part a|}}
+        <li class="special-part flexcol" data-activate-actions="{{a}}">
+          <div class="flexrow"><span>Name:</span><input type="text" name="data.activateActions.{{a}}.name" placeholder="{{localize "D35E.Name"}}" value="{{lookup this "name"}}"/></div>
+          <div class="flexrow"><span>Action:</span><input type="text" name="data.activateActions.{{a}}.action" placeholder="{{localize "D35E.Action"}}" value="{{lookup this "action"}}"/></div>
+          <div class="flexrow"><span>Condition:</span><input type="text" name="data.activateActions.{{a}}.condition" placeholder="{{localize "D35E.Condition"}}" value="{{lookup this "condition"}}"/></div>
+          <div class="flexrow"><span>Icon path:</span><input type="text" name="data.activateActions.{{a}}.img" placeholder="{{localize "D35E.Image"}}" value="{{lookup this "img"}}"/></div>
+          <a class="a-special-control delete-special"><i class="fas fa-minus"></i>Remove</a>
+
+        </li>
+        {{/each}}
+      </ol>
+      <h4 class="attack-header">
+        {{localize "D35E.Deactivate"}} {{localize "D35E.SpecialActions"}}
+        <a class="d-special-control add-special"><i class="fas fa-plus"></i></a>
+      </h4>
+      <ol class="special-parts form-group">
+        {{#each data.data.deactivateActions as |part a|}}
+        <li class="special-part flexcol" data-deactivate-actions="{{a}}">
+          <div class="flexrow"><span>Name:</span><input type="text" name="data.deactivateActions.{{a}}.name" placeholder="{{localize "D35E.Name"}}" value="{{lookup this "name"}}"/></div>
+          <div class="flexrow"><span>Action:</span><input type="text" name="data.deactivateActions.{{a}}.action" placeholder="{{localize "D35E.Action"}}" value="{{lookup this "action"}}"/></div>
+          <div class="flexrow"><span>Condition:</span><input type="text" name="data.deactivateActions.{{a}}.condition" placeholder="{{localize "D35E.Condition"}}" value="{{lookup this "condition"}}"/></div>
+          <div class="flexrow"><span>Icon path:</span><input type="text" name="data.deactivateActions.{{a}}.img" placeholder="{{localize "D35E.Image"}}" value="{{lookup this "img"}}"/></div>
+          <a class="d-special-control delete-special"><i class="fas fa-minus"></i>Remove</a>
+
+        </li>
+        {{/each}}
+      </ol>
+
+      <h4 class="attack-header">
+        {{localize "D35E.PerRound"}} {{localize "D35E.SpecialActions"}}
+        <a class="r-special-control add-special"><i class="fas fa-plus"></i></a>
+      </h4>
+      <ol class="special-parts form-group">
+        {{#each data.data.perRoundActions as |part a|}}
+        <li class="special-part flexcol" data-per-round-actions="{{a}}">
+          <div class="flexrow"><span>Name:</span><input type="text" name="data.perRoundActions.{{a}}.name" placeholder="{{localize "D35E.Name"}}" value="{{lookup this "name"}}"/></div>
+          <div class="flexrow"><span>Action:</span><input type="text" name="data.perRoundActions.{{a}}.action" placeholder="{{localize "D35E.Action"}}" value="{{lookup this "action"}}"/></div>
+          <div class="flexrow"><span>Condition:</span><input type="text" name="data.perRoundActions.{{a}}.condition" placeholder="{{localize "D35E.Condition"}}" value="{{lookup this "condition"}}"/></div>
+          <div class="flexrow"><span>Icon path:</span><input type="text" name="data.perRoundActions.{{a}}.img" placeholder="{{localize "D35E.Image"}}" value="{{lookup this "img"}}"/></div>
+          <a class="r-special-control delete-special"><i class="fas fa-minus"></i>Remove</a>
+
+        </li>
+        {{/each}}
+      </ol>
+    </div>
     <div class="tab flexcol" data-group="primary" data-tab="changes">
       <div class="form-group select">
         <label>{{localize "D35E.Type"}}</label>
-        <select name="data.buffType" value="{{data.buffType}}">
-          {{#select data.buffType}}
+        <select name="data.buffType" value="{{data.data.buffType}}">
+          {{#select data.data.buffType}}
           {{#each config.buffTypes as |type a|}}
           <option value="{{a}}">{{type}}</option>
           {{/each}}
           {{/select}}
         </select>
       </div>
-
+      {{#unless isShapechangeBuff}}
+      <div class="form-group">
+        <label>{{localize "D35E.HideBuffFromToken"}}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+          <input type="checkbox" class="stylized" name="data.hideFromToken" {{checked data.data.hideFromToken}}/>
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      {{/unless}}
       {{> "systems/D35E/templates/items/parts/item-changes.html"}}
 
       {{> "systems/D35E/templates/items/parts/item-notes.html"}}
+      {{#if isGM}}
+      <h3 class="form-header">System Properties</h3>
+      <div class="form-group">
+        <label>UID</label>
+        <input type="text" name="data.uniqueId" value="{{data.data.uniqueId}}" data-dtype="String"/>
+      </div>
+      {{/if}}
     </div>
+  </section>
   </section>
 </form>

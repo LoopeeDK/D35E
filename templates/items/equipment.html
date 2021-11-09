@@ -1,9 +1,12 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
 
   {{!-- Item Sheet Header --}}
-  <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+  <div class="flexrow" style="flex: 0">
+    <div class="sheet-header-profile">
+      <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+    </div>
 
+    <header class="sheet-header flexrow">
     <div class="header-details flexrow">
       {{#if isGM}}
       <h3 class="charname">
@@ -11,7 +14,7 @@
       </h3>
 
       <h3 class="charname">
-        <input name="data.unidentified.name" type="text" value="{{data.unidentified.name}}" placeholder="{{localize "D35E.UnidentifiedName"}}"/>
+        <input name="data.unidentified.name" type="text" value="{{data.data.unidentified.name}}" placeholder="{{localize "D35E.UnidentifiedName"}}"/>
       </h3>
       {{else}}
       {{#if showUnidentifiedData}}
@@ -43,13 +46,15 @@
       </ul>
     </div>
   </header>
+  </div>
 
   {{!-- Item Sheet Navigation --}}
+  <section class="sheet-content flexcol">
   <nav class="sheet-navigation tabs" data-group="primary">
     <a class="item active" data-tab="description">{{ localize "D35E.Description" }}</a>
     <a class="item" data-tab="details">{{ localize "D35E.Details" }}</a>
     {{#unless showUnidentifiedData}}
-    <a class="item" data-tab="changes">{{ localize "D35E.Changes" }}</a>
+      <a class="item" data-tab="configuration" style="flex: 0 150px;">{{ localize "D35E.Configuration" }}</a>
     {{/unless}}
   </nav>
 
@@ -64,35 +69,38 @@
       <h3 class="form-header">{{localize "D35E.Details"}}</h3>
 
       {{!-- Equipment Type --}}
+      {{#unless showUnidentifiedData}}
       <div class="form-group">
         <label>{{localize "D35E.Category"}}</label>
         <select name="data.equipmentType">
-          {{#select data.equipmentType}}
+          {{#select data.data.equipmentType}}
           {{#each equipmentCategories.types as |name type|}}
           <option value="{{type}}">{{name}}</option>
           {{/each}}
           {{/select}}
         </select>
       </div>
+      {{/unless}}
 
       {{!-- Equipment Subtype --}}
-      <div class="form-group">
+      {{#unless showUnidentifiedData}}<div class="form-group">
         <label>{{localize "D35E.Type"}}</label>
         <select name="data.equipmentSubtype">
-          {{#select data.equipmentSubtype}}
+          {{#select data.data.equipmentSubtype}}
           {{#each equipmentCategories.subTypes as |name type|}}
           <option value="{{type}}">{{name}}</option>
           {{/each}}
           {{/select}}
         </select>
       </div>
+      {{/unless}}
 
       {{!-- Equipment Slot --}}
-      {{#if hasMultipleSlots}}
+      {{#unless showUnidentifiedData}}{{#if hasMultipleSlots}}
       <div class="form-group">
         <label>{{localize "D35E.Slot"}}</label>
         <select name="data.slot">
-          {{#select data.slot}}
+          {{#select data.data.slot}}
           {{#each equipmentSlots as |name type|}}
           <option value="{{type}}">{{name}}</option>
           {{/each}}
@@ -100,18 +108,22 @@
         </select>
       </div>
       {{else}}
-      <input type="hidden" name="data.slot" value="{{data.slot}}" />
+      <input type="hidden" name="data.slot" value="{{data.data.slot}}" />
       {{/if}}
+      {{/unless}}
 
       {{!-- Equipment Status --}}
       <div class="form-group stacked">
         <label>{{localize "D35E.EquipmentStatus"}}</label>
         <label class="checkbox">
-          <input type="checkbox" name="data.equipped" {{checked data.equipped}}/> {{localize "D35E.Equipped"}}
+          <input type="checkbox" name="data.equipped" {{checked data.data.equipped}}/> {{localize "D35E.Equipped"}}
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="data.masterwork" {{checked data.data.masterwork}}/> {{localize "D35E.Masterwork"}}
         </label>
         {{#if isGM}}
         <label class="checkbox">
-          <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{localize "D35E.Identified"}}
+          <input type="checkbox" name="data.identified" {{checked data.data.identified}}/> {{localize "D35E.Identified"}}
         </label>
         {{/if}}
       </div>
@@ -121,7 +133,7 @@
       <div class="form-group">
         <label>{{localize "D35E.ArmorClass"}}</label>
         <div class="form-fields">
-          <input type="text" name="data.armor.value" value="{{data.armor.value}}" data-dtype="Number"/>
+          <input type="text" name="data.armor.value" value="{{data.data.armor.value}}" data-dtype="Number"/>
         </div>
       </div>
 
@@ -129,9 +141,11 @@
       <div class="form-group">
         <label>{{localize "D35E.EnhancementBonus"}}</label>
         <div class="form-fields">
-          <input type="text" name="data.armor.enh" value="{{data.armor.enh}}" data-dtype="Number"/>
+          <input type="text" name="data.armor.enh" value="{{data.data.armor.enh}}" data-dtype="Number"/>
         </div>
       </div>
+
+
       {{/if}}
 
       {{#unless showUnidentifiedData}}
@@ -139,7 +153,7 @@
       <div class="form-group">
         <label>{{localize "D35E.MaxDexterityModifier"}}</label>
         <div class="form-fields">
-          <input type="text" name="data.armor.dex" value="{{data.armor.dex}}" placeholder="{{localize "D35E.Unlimited"}}"/>
+          <input type="text" name="data.armor.dex" value="{{data.data.armor.dex}}" placeholder="{{localize "D35E.Unlimited"}}"/>
         </div>
       </div>
 
@@ -147,7 +161,7 @@
       <div class="form-group">
         <label>{{localize "D35E.ArmorCheckPenalty"}}</label>
         <div class="form-fields">
-          <input type="text" name="data.armor.acp" value="{{data.armor.acp}}" data-dtype="Number" placeholder="0"/>
+          <input type="text" name="data.armor.acp" value="{{data.data.armor.acp}}" data-dtype="Number" placeholder="0"/>
         </div>
       </div>
 
@@ -155,7 +169,7 @@
       <div class="form-group">
         <label>{{localize "D35E.ArcaneSpellFailure"}}</label>
         <div class="form-fields">
-          <input type="text" name="data.spellFailure" value="{{data.spellFailure}}" data-dtype="Number" placeholder="0"/>
+          <input type="text" name="data.spellFailure" value="{{data.data.spellFailure}}" data-dtype="Number" placeholder="0"/>
         </div>
       </div>
 
@@ -173,16 +187,43 @@
 
       {{!-- Item Measure Template --}}
       {{> "systems/D35E/templates/items/parts/item-template.html"}}
+
+      <h3 class="form-header">{{localize "D35E.Senses"}}</h3>
+      {{> "systems/D35E/templates/items/parts/item-senses.html"}}
+
+      <h3 class="form-header">{{localize "D35E.LightItemLight"}}</h3>
+      {{> "systems/D35E/templates/items/parts/item-light.html"}}
       {{/unless}}
     </div>
 
     {{!-- Changes Tab --}}
     {{#unless showUnidentifiedData}}
-    <div class="tab flexcol" data-group="primary" data-tab="changes">
-      {{> "systems/D35E/templates/items/parts/item-changes.html"}}
 
-      {{> "systems/D35E/templates/items/parts/item-notes.html"}}
+    <div class="tab flexcol active" data-group="primary" data-tab="configuration">
+      <nav class="sheet-navigation tabs subtabs configuration" data-group="configuration">
+        <a class="item" data-tab="changes">{{localize "D35E.Changes"}}</a>
+        <a class="item" data-tab="enhancements">{{localize "D35E.Enhancements"}}</a>
+        <a class="item" data-tab="linked-items">{{localize "D35E.Links"}}</a>
+      </nav>
+
+    
+      <div class="flexrow configuration-container" style="overflow: hidden; height: 100%">
+        <section class="configuration-body" style="display: block; height: 100%">
+        <div class="tab configuration-group flexcol" data-group="configuration"  data-tab="changes">
+          {{> "systems/D35E/templates/items/parts/item-changes.html"}}
+
+          {{> "systems/D35E/templates/items/parts/item-notes.html"}}
+        </div>
+        <div class="tab configuration-group flexcol" data-group="configuration"  data-tab="enhancements">
+          {{> "systems/D35E/templates/items/parts/item-enhancement.html"}}
+        </div>
+        <div class="tab configuration-group flexcol" data-group="configuration" data-tab="linked-items">
+          {{> "systems/D35E/templates/items/parts/item-links.html"}}
+        </div>
+        </section>
+      </div>
     </div>
     {{/unless}}
+  </section>
   </section>
 </form>

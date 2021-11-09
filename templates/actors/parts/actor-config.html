@@ -1,0 +1,182 @@
+<div class="flexcol">
+
+    <h2 class="block-header">General Settings</h2>
+    <div class="form-group">
+        <label>{{ localize 'D35E.PartyMember' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.isPartyMember" {{checked data.isPartyMember}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <span style="flex: 0">{{ localize 'D35E.PartyMemberH' }}</span>
+    <div class="form-group">
+        <label>{{ localize 'D35E.NoTokenOverride' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.noTokenOverride" {{checked data.noTokenOverride}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <span style="flex: 0">{{{ localize 'D35E.NoTokenOverrideH' }}}</span>
+    <div class="form-group">
+        <label>{{ localize 'D35E.NoBuffDisplay' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.noBuffDisplay" {{checked data.noBuffDisplay}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <span style="flex: 0">{{{ localize 'D35E.NoBuffDisplayH' }}}</span>
+
+
+    <div class="form-group">
+        <label>{{ localize 'D35E.LockEditingByPlayers' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.lockEditingByPlayers" {{checked data.lockEditingByPlayers}} {{#unless isGM}}disabled{{/unless}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <span style="flex: 0">{{{ localize 'D35E.LockEditingByPlayersDesc' }}}</span>
+
+    <div class="form-group">
+        <label>{{ localize 'D35E.NoLightOverride' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.noLightOverride" {{checked data.noLightOverride}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <span style="flex: 0">{{{ localize 'D35E.NoLightOverrideH' }}}</span>
+
+
+    <div class="form-group">
+        <label>{{ localize 'D35E.NoVisionOverride' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.noVisionOverride" {{checked data.noVisionOverride}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <span style="flex: 0">{{{ localize 'D35E.NoVisionOverrideH' }}}</span>
+
+    <div class="form-group">
+        <label>{{ localize 'D35E.JumpSkillAdjustments' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.jumpSkillAdjust" {{checked data.jumpSkillAdjust}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <h2 class="block-header">Sheet</h2>
+
+    <div class="form-group">
+        <label>{{ localize 'D35E.ShowSpellcastingTab' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.showSpellcastingSheet" {{checked data.showSpellcastingSheet}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>{{ localize 'D35E.ShowDeckTab' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.showCardSheet" {{checked data.showCardSheet}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <h2 class="block-header">Actions</h2>
+
+    <div class="form-group">
+        <label>{{ localize 'D35E.FixContainers' }}</label>
+        <a
+                class="btn point-buy-button blue-button fix-containers tooltip" style="flex: 0 140px"
+                onkeydown="e.preventDefault();">
+            <i class="fas fa-wand" style="color: white !important;"></i>{{localize "D35E.Fix"}}
+        </a>
+    </div>
+    <span style="flex: 0">{{  localize 'D35E.FixContainersDesc' }}</span>
+
+    <div class="form-group">
+        <label>{{ localize 'D35E.CheckUpdatesToItems' }}</label>
+        <a
+                class="btn point-buy-button blue-button check-updates tooltip" style="flex: 0 140px"
+                onkeydown="e.preventDefault();">
+            <i class="fas fa-wand" style="color: white !important;"></i>{{localize "D35E.Check"}}
+        </a>
+    </div>
+    <span style="flex: 0">{{  localize 'D35E.CheckUpdatesToItemsDest' }}</span>
+
+    <h2 class="block-header">Skills</h2>
+
+    <div class="form-group">
+        <label>{{ localize 'D35E.DisplayNonRTSkills' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.displayNonRTSkills" {{checked data.displayNonRTSkills}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <span style="flex: 0">{{ localize 'D35E.DisplayNonRTSkillsH' }}</span>
+
+    <strong style="opacity: 0.8">Specific visibility</strong>
+    <div class="flexrow" style="">
+    {{#each skillsets.all.skills as |skill s|}}
+        <div class="form-group" style="flex: 300px; margin: 0; padding-left: 4px; padding-right: 4px">
+            <label>{{skill.label}}</label>
+            <select name="data.skills.{{s}}.visibility">
+                {{#select skill.visibility}}
+                <option value="default">{{localize "D35E.Default"}}</option>
+                <option value="always">{{localize "D35E.SkillAlways"}}</option>
+                <option value="never">{{localize "D35E.SkillNever"}}</option>
+                {{/select}}
+            </select>
+        </div>
+    {{/each}}
+    </div>
+
+    <h2 class="block-header">Legacies of the Dragon Player's Companion</h2>
+
+    {{#unless data.companionLockGM}}
+    <div class="form-group" style="margin: 0 0.25rem;">
+        <label>{{ localize 'D35E.CompanionUUID' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 220px">
+            <input type="text" name="data.companionUuid" value="{{data.companionUuid}}" placeholder="Companion UUID"/>
+        </label>
+    </div>
+    <div class="form-group" style="margin: 0 0.25rem;">
+        <label>{{ localize 'D35E.CompanionPublicUUID' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 220px">
+            <input type="text" name="data.companionPublicId" value="{{data.companionPublicId}}" placeholder="Companion Public Id"/>
+        </label>
+    </div>
+    <div class="form-group" style="margin: 0 0.25rem;">
+        <label>{{ localize 'D35E.CompanionPersonalKey' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.companionUsePersonalKey" {{checked data.companionUsePersonalKey}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <div class="form-group" style="margin: 0 0.25rem;">
+        <label>{{ localize 'D35E.AutosyncCompanion' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.companionAutosync" {{checked data.companionAutosync}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    {{else}}
+    <p style="margin: 0 0.25rem;">
+        {{ localize 'D35E.CompanionLockGMInfo' }}
+        {{#if isGM}}
+        <em>{{ localize 'D35E.CompanionLockGMInfoGM' }}</em>
+        {{/if}}
+    </p>
+    {{/unless}}
+    {{#if data.companionUuid}}
+    {{#if isGM}}
+    <div class="form-group" style="margin: 0 0.25rem;">
+        <label>{{ localize 'D35E.CompanionLockGM' }}</label>
+        <label class="checkbox" style="position: relative; flex: 0 20px">
+            <input type="checkbox" class="stylized" name="data.companionLockGM" {{checked data.companionLockGM}}/>
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    {{/if}}
+    <a class="blue-button sync-to-companion" style="text-align: center; flex: 0 20px">Sync to Companion</a>
+    {{/if}}
+</div>

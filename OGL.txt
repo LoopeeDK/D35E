@@ -1,3 +1,9 @@
+Product Identity:
+The following items are hereby identified as Product Identity, as defined in the Open Game License 1.0a, Section 1(e), and are not Open Content: All trademarks, registered trademarks, proper names (characters, deities, etc.), dialogue, plots, storylines, locations, characters, artworks, trade dress. (Elements that have previously been designated as Open Game Content are not included in this declaration.)
+
+Open Content:
+Except for material designated as Product Identity (see above), the game mechanics of this Dragonshorn Studios game product are Open Game Content, as defined in the Open Game License version 1.0a Section 1(d). No portion of this work other than the material designated as Open Game Content may be reproduced in any form without written permission.
+
 OPEN GAME LICENSE Version 1.0a
 The following text is the property of Wizards of the Coast, Inc. and is Copyright 2000 Wizards of the Coast, Inc ("Wizards"). All Rights Reserved.
 
@@ -40,4 +46,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 15. COPYRIGHT NOTICE
 Open Game License v 1.0 Copyright 2000, Wizards of the Coast, Inc.
 System Reference Document Copyright 2000-2003, Wizards of the Coast, Inc.; Authors Jonathan Tweet, Monte Cook, Skip Williams, Rich Baker, Andy Collins, David Noonan, Rich Redman, Bruce R. Cordell, John D. Rateliff, Thomas Reid, James Wyatt, based on original material by E. Gary Gygax and Dave Arneson.
+Monster Manual II Copyright 2002, Wizards of the Coast, Inc.
+Unearthed Arcana Copyright 2004, Wizards of the Coast, Inc.; Andy Collins, Jesse Decker, David Noonan, Rich Redman.
+Pathfinder Roleplaying Game Reference Document. © 2011, Paizo Publishing, LLC; Author: Paizo Publishing, LLC.
+Pathfinder Roleplaying Game Core Rulebook. © 2009, Paizo Publishing, LLC; Author: Jason Bulmahn, based on material by Jonathan Tweet, Monte Cook, and Skip Williams.
 Foundry Virtual Tabletop © 2019, Foundry Gaming LLC

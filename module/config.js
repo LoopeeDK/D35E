@@ -28,6 +28,22 @@ D35E.abilitiesShort = {
   "cha": "D35E.AbilityShortCha"
 };
 
+D35E.abilityCost = {
+  "7": -4,
+  "8": -2,
+  "9": -1,
+  "10": 0,
+  "11": 1,
+  "12": 2,
+  "13": 3,
+  "14": 4,
+  "15": 6,
+  "16": 8,
+  "17": 11,
+  "18": 14,
+};
+
+
 /**
  * The set of Saving Throws
  * @type {Object}
@@ -52,6 +68,8 @@ D35E.classTypes = {
   "base": "D35E.ClassTypeBase",
   "prestige": "D35E.ClassTypePrestige",
   "racial": "D35E.ClassTypeRacial",
+  "minion": "D35E.Minion",
+  "template": "D35E.ClassTypeTemplate",
 };
 
 D35E.classBAB = {
@@ -62,6 +80,7 @@ D35E.classBAB = {
 
 D35E.classSavingThrows = {
   "low": "D35E.Poor",
+  "med": "D35.Medium",
   "high": "D35E.Good",
 };
 
@@ -74,15 +93,28 @@ D35E.classBABFormulas = {
 D35E.classSavingThrowFormulas = {
   "base": {
     "low": "floor(@level / 3)",
+    "med": "1 + floor(@level/2.5)",
     "high": "2 + floor(@level / 2)",
   },
   "prestige": {
-    "low": "floor((1 + @level) / 3)",
-    "high": "floor((1 + @level) / 2)",
+    "low": "floor(@level / 3)",
+    "med": "1 + floor(@level/2.5)",
+    "high": "2 + floor(@level / 2)",
   },
   "racial": {
     "low": "floor(@level / 3)",
+    "med": "1 + floor(@level/2.5)",
     "high": "2 + floor(@level / 2)",
+  },
+  "minion": {
+    "low": "floor(@level / 3)",
+    "med": "1 + floor(@level/2.5)",
+    "high": "2 + floor(@level / 2)",
+  },
+  "template": {
+    "low": "0",
+    "med": "0",
+    "high": "0",
   },
 };
 
@@ -100,6 +132,12 @@ D35E.ac = {
   "normal": "D35E.ACNormal",
   "touch": "D35E.ACTouch",
   "flatFooted": "D35E.ACFlatFooted"
+};
+
+D35E.acShort = {
+  "normal": "D35E.ACNormal",
+  "touch": "D35E.ACTouch",
+  "flatFooted": "D35E.ACFlatFootedShort"
 };
 
 /**
@@ -197,6 +235,7 @@ D35E.measureTemplateTypes = {
   "cone": "D35E.MeasureTemplateCone",
   "circle": "D35E.MeasureTemplateCircle",
   "ray": "D35E.MeasureTemplateRay",
+  "cube": "D35E.MeasureTemplateCube",
 };
 
 /* -------------------------------------------- */
@@ -214,6 +253,22 @@ D35E.actorSizes = {
   "col": "D35E.ActorSizeColossal",
 };
 
+// Token Sizes
+D35E.actorTokenSizes = {
+  "actor": "D35E.ActorSizeActor",
+  "fine": "D35E.ActorSizeFine",
+  "dim": "D35E.ActorSizeDiminutive",
+  "tiny": "D35E.ActorSizeTiny",
+  "sm": "D35E.ActorSizeSmall",
+  "med": "D35E.ActorSizeMedium",
+  "lg": "D35E.ActorSizeLarge",
+  "lglong": "D35E.ActorSizeLargeLong",
+  "huge": "D35E.ActorSizeHuge",
+  "grg": "D35E.ActorSizeGargantuan",
+  "col": "D35E.ActorSizeColossal",
+  "none": "D35E.ActorSizeDoNotLink",
+};
+
 D35E.sizeChart = {
   "fine": "F",
   "dim":  "D",
@@ -227,12 +282,13 @@ D35E.sizeChart = {
 };
 
 D35E.tokenSizes = {
-  "fine": { w: 1, h: 1, scale: 0.2 },
+  "fine": { w: 1, h: 1, scale: 0.25 },
   "dim": { w: 1, h: 1, scale: 0.4 },
   "tiny": { w: 1, h: 1, scale: 0.6 },
   "sm": { w: 1, h: 1, scale: 0.8 },
   "med": { w: 1, h: 1, scale: 1 },
   "lg": { w: 2, h: 2, scale: 1 },
+  "lglong": { w: 1, h: 2, scale: 1 },
   "huge": { w: 3, h: 3, scale: 1 },
   "grg": { w: 4, h: 4, scale: 1 },
   "col": { w: 6, h: 6, scale: 1 },
@@ -251,15 +307,15 @@ D35E.sizeMods = {
 };
 
 D35E.sizeSpecialMods = {
-  "fine": -8,
-  "dim": -4,
-  "tiny": -2,
-  "sm": -1,
+  "fine": -16,
+  "dim": -12,
+  "tiny": -8,
+  "sm": -4,
   "med": 0,
-  "lg": 1,
-  "huge": 2,
-  "grg": 4,
-  "col": 8
+  "lg": 4,
+  "huge": 8,
+  "grg": 12,
+  "col": 16
 };
 
 D35E.sizeFlyMods = {
@@ -285,6 +341,26 @@ D35E.sizeStealthMods = {
   "grg": -12,
   "col": -16
 };
+
+D35E.sizeAdvancementChanges = {
+  "fine": {str: 0, dex: 0, con: 0, nac: 0},
+  "dim": {str: 0, dex: -2, con: 0, nac: 0},
+  "tiny": {str: 2, dex: -2, con: 0, nac: 0},
+  "sm": {str: 4, dex: -2, con: 0, nac: 0},
+  "med": {str: 4, dex: -2, con: 2, nac: 0},
+  "lg": {str: 8, dex: -2, con: 4, nac: 2},
+  "huge": {str: 8, dex: -2, con: 4, nac: 3},
+  "grg": {str: 8, dex: 0, con: 4, nac: 4},
+  "col": {str: 8, dex: 0, con: 4, nac: 5},
+};
+
+D35E.abilityTypes = {
+  "nat": "D35E.Natural",
+  "su": "D35E.Supernatural",
+  "ex": "D35E.Extraordinary",
+  "other": "D35E.Other"
+};
+
 
 D35E.flyManeuverabilities = {
   "clumsy": "D35E.FlyManeuverabilityClumsy",
@@ -323,12 +399,8 @@ D35E.speedReduction = {
 
 /* -------------------------------------------- */
 
-D35E.encumbranceLoads = [
-  0,
-  10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
-  115, 130, 150, 175, 200, 230, 260, 300, 350,
-  400, 460, 520, 600, 700, 800, 920, 1040, 1200, 1400, 1600
-];
+D35E.carryingCapacityFormula = "(10*@str)*(max(@str,11)-@str)/(max(11-@str,1))+(5*pow(2,(-2)+floor(@str/5)))*(20+floor(47*pow(2,0.1*(@str%5))-47))*(min(@str,10)-@str)/(min(10-@str,-1))"; 
+// D35E.carryingCapacityFormula = "(10*@str)"
 
 D35E.encumbranceMultipliers = {
   normal: {
@@ -369,7 +441,8 @@ D35E.itemActionTypes = {
   "spellsave": "D35E.ActionSpellSave",
   "save": "D35E.ActionSave",
   "heal": "D35E.ActionHeal",
-  "other": "D35E.ActionOther"
+  "other": "D35E.ActionOther",
+  "special": "D35E.ActionSpecial"
 };
 
 /* -------------------------------------------- */
@@ -389,6 +462,7 @@ D35E.limitedUsePeriods = {
   "single": "D35E.LimitedUseSingle",
   "unlimited": "D35E.Unlimited",
   "day": "D35E.LimitedUseDay",
+  "encounter": "D35E.LimitedUseEncounter",
   "week": "D35E.LimitedUseWeek",
   "charges": "D35E.LimitedUseCharges",
 };
@@ -448,6 +522,22 @@ D35E.lootTypes = {
   "ammo": "D35E.LootTypeAmmo",
   "tradeGoods": "D35E.LootTypeTradeGoods",
   "misc": "D35E.Misc",
+  "container": "D35E.Container",
+};
+
+D35E.magicAuraByLevel = {
+  "spell": [
+    { power: "faint", level: 1 },
+    { power: "moderate", level: 4 },
+    { power: "strong", level: 7 },
+    { power: "overwhelming", level: 10 },
+  ],
+  "item": [
+    { power: "faint", level: 1 },
+    { power: "moderate", level: 6 },
+    { power: "strong", level: 12 },
+    { power: "overwhelming", level: 21 },
+  ],
 };
 
 
@@ -463,6 +553,10 @@ D35E.consumableTypes = {
   "drug": "D35E.ConsumableTypeDrug",
   "scroll": "D35E.ConsumableTypeScroll",
   "wand": "D35E.ConsumableTypeWand",
+  "dorje": "D35E.ConsumableTypeDorje",
+  "powerstone": "D35E.ConsumableTypePowerStone",
+  "tattoo": "D35E.ConsumableTypeTattoo",
+  "crystal": "D35E.ConsumableTypeCrystal",
   "misc": "D35E.Misc",
 };
 
@@ -474,11 +568,20 @@ D35E.attackTypes = {
   "misc": "D35E.Misc",
 };
 
+D35E.attackTypesShort = {
+  "weapon": "D35E.AttackTypeWeaponShort",
+  "natural": "D35E.AttackTypeNaturalShort",
+  "ability": "D35E.AttackTypeAbilityShort",
+  "racialAbility": "D35E.AttackTypeRacialShort",
+  "misc": "D35E.Misc",
+};
+
 D35E.featTypes = {
   "feat": "D35E.FeatTypeFeat",
   "classFeat": "D35E.FeatTypeClassFeat",
   "trait": "D35E.FeatTypeTraits",
   "racial": "D35E.FeatTypeRacial",
+  "spellSpecialization": "D35E.FeatTypeSpellSpecialization",
   "misc": "D35E.Misc",
 };
 
@@ -521,6 +624,7 @@ D35E.bonusModifiers = {
   "circumstance": "Circumstance",
   "alchemical": "Alchemical",
   "penalty": "Penalty",
+  "replace": "Replace",
 };
 
 /* -------------------------------------------- */
@@ -552,6 +656,20 @@ D35E.distanceUnits = {
   "long": "D35E.DistLong",
   "ft": "D35E.DistFt",
   "mi": "D35E.DistMi",
+  "spec": "D35E.Special",
+  "seeText": "D35E.SeeText",
+  "unlimited": "D35E.Unlimited",
+};
+
+D35E.distanceUnitsShort = {
+  "none": "D35E.None",
+  "personal": "D35E.DistPersonal",
+  "touch": "D35E.DistTouch",
+  "close": "D35E.DistClose",
+  "medium": "D35E.DistMedium",
+  "long": "D35E.DistLong",
+  "ft": "D35E.DistFtShort",
+  "mi": "D35E.DistMiShort",
   "spec": "D35E.Special",
   "seeText": "D35E.SeeText",
   "unlimited": "D35E.Unlimited",
@@ -609,6 +727,20 @@ D35E.healingTypes = {
   "temphp": "D35E.HealingTemp"
 };
 
+D35E.areaTargetTypes = {
+  cone: "cone",
+  cube: "rect",
+  cylinder: "circle",
+  circle: "circle",
+  line: "ray",
+  ray: "ray",
+  radius: "circle",
+  sphere: "circle",
+  square: "rect",
+  wall: "ray"
+};
+
+
 /* -------------------------------------------- */
 
 /**
@@ -659,6 +791,7 @@ D35E.skills = {
   "kno": "D35E.SkillKNo",
   "kpl": "D35E.SkillKPl",
   "kre": "D35E.SkillKRe",
+  "kps": "D35E.SkillKPs",
   "lis": "D35E.SkillLis",
   "mos": "D35E.SkillMos",
   "opl": "D35E.SkillOpl",
@@ -668,13 +801,17 @@ D35E.skills = {
   "src": "D35E.SkillSrc",
   "sen": "D35E.SkillSen",
   "slt": "D35E.SkillSlt",
+  "spk": "D35E.SkillSpk",
   "spl": "D35E.SkillSpl",
   "spt": "D35E.SkillSpt",
   "sur": "D35E.SkillSur",
   "swm": "D35E.SkillSwm",
   "tmb": "D35E.SkillTmb",
   "umd": "D35E.SkillUMD",
-  "uro": "D35E.SkillUro"
+  "uro": "D35E.SkillUro",
+  "aut": "D35E.SkillAut",
+  "psi": "D35E.SkillPsi",
+  "upd": "D35E.SkillUPD"
 };
 
 D35E.arbitrarySkills = [
@@ -744,11 +881,22 @@ D35E.weaponProperties = {
   "nnl": "D35E.WeaponPropNonLethal",
   "prf": "D35E.WeaponPropPerformance",
   "rch": "D35E.WeaponPropReach",
+  "ret": "D35E.Returning",
   "snd": "D35E.WeaponPropSunder",
   "thr": "D35E.WeaponPropThrown",
   "trp": "D35E.WeaponPropTrip",
+  "inc": "D35E.Incorporeal",
 };
 
+D35E.weaponEnhancementProperties = {
+  "thr": "D35E.WeaponPropThrown",
+  "kee": "D35E.WeaponPropKeen",
+  "dis": "D35E.WeaponPropDistance",
+  "mnk": "D35E.WeaponPropKi",
+  "spd": "D35E.WeaponPropSpeed",
+  "def": "D35E.WeaponPropDefending",
+  "inc": "D35E.Incorporeal",
+};
 
 // Spell Components
 D35E.spellComponents = {
@@ -770,6 +918,13 @@ D35E.spellSchools = {
   "nec": "D35E.SpellSchoolNecromancy",
   "trs": "D35E.SpellSchoolTransmutation",
   "uni": "D35E.SpellSchoolUniversal",
+
+  "cla": "D35E.PowerSchoolClairsentience",
+  "met": "D35E.PowerSchoolMetacreativity",
+  "kin": "D35E.PowerSchoolPsychokinesis",
+  "bol": "D35E.PowerSchoolPsychometabolism",
+  "por": "D35E.PowerSchoolPsychoportation",
+  "tel": "D35E.PowerSchoolTelepathy",
   "misc": "D35E.Misc",
 };
 
@@ -835,13 +990,46 @@ D35E.conditions = {
   "fear": "D35E.CondFear",
   "sickened": "D35E.CondSickened",
   "stunned": "D35E.CondStunned",
+  "shaken": "D35E.CondShaken",
+  "polymorphed": "D35E.CondPolymorphed",
+  "wildshaped": "D35E.CondWildshaped",
 };
+
+D35E.conditionTextures = {
+  bleed: "systems/D35E/icons/conditions/bleeding.png",
+  blind: "systems/D35E/icons/conditions/blind.png",
+  confused: "systems/D35E/icons/conditions/confused.png",
+  dazzled: "systems/D35E/icons/conditions/dazzled.png",
+  deaf: "systems/D35E/icons/conditions/deaf.png",
+  entangled: "systems/D35E/icons/conditions/entangled.png",
+  fatigued: "systems/D35E/icons/conditions/fatigued.png",
+  exhausted: "systems/D35E/icons/conditions/exhausted.png",
+  grappled: "systems/D35E/icons/conditions/grappled.png",
+  helpless: "systems/D35E/icons/conditions/helpless.png",
+  incorporeal: "systems/D35E/icons/conditions/incorporeal.png",
+  invisible: "systems/D35E/icons/conditions/invisible.png",
+  paralyzed: "systems/D35E/icons/conditions/paralyzed.png",
+  pinned: "systems/D35E/icons/conditions/pinned.png",
+  prone: "systems/D35E/icons/conditions/prone.png",
+  fear: "systems/D35E/icons/conditions/fear.png",
+  sickened: "systems/D35E/icons/conditions/sickened.png",
+  shaken: "systems/D35E/icons/conditions/shaken.png",
+  stunned: "systems/D35E/icons/conditions/stunned.png",
+};
+
 
 D35E.buffTypes = {
   "temp": "D35E.Temporary",
   "perm": "D35E.Permanent",
   "item": "D35E.Item",
+  "shapechange": "D35E.Shapechange",
   "misc": "D35E.Misc",
+};
+
+D35E.auraTarget = {
+  "ally": "D35E.Ally",
+  "enemy": "D35E.Enemy",
+  "both": "D35E.Both",
 };
 
 D35E.buffTargets = {
@@ -851,12 +1039,15 @@ D35E.buffTargets = {
     "aac": "D35E.BuffTarACArmor",
     "sac": "D35E.BuffTarACShield",
     "nac": "D35E.BuffTarACNatural",
+    "tch": "D35E.BuffTarACTouch",
+    "pac": "D35E.BuffTarACOnly",
   },
   "attack": {
     "_label": "D35E.AttackRollPlural",
     "attack": "D35E.All",
     "mattack": "D35E.Melee",
     "rattack": "D35E.Ranged",
+    "babattack": "D35E.BAB",
   },
   "damage": {
     "_label": "D35E.Damage",
@@ -889,6 +1080,10 @@ D35E.buffTargets = {
     "intSkills": "D35E.BuffTarIntSkills",
     "wisSkills": "D35E.BuffTarWisSkills",
     "chaSkills": "D35E.BuffTarChaSkills",
+    "perfSkills": "D35E.BuffTarPerfSkills",
+    "craftSkills": "D35E.BuffTarCraftSkills",
+    "profSkills": "D35E.BuffTarProfSkills",
+    "knowSkills": "D35E.BuffTarKnowSkills",
   },
   "skill": {
     "_label": "D35E.BuffTarSpecificSkill",
@@ -912,15 +1107,47 @@ D35E.buffTargets = {
     "burrowSpeed": "D35E.SpeedBurrow",
     "flySpeed": "D35E.SpeedFly",
   },
+  "psionic": {
+    "_label": "D35E.Psionics",
+    "powerPoints": "D35E.PowerPointsBonus",
+  },
+  "spells": {
+    "_label": "D35E.BuffSpellbookSpellsPrepared"
+  },
+  "spellcastingAbility": {
+    "_label": "D35E.BuffSpellbookSpellcastingAbility",
+    "scaPrimary": "Primary",
+    "scaSecondary": "Secondary",
+    "scaTetriary": "Tetriary",
+    "scaSpelllike": "Spelllike"
+  },
   "misc": {
     "_label": "D35E.MiscShort",
-    "cmb": "CMB",
-    "cmd": "CMD",
+    "cmb": "Grapple",
+    "cmd": "CMD (Unused)",
     "init": "D35E.Initiative",
     "mhp": "Hit Points",
     "wounds": "D35E.Wounds",
     "vigor": "D35E.Vigor",
+    "sneakAttack": "D35E.SneakAttackBonusDice",
+    "turnUndead": "D35E.TurnUndeadUses",
+    "turnUndeadDiceTotal": "D35E.TurnUndeadDiceTotal",
+    "regen": "D35E.Regeneration",
+    "fastHeal": "D35E.FastHealing",
+    "spellResistance": "D35E.SpellResistance",
+    "powerResistance": "D35E.PowerResistance",
+    "cr": "D35E.CR",
+    "fortification": "D35E.Fortification",
+    "asf": "D35E.ArcaneSpellFailure",
+    "concealment": "D35E.Concealment"
   },
+  "prestigeCl": {
+    "_label": "D35E.PrestigeCl",
+    "arcaneCl": "D35E.Arcane",
+    "psionicCl": "D35E.Psionic",
+    "divineCl": "D35E.Divine",
+    "cardCl": "D35E.Cards"
+  }
 };
 
 D35E.contextNoteTargets = {
@@ -964,7 +1191,7 @@ D35E.contextNoteTargets = {
     "ac": "D35E.ACNormal",
     "cmb": "CMB",
     "cmd": "CMD",
-    "sr": "D35E.SpellResistance",
+    "sr": "D35E.SpellResistance"
   },
 };
 
@@ -1007,6 +1234,8 @@ D35E.creatureTypes = {
   "plant": "D35E.CreatureTypePlant",
   "undead": "D35E.CreatureTypeUndead",
   "vermin": "D35E.CreatureTypeVermin",
+  "giant": "D35E.CreatureTypeGiant",
+  "elemental": "D35E.CreatureTypeElemental",
 };
 
 D35E.sizeDie = [
@@ -1043,7 +1272,7 @@ D35E.CHARACTER_EXP_LEVELS =  {
   ],
   medium: [
     0, 1000, 3000, 6000, 10000, 15000, 21000, 28000, 36000, 45000, 55000, 66000,
-    78000, 91000, 105000, 120000, 136000, 153000, 171000, 190000
+    78000, 91000, 105000, 120000, 136000, 153000, 171000, 190000, 210000, 231000, 253000, 276000, 300000, 325000, 351000, 378000, 406000, 435000, 465000, 496000, 528000, 561000, 595000, 630000, 666000, 703000, 741000, 780000, 820000, 861000, 903000, 946000, 990000, 1035000, 1081000, 1128000, 1176000, 1225000
   ],
   fast: [
     0, 750, 2250, 4500, 7500, 11250, 15750, 21000, 27000, 33750, 41250, 49500,
@@ -1058,4 +1287,111 @@ D35E.CR_EXP_LEVELS = [
   3276800, 4915200, 6553600, 9830400
 ];
 
+D35E.enhancementType = {
+  'weapon': 'D35E.Weapon',
+  'armor': 'D35E.Armor',
+  'misc': 'D35E.Misc',
+};
+
+D35E.twoWeaponAttackType = {
+  'primary': 'D35E.TwoWeaponPrimary',
+  'two-handed': 'D35E.TwoWeaponTwoHanded',
+  'main-offhand-light': 'D35E.TwoWeaponMainOffhandLight',
+  'main-offhand-normal': 'D35E.TwoWeaponMainOffhandNormal',
+  'offhand-light': 'D35E.TwoWeaponOffhandLight',
+  'offhand-normal': 'D35E.TwoWeaponOffhandNormal',
+};
+
+D35E.spellcastingType = {
+  'none': 'D35E.None',
+  'arcane': 'D35E.Arcane',
+  'divine': 'D35E.Divine',
+  'psionic': 'D35E.Psionic',
+  'other': 'D35E.Other',
+};
+
+D35E.combatChangeType = {
+  'all': 'D35E.All',
+  'attack': 'D35E.Attack',
+  'attackOptional': 'D35E.AttackOptional',
+  'spell': 'D35E.Spell',
+  'spellOptional': 'D35E.SpellOptional',
+  'defense': 'D35E.Defense',
+  'defenseOptional': 'D35E.DefenseOptional',
+  'savingThrow': 'D35E.SavingThrow',
+  'savingThrowOptional': 'D35E.SavingThrowOptional',
+  'grapple': 'D35E.CMB',
+  'grappleOptional': 'D35E.CMBOptional',
+  'skill': 'D35E.Skills',
+  'skillOptional': 'D35E.SkillsOptional',
+  'resistance': 'D35E.SpellPowerResistance',
+  'resistanceOptional': 'D35E.SpellPowerResistanceOptional',
+};
+
 CONFIG.Combat.initiative.decimals = 2;
+
+// Static conditional modifier targets
+D35E.conditionalTargets = {
+  attack: {
+    _label: "D35E.AttackRollPlural",
+    allAttack: "D35E.All",
+  },
+  damage: {
+    _label: "D35E.Damage",
+    allDamage: "D35E.All",
+  },
+  effect: {
+    _label: "D35E.Effects",
+  },
+  misc: {
+    _label: "D35E.MiscShort",
+  },
+};
+
+D35E.damageTypes = {
+  'energy': 'D35E.Energy',
+  'type': 'D35E.BaseDamage'
+};
+
+D35E.savingThrowTypes = {
+  'willhalf': 'D35E.STWillHalf',
+  'willnegates': 'D35E.STWillNegates',
+  'willpartial': 'D35E.STWillPartial',
+  'reflexhalf': 'D35E.STReflexHalf',
+  'reflexnegates': 'D35E.STReflexNegates',
+  'reflexpartial': 'D35E.STReflexPartial',
+  'fortitudehalf': 'D35E.STFortitudeHalf',
+  'fortitudenegates': 'D35E.STFortitudeNegates',
+  'fortitudepartial': 'D35E.STFortitudePartial',
+};
+
+D35E.savingThrowCalculationTypes = {
+  'halfHD': 'D35E.STAutoHalfHD',
+  'HD': 'D35E.STAutoHD',
+  'halfRacialHD': 'D35E.STAutoHalfHDRacial',
+  'racialHD': 'D35E.STAutoHDRacial',
+};
+
+
+D35E.requirements = {
+  'generic': 'D35E.RequirementGeneric',
+  'bab': 'D35E.BAB',
+  'feat': 'D35E.Feat',
+  "str": "D35E.AbilityStr",
+  "dex": "D35E.AbilityDex",
+  "con": "D35E.AbilityCon",
+  "int": "D35E.AbilityInt",
+  "wis": "D35E.AbilityWis",
+  "cha": "D35E.AbilityCha"
+}
+
+D35E.senses = {
+  "blindsight": "D35E.SenseBlindsight",
+  "darkvision": "D35E.SenseDarkvision",
+  "tremorsense": "D35E.SenseTremorsense",
+  "truesight": "D35E.SenseTruesight"
+};
+
+
+
+

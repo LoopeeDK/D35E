@@ -40,6 +40,31 @@
     }
   }
 
+  input[type="number"] {
+    width: calc(100% - 2px);
+    min-width: 20px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 1px 3px;
+    margin: 0;
+    color: #191813;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    border: 1px solid #7a7971;
+    border-radius: 3px;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    &:hover,
+    &:focus {
+      border: 1px solid #111;
+      box-shadow: 0 0 8px red;
+    }
+  }
+
   // Disabled Fields
   input:disabled,
   select:disabled,
@@ -59,19 +84,26 @@
   button:active {
     background: rgba(0, 0, 0, 0.30);
   }
+  a.btn {
+    background: rgba(0, 0, 0, 0.10);
+    border: @borderGroove;
+  }
+  a.button:active {
+    background: rgba(0, 0, 0, 0.30);
+  }
 
   // Checkbox Labels
   label.checkbox {
     flex: auto;
     margin: 0;
     line-height: 20px;
-    font-size: 11px;
+    font-size: 13px;
 
     input[type="checkbox"] {
       height: auto;
       margin: 0 5px 0;
       position: relative;
-      top: 3px;
+      top: 0;
     }
   }
 
@@ -171,6 +203,18 @@
     border: 1px solid #999;
     border-radius: 3px;
     background: rgba(0, 0, 0, 0.05);
+
+    &.modified {
+
+      border: 1px solid rgba(105, 204, 229, 0.76);
+      background: rgba(105, 204, 229, 0.43);
+    }
+  }
+
+  select.modified, input.modified {
+    border: 1px solid rgba(105, 204, 229, 0.76);
+    background: rgba(105, 204, 229, 0.42);
+    color: rgb(4 30 37);
   }
 }
 
@@ -181,6 +225,7 @@
 
 .D35E.sheet {
   .window-content {
+
     overflow-y: hidden;
     padding: 5px;
     background: @sheetBackground;
@@ -271,6 +316,10 @@
     }
 
     /* Profile Image */
+    .profile {
+      position: relative;
+    }
+
     img.profile {
       flex: 0 0 @headerHeight;
       width: @headerHeight;
@@ -278,7 +327,14 @@
       object-fit: contain;
       border: none;
       border-right: @borderGroove;
+
+      &.npc {
+        border-right: none;
+        margin-right: 0;
+      }
     }
+
+
 
     /* Header Summary Details */
     .summary {
@@ -472,8 +528,9 @@
     .filter-container {
       overflow-x: hidden;
       overflow-y: scroll;
-      max-height: calc(100% - 48px);
+      max-height: calc(100% - 84px);
       margin-bottom: 8px;
+      min-height: calc(100% - 84px);
 
       .filter {
         margin-top: 8px;
@@ -522,5 +579,121 @@
         }
       }
     }
+  }
+}
+
+.dr-setting {
+  .item-list {
+    margin: 0;
+    padding: 0;
+    h4 {
+      margin: 0;
+    }
+  }
+}
+/* ----------------------------------------- */
+/* Encounter Generator
+/* ----------------------------------------- */
+
+
+.auto-height-dialog {
+  height: auto !important;
+}
+
+.encounter-roller {
+  width: 400px;
+  .window-content {
+    overflow: hidden;
+
+    img {
+      border: none !important;
+    }
+
+    .head {
+      line-height: 16px;
+      height: 16px;
+      font-size: 14px;
+      font-family: nodesto;
+      text-align: left;
+      background-color: darkgray;
+    }
+
+  }
+
+  .entity-link, a.inline-roll {
+    all: inherit;
+    height: 64px;
+  }
+
+  .flex-container {
+    display: flex;
+  }
+
+  .flex-container > div {
+    width: 144px;
+    margin: 2px;
+    text-align: center;
+    line-height: 32px;
+    font-size: 14px;
+  }
+
+  .flex-container > div.double-wide {
+    width: 288px;
+    margin: 4px;
+    text-align: center;
+    line-height: 32px;
+    font-size: 14px;
+  }
+
+  .flex-container > div.column {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+    width: 100%
+  }
+
+  .flex-container > div.image {
+    font-family: nodesto;;
+    width: 64px;
+    margin: 0px;
+    text-align: left;
+  }
+
+  .flex-container > div.column > div.row {
+    display: flex;
+    height: 64px;
+    width: 100%
+  }
+
+  .flex-container > div.column > div.row > div.body {
+    font-family: "Signika", sans-serif;
+    font-size: 13px;
+    padding-left: 24px;
+    text-align: right;
+  }
+
+  .flex-container > div.cr {
+    height: 64px;
+    width: 64px;
+    margin: 0px;
+    font-size: 24px;
+    line-height: 64px;
+    font-family: nodesto;
+  }
+}
+#portrait-bar-handle {
+  position: relative;
+  height: 40px;
+  width: 150px;
+  pointer-events: initial;
+  opacity: 0.4;
+  margin-left: -50px;
+  padding: 10px;
+  &:hover {
+    opacity: 1;
+  }
+  a {
+    margin-left: 50px;
   }
 }

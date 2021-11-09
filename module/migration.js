@@ -5,23 +5,29 @@
 export const migrateWorld = async function() {
   if (!game.user.isGM) return ui.notifications.error(game.i18n.localize("D35E.ErrorUnauthorizedAction"));
   ui.notifications.info(`Applying D35E System Migration for version ${game.system.data.version}. Please stand by.`);
+  //console.log(`Applying D35E System Migration for version ${game.system.data.version}. Please stand by.`);
 
   // Migrate World Actors
-  for ( let a of game.actors.entities ) {
+  for ( let a of game.actors.contents ) {
     try {
-      const updateData = await migrateActorData(a);
-      console.log(`Migrating Actor entity ${a.name}`);
+
+      let itemsToAdd = []
+      const updateData = await migrateActorData(a,itemsToAdd);
+      //console.log(`Migrating Actor entity ${a.name}`);
       await a.update(updateData);
+      //console.log(`Adding missing items to ${a.name}`);
+      if (itemsToAdd.length)
+        await a.createEmbeddedEntity("OwnedItem", itemsToAdd, {stopUpdates: true});
     } catch(err) {
       console.error(err);
     }
   }
 
   // Migrate World Items
-  for ( let i of game.items.entities ) {
+  for ( let i of game.items.contents ) {
     try {
       const updateData = migrateItemData(i);
-      console.log(`Migrating Item entity ${i.name}`);
+      //console.log(`Migrating Item entity ${i.name}`);
       await i.update(updateData, {enforceTypes: false});
     } catch(err) {
       console.error(err);
@@ -29,10 +35,10 @@ export const migrateWorld = async function() {
   }
 
   // Migrate Actor Override Tokens
-  for ( let s of game.scenes.entities ) {
+  for ( let s of game.scenes.contents ) {
     try {
       const updateData = await migrateSceneData(s.data);
-      console.log(`Migrating Scene entity ${s.name}`);
+      //console.log(`Migrating Scene entity ${s.name}`);
       await s.update(updateData);
     } catch(err) {
       console.error(err);
@@ -62,10 +68,15 @@ export const migrateWorld = async function() {
 export const migrateCompendium = async function(pack) {
   const entity = pack.metadata.entity;
   if ( !["Actor", "Item", "Scene"].includes(entity) ) return;
-
-  // Begin by requesting server-side data model migration and get the migrated content
-  await pack.migrate();
-  const content = await pack.getContent();
+  let content = []
+  try {
+    // Begin by requesting server-side data model migration and get the migrated content
+    await pack.migrate();
+    content = await pack.getDocuments();
+  } catch(err) {
+    ui.notifications.error(game.i18n.localize("D35E.ErrorProblemWithMigratingPack") + pack.collection);
+    console.error(err);
+  }
 
   // Iterate over compendium entries - applying fine-tuned migration functions
   for ( let ent of content ) {
@@ -77,17 +88,18 @@ export const migrateCompendium = async function(pack) {
       expandObject(updateData);
       updateData["_id"] = ent._id;
       await pack.updateEntity(updateData);
-      console.log(`Migrated ${entity} entity ${ent.name} in Compendium ${pack.collection}`);
+      //console.log(`Migrated ${entity} entity ${ent.name} in Compendium ${pack.collection}`);
     } catch(err) {
       console.error(err);
     }
   }
-  console.log(`Migrated all ${entity} entities from Compendium ${pack.collection}`);
+  //console.log(`Migrated all ${entity} entities from Compendium ${pack.collection}`);
 };
 
 /* -------------------------------------------- */
 /*  Entity Type Migration Helpers               */
 /* -------------------------------------------- */
+
 
 /**
  * Migrate a single Actor entity to incorporate latest data model changes
@@ -95,9 +107,8 @@ export const migrateCompendium = async function(pack) {
  * @param {Actor} actor   The actor to Update
  * @return {Object}       The updateData to apply
  */
-export const migrateActorData = async function(actor) {
+export const migrateActorData = async function(actor, itemsToAdd) {
   const updateData = {};
-
   _migrateCharacterLevel(actor, updateData);
   _migrateActorEncumbrance(actor, updateData);
   _migrateActorDefenseNotes(actor, updateData);
@@ -107,6 +118,10 @@ export const migrateActorData = async function(actor) {
   _migrateActorBaseStats(actor, updateData);
   _migrateActorCreatureType(actor, updateData);
   _migrateActorSpellbookDCFormula(actor, updateData);
+  _migrateActorRace(actor, updateData)
+  _migrateActorTokenVision(actor, updateData);
+  await _migrateWeaponProficiencies(actor,updateData,itemsToAdd)
+  await _migrateArmorProficiencies(actor,updateData,itemsToAdd)
 
   if ( !actor.items ) return updateData;
 
@@ -133,7 +148,8 @@ export const migrateActorData = async function(actor) {
  */
 export const migrateItemData = function(item) {
   const updateData = {};
-  
+
+  _migrateIcon(item, updateData);
   _migrateItemSpellUses(item, updateData);
   _migrateWeaponDamage(item, updateData);
   _migrateWeaponImprovised(item, updateData);
@@ -144,6 +160,9 @@ export const migrateItemData = function(item) {
   _migrateWeaponCategories(item, updateData);
   _migrateEquipmentCategories(item, updateData);
   _migrateWeaponSize(item, updateData);
+  _migrateContainer(item, updateData);
+  _migrateEnhancement(item, updateData);
+  _migrateSpellName(item, updateData);
 
   // Return the migrated update data
   return updateData;
@@ -165,11 +184,14 @@ export const migrateSceneData = async function(scene) {
       continue;
     }
     const token = new Token(t);
+
+    migrateTokenVision(token, t)
+
     if (!token.actor) {
       t.actorId = null;
       t.actordata = {};
     }
-    const originalActor = game.actors.get(token.actor.id);
+    const originalActor = game.actors.get(token.actor?.id);
     if (!originalActor) {
       t.actorId = null;
       t.actorData = {};
@@ -181,6 +203,24 @@ export const migrateSceneData = async function(scene) {
   }
   return result;
 };
+
+const _migrateActorTokenVision = function(ent, updateData) {
+  const vision = getProperty(ent.data, "data.attributes.vision");
+  if (!vision) return;
+
+  updateData["data.attributes.-=vision"] = null;
+  updateData["token.flags.D35E.lowLightVision"] = vision.lowLight;
+  if (!getProperty(ent.data, "token.brightSight")) updateData["token.brightSight"] = vision.darkvision;
+};
+
+const migrateTokenVision = function(token, updateData) {
+  if (!token.actor) return;
+
+  setProperty(updateData, "flags.D35E.lowLightVision", getProperty(token.actor.data, "token.flags.D35E.lowLightVision"));
+  setProperty(updateData, "brightSight", getProperty(token.actor.data, "token.brightSight"));
+};
+
+
 
 /* -------------------------------------------- */
 /*  Low level migration utilities
@@ -243,6 +283,13 @@ const _migrateCharacterLevel = function(ent, updateData) {
       updateData["data."+k] = 0;
     }
   }
+  let k = "details.levelUpProgression"
+  const value = getProperty(ent.data.data, k);
+  //console.log(`D35E | Migrate | Level up progression ${value}`)
+  if (value === null || value === undefined) {
+
+    updateData["data.details.levelUpProgression"] = false;
+  }
 };
 
 const _migrateActorEncumbrance = function(ent, updateData) {
@@ -257,6 +304,101 @@ const _migrateActorEncumbrance = function(ent, updateData) {
     }
   }
 };
+
+const _migrateWeaponProficiencies = async function(actor, updateData, itemsToAdd) {
+  if (!itemsToAdd) return;
+  let weaponProfItemId = "F7ouXcMvMxDFNq8S";
+  let martialWeaponProfItemId = "L6Zih954XajPhxk0";
+  let simpleWeaponProfItemId = "5jR5ehCRndtJpCGb";
+  let pack = game.packs.get("D35E.feats");
+  if (!(actor instanceof Actor)) return;
+  let data = actor.data.data;
+  if (data.traits && data.traits.weaponProf && data.traits.weaponProf.value) {
+    if (data.traits.weaponProf.value.indexOf("sim") !== -1) {
+      let item = await pack.getEntity(simpleWeaponProfItemId)
+      let data = duplicate(item.data);
+      delete data._id;
+      itemsToAdd.push(data);
+    }
+    if (data.traits.weaponProf.value.indexOf("mar") !== -1) {
+      let item = await pack.getEntity(martialWeaponProfItemId)
+      let data = duplicate(item.data);
+      delete data._id;
+      itemsToAdd.push(data);
+    }
+    updateData["data.traits.weaponProf.value"] = [];
+  }
+  if (data.traits && data.traits.weaponProf && data.traits.weaponProf.custom) {
+    let weaponProfsCustom =  data.traits.weaponProf.custom.split(";");
+    for (const weaponName of weaponProfsCustom) {
+      let item = await pack.getEntity(weaponProfItemId)
+      let data = duplicate(item.data);
+      delete data._id;
+      data.data.customAttributes["_87nolel8u"].value = weaponName
+      data.name = data.data.nameFormula.replace("${this.custom.weaponname}",weaponName)
+      itemsToAdd.push(data);
+    }
+    updateData["data.traits.weaponProf.custom"] = '';
+  }
+}
+
+const _migrateArmorProficiencies = async function(actor, updateData, itemsToAdd) {
+  if (!itemsToAdd) return;
+  let spr = "AfSyZ6BqEOyyDzBD"
+  let sprTower = "L2aYtdPHUaGH8UPE"
+  let armProfLight = "tflks0QMIbzAyEle"
+  let armProfMed = "ZwIMzns2opN6xxIo"
+  let armProfHeavy = "sh3SLeHp45GMtm3n"
+  let pack = game.packs.get("D35E.feats");
+  if (!(actor instanceof Actor)) return;
+  let data = actor.data.data;
+  if (data.traits && data.traits.weaponProf && data.traits.armorProf.value) {
+    if (data.traits.armorProf.value.indexOf("twr") !== -1) {
+      let item = await pack.getEntity(sprTower)
+      let data = duplicate(item.data);
+      delete data._id;
+      itemsToAdd.push(data);
+    }
+    if (data.traits.armorProf.value.indexOf("shl") !== -1) {
+      let item = await pack.getEntity(spr)
+      let data = duplicate(item.data);
+      delete data._id;
+      itemsToAdd.push(data);
+    }
+    if (data.traits.armorProf.value.indexOf("lgt") !== -1) {
+      let item = await pack.getEntity(armProfLight)
+      let data = duplicate(item.data);
+      delete data._id;
+      itemsToAdd.push(data);
+    }
+    if (data.traits.armorProf.value.indexOf("med") !== -1) {
+      let item = await pack.getEntity(armProfMed)
+      let data = duplicate(item.data);
+      delete data._id;
+      itemsToAdd.push(data);
+    }
+    if (data.traits.armorProf.value.indexOf("hvy") !== -1) {
+      let item = await pack.getEntity(armProfHeavy)
+      let data = duplicate(item.data);
+      delete data._id;
+      itemsToAdd.push(data);
+    }
+    updateData["data.traits.armorProf.value"] = [];
+  }
+
+}
+
+
+const _migrateActorRace = function(actor, updateData) {
+  // if (!(actor instanceof Actor)) return;
+  // if (actor.race == null) return;
+  //
+  // if (item.type === "race") {
+  //   actor.race.update(item);
+  //   return false;
+  // }
+}
+
 
 const _migrateActorDefenseNotes = function(ent, updateData) {
   const arr = ["attributes.acNotes", "attributes.cmdNotes", "attributes.srNotes"];
@@ -321,6 +463,16 @@ const _migrateActorBaseStats = function(ent, updateData) {
       updateData[`data.${kList.join(".")}`] = null;
     }
   }
+
+  if (getProperty(ent.data, "data.attributes.conditions.wildshaped") == null) {
+    updateData["data.attributes.conditions.wildshaped"] = false;
+  }
+
+  if (getProperty(ent.data, "data.attributes.conditions.polymorphed") == null) {
+    updateData["data.attributes.conditions.polymorphed"] = false;
+  }
+
+
 };
 
 const _migrateActorCreatureType = function(ent, updateData) {
@@ -339,6 +491,11 @@ const _migrateActorSpellbookDCFormula = function(ent, updateData) {
   }
 };
 
+const _migrateIcon = function(ent, updateData) {
+  const value = getProperty(ent.data, "img");
+  if (value.endsWith("/con.png")) updateData["img"] = value.replace("/con.png","/con_.png");
+};
+
 const _migrateItemSpellUses = function(ent, updateData) {
   if (getProperty(ent.data.data, "preparation") === undefined) return;
 
@@ -355,6 +512,30 @@ const _migrateWeaponDamage = function(ent, updateData) {
     updateData["data.weaponData.critRange"] = 20;
     updateData["data.weaponData.critMult"] = 2;
   }
+
+  if (getProperty(ent.data, "data.threatRangeExtended") == null) {
+    updateData["data.threatRangeExtended"] = false;
+  }
+  if (getProperty(ent.data, "data.finesseable") == null) {
+    updateData["data.finesseable"] = false;
+  }
+};
+
+const _migrateEnhancement = function(ent, updateData) {
+  if (ent.type !== "weapon" || ent.type !== "equipment" ) return;
+
+  const value = getProperty(ent.data.data, "enhancement");
+  if (typeof value !== "object") {
+    updateData["data.enhancement"] = {};
+    updateData["data.enhancement.items"] = [];
+    updateData["data.enhancement.uses"] = {
+          "value": 0,
+          "max": 0,
+          "per": null,
+          "autoDeductCharges": true,
+          "allowMultipleUses": false
+    };
+  }
 };
 
 const _migrateWeaponImprovised = function(ent, updateData) {
@@ -366,6 +547,11 @@ const _migrateWeaponImprovised = function(ent, updateData) {
     updateData["data.properties.imp"] = true;
   }
 };
+
+const _migrateSpellName = function(ent, updateData) {
+  if (ent.type !== "spell") return;
+  updateData["name"] = ent.data.name.trim()
+}
 
 const _migrateSpellDescription = function(ent, updateData) {
   if (ent.type !== "spell") return;
@@ -389,13 +575,13 @@ const _migrateSpellDivineFocus = function(ent, updateData) {
 };
 
 const _migrateItemDC = function(ent, updateData) {
-  const value = getProperty(ent.data.data, "save.type");
-  if (value == null) return;
-  if (value === "") updateData["data.save.description"] = "";
-  else if (value === "fort") updateData["data.save.description"] = "Fortitude partial";
-  else if (value === "ref") updateData["data.save.description"] = "Reflex half";
-  else if (value === "will") updateData["data.save.description"] = "Will negates";
-  updateData["data.save.-=type"] = null;
+  // const value = getProperty(ent.data.data, "save.type");
+  // if (value == null) return;
+  // if (value === "") updateData["data.save.description"] = "";
+  // else if (value === "fort") updateData["data.save.description"] = "Fortitude partial";
+  // else if (value === "ref") updateData["data.save.description"] = "Reflex half";
+  // else if (value === "will") updateData["data.save.description"] = "Will negates";
+  // updateData["data.save.-=type"] = null;
 };
 
 const _migrateClassDynamics = function(ent, updateData) {
@@ -415,6 +601,29 @@ const _migrateClassType = function(ent, updateData) {
   if (ent.type !== "class") return;
 
   if (getProperty(ent.data.data, "classType") == null) updateData["data.classType"] = "base";
+
+
+  if (getProperty(ent.data.data, "powersKnown" === null)) {
+    let powersKnown = {}
+    for (let i = 1; i <= 20; i++) {
+      powersKnown[i] = 0;
+    }
+    updateData["data.powersKnown"] = powersKnown
+  }
+  if (getProperty(ent.data.data, "powerPointTable" === null)) {
+    let powerPointTable = {}
+    for (let i = 1; i <= 20; i++) {
+      powerPointTable[i] = 0;
+    }
+    updateData["data.powerPointTable"] = powerPointTable
+  }
+  if (getProperty(ent.data.data, "powersMaxLevel" === null)) {
+    let powersMaxLevel = {}
+    for (let i = 1; i <= 20; i++) {
+      powersMaxLevel[i] = 0;
+    }
+    updateData["data.powersMaxLevel"] = powersMaxLevel
+  }
 };
 
 const _migrateWeaponCategories = function(ent, updateData) {
@@ -496,6 +705,16 @@ const _migrateWeaponSize = function(ent, updateData) {
   
   if (!getProperty(ent.data, "data.weaponData.size")) {
     updateData["data.weaponData.size"] = "med";
+  }
+};
+
+const _migrateContainer = function(ent, updateData) {
+  if (!getProperty(ent.data, "data.quantity")) return;
+
+  if (!getProperty(ent.data, "data.container")) {
+    updateData["data.container"] = "None";
+    updateData["data.containerId"] = "none";
+    updateData["data.containerWeightless"] = false;
   }
 };
 
@@ -775,3 +994,19 @@ const _migrateWeaponProperties = function(item, updateData) {
     updateData["data.properties.-=value"] = null;
   }
 };
+
+const migrateTokenStatuses = function (token, updateData) {
+  if (!token.actor) return;
+
+  if (token.data.effects.length) {
+    var effects = token.data.effects;
+    effects = effects.filter((e) => {
+      const [key, tex] = Object.entries(CONFIG.D35E.conditionTextures).find((t) => e === t[1]) ?? [];
+      if (key && token.actor.data.data.attributes.conditions[key]) return false;
+      if (token.actor.items.find((i) => i.type === "buff" && i.data.data.active && i.img === e)) return false;
+      return true;
+    });
+  }
+  setProperty(updateData, "effects", effects);
+};
+

@@ -1,5 +1,7 @@
 import { ChatMessagePF } from "./sidebar/chat-message.js";
 
+import {Roll35e} from "./roll.js"
+
 export class DicePF {
 
   /**
@@ -27,7 +29,7 @@ export class DicePF {
    * @param {Boolean} autoRender    Whether to automatically render the chat messages
    */
   static async d20Roll({event, parts, data, template, title, speaker, flavor, takeTwenty=true, situational=true,
-                  fastForward=true, critical=20, fumble=1, onClose, dialogOptions, extraRolls=[], chatTemplate, chatTemplateData,
+                  fastForward=true, critical=20, fumble=1, treshold=null, onClose, dialogOptions, extraRolls=[], chatTemplate, chatTemplateData,
                   staticRoll=null }) {
     // Handle input arguments
     flavor = flavor || title;
@@ -59,18 +61,18 @@ export class DicePF {
         }
 
         // Execute the roll
-        let roll = new Roll(curParts.join(" + "), data).roll();
+        let roll = new Roll35e(curParts.join(" + "), data).roll();
 
         // Convert the roll to a chat message
         if (chatTemplate) {
           // Create roll template data
-          const d20 = roll.parts[0];
+          const d20 = roll.terms[0];
           const rollData = mergeObject({
             user: game.user._id,
             formula: roll.formula,
             tooltip: await roll.getTooltip(),
             total: roll.total,
-            isCrit: d20.total >= critical,
+            isCrit: treshold ? roll.total >= treshold : d20.total >= critical,
             isFumble: d20.total <= fumble,
           }, chatTemplateData || {});
 
@@ -86,27 +88,27 @@ export class DicePF {
           // Handle different roll modes
           switch (rollMode) {
             case "gmroll":
-              chatData["whisper"] = game.users.entities.filter(u => u.isGM).map(u => u._id);
+              chatData["whisper"] = game.users.contents.filter(u => u.isGM).map(u => u._id);
               break;
             case "selfroll":
               chatData["whisper"] = [game.user._id];
               break;
             case "blindroll":
-              chatData["whisper"] = game.users.entities.filter(u => u.isGM).map(u => u._id);
+              chatData["whisper"] = game.users.contents.filter(u => u.isGM).map(u => u._id);
               chatData["blind"] = true;
               break;
           }
 
           // Send message
           rolled = true;
-          chatData = mergeObject(roll.toMessage({flavor}, { create: false }), chatData);
+          chatData = mergeObject(await roll.toMessage({flavor}, { create: false }), chatData);
           // Dice So Nice integration
-          if (game.dice3d != null) {
-            await game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind);
-            chatData.sound = null;
-          }
+          // if (game.dice3d != null) {
+          //   await game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind);
+          //   chatData.sound = null;
+          // }
 
-          await ChatMessagePF.create(chatData);
+          await ChatMessage.create(chatData);
         }
         else {
           rolled = true;
@@ -203,7 +205,7 @@ export class DicePF {
         data["ablMult"] = data.item.ability.damageMult;
       }
 
-      let roll = new Roll(parts.join("+"), data);
+      let roll = new Roll35e(parts.join("+"), data);
       if ( crit === true ) {
         let mult = data.item.ability.critMult || 2;
 
@@ -240,13 +242,13 @@ export class DicePF {
         // Handle different roll modes
         switch (chatData.rollMode) {
           case "gmroll":
-            chatData["whisper"] = game.users.entities.filter(u => u.isGM).map(u => u._id);
+            chatData["whisper"] = game.users.contents.filter(u => u.isGM).map(u => u._id);
             break;
           case "selfroll":
             chatData["whisper"] = [game.user._id];
             break;
           case "blindroll":
-            chatData["whisper"] = game.users.entities.filter(u => u.isGM).map(u => u._id);
+            chatData["whisper"] = game.users.contents.filter(u => u.isGM).map(u => u._id);
             chatData["blind"] = true;
         }
 
@@ -310,7 +312,7 @@ export class DicePF {
   static messageRoll({data, msgStr}) {
     let re = /\[\[(.+)\]\]/g;
     return msgStr.replace(re, (_, p1) => {
-      const roll = new Roll(p1, data).roll();
+      const roll = new Roll35e(p1, data).roll();
       return roll.total.toString();
     });
 
@@ -319,7 +321,13 @@ export class DicePF {
 }
 
 export const _preProcessDiceFormula = function(formula, data={}) {
-
+  function _fillTemplate(templateString, templateVars){
+    if (templateString.indexOf('$') !== -1)
+      return new Function("return `"+templateString +"`;").call(templateVars);
+    else
+      return formula;
+  }
+  formula = _fillTemplate(formula, data)
   // Replace parentheses with semicolons to use for splitting
   let toSplit = formula.replace(/([A-z]+)?\(/g, (match, prefix) => {
     return (prefix in game.D35E.rollPreProcess || prefix in Math) ? `;${prefix};(;` : ";(;";
@@ -328,7 +336,7 @@ export const _preProcessDiceFormula = function(formula, data={}) {
 
   // Match parenthetical groups
   let nOpen = 0,
-    nOpenPreProcess = [];
+      nOpenPreProcess = [];
   terms = terms.reduce((arr, t) => {
 
     // Handle cases where the prior term is a math function
@@ -350,13 +358,13 @@ export const _preProcessDiceFormula = function(formula, data={}) {
         if (obj[1] === nOpen) {
           const sliceLen = arr.length - obj[0];
           let fnData = arr.splice(obj[0], sliceLen),
-            fn = fnData[0],
-            fnParams = fnData.slice(2, -1).reduce((cur, s) => {
-              cur.push(...s.split(/\s*,\s*/));
-              return cur;
-            }, []).map(o => {
-              return new Roll(o, data).roll().total;
-            }).filter(o => o !== "" && o != null);
+              fn = fnData[0];
+          let fnParams = fnData.slice(2, -1).reduce((cur, s) => {
+            cur.push(...s.split(/\s*,\s*/));
+            return cur;
+          }, []).map(o => {
+            return new Roll35e(o, data).roll().total;
+          }).filter(o => o !== "" && o != null);
           if (fn in Math) {
             arr.push(Math[fn](...fnParams).toString());
           }
@@ -371,6 +379,7 @@ export const _preProcessDiceFormula = function(formula, data={}) {
     }
     return arr;
   }, []);
-  
+
   return terms.join("");
 };
+

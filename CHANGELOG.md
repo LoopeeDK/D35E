@@ -1,4 +1,213 @@
 # Changelog
+*Newer changes are places in changelogs directory*
+## 0.86.6
+### Bug Fixes
+- [#89](https://github.com/Rughalt/D35E/issues/89) - Natural armor field missed in the NPC charlist
+- [#91](https://github.com/Rughalt/D35E/issues/91) - Grapple Modifier doesn't add up
+- [#92](https://github.com/Rughalt/D35E/issues/92) - Attack bonus/penalty for size is reverted for attack bonuses fields
+- [#93](https://github.com/Rughalt/D35E/issues/93) - Some monsters dragged from compendium can't be modified
+
+### Bug Fixes
+
+## 0.86.5
+
+### Bug Fixes
+- [#86](https://github.com/Rughalt/D35E/issues/86) - Rolling grapple displays null in roll data 
+- [#85](https://github.com/Rughalt/D35E/issues/85) - Add size modifiers to rolls for base Melee and Ranged attack
+- [#84](https://github.com/Rughalt/D35E/issues/84) - Cannot set Ability scores from Attribute tab 
+- [#83](https://github.com/Rughalt/D35E/issues/83) - Add ability to toggle Class Features list under classes
+- [#82](https://github.com/Rughalt/D35E/issues/82) - Using ECL for XP count if Level Progression is disabled
+- [#80](https://github.com/Rughalt/D35E/issues/80) - Subskills do not work in Level Up Details
+- [#78](https://github.com/Rughalt/D35E/issues/78) - Gracefully fail if cannot migrate a pack
+- [#79](https://github.com/Rughalt/D35E/issues/79) - No scrollbars in default skin
+
+
+## 0.86.4
+### SRD
+- Added Prestige Classes: Archmage, Assassin, Blackguard, Dwarven Defender, Eldricht Knight
+### Features
+- Added compatibility with 0.7.X series
+- Full Level Progression system rework:
+    - Ability to set which Class Level was gained at which Character Level
+    - Ability to set Hit Points per Level
+    - Ability to set Skill Points per level
+    - Compatibility with NPCs and old Characters (that will use simple progression system)
+- Theme redesign, theme now enabled by default for new clients
+- New change type: BAB
+- Support for new 0.7.X series lighting effects
+    - New lighting options for items
+    - Added lighting to existing magic items and standard light sources
+- Ported Vision Permission dialog from PF1
+- Added ability to add custom class features when using special World Compendium
+
+### Bug Fixes
+- Fixes loading characters that had no Prestige Caster Level
+- [#61](https://github.com/Rughalt/D35E/issues/61) - Fixed Ranger class Favorite Enemy 
+- [#57](https://github.com/Rughalt/D35E/issues/57) - Add possibility to give bab in the changes tab 
+- [#63](https://github.com/Rughalt/D35E/issues/55) - Monsters didn't get feats every 3 levels 
+- [#60](https://github.com/Rughalt/D35E/issues/55) - Spellslots tables are wrong 
+- [#64](https://github.com/Rughalt/D35E/issues/55) - Class details break when selecting *None* as saving throw progression.
+- [#58](https://github.com/Rughalt/D35E/issues/55) - Damage value doesn't overriding 
+- [#59](https://github.com/Rughalt/D35E/issues/55) - Power attack not working properly 
+- [#75](https://github.com/Rughalt/D35E/issues/55) - Fighter didn't get bonus feat at lvl 1 
+- [#77](https://github.com/Rughalt/D35E/issues/55) - Fixed Ranger class Favorite Enemy 
+  
+
+## 0.85.4
+### Features
+- [#55](https://github.com/Rughalt/D35E/issues/55) - Updated French translation by @red5h4d0w
+- Updated Class Abilities/Features rendering style
+### Bug Fixes
+- Fixed regression caused by displaying damage type for typeless damage
+
+## 0.85.3
+### SRD
+- Finished Base classes implementation
+- Added Base classes descriptions and art
+
+### Features
+- Onboarding/Tutorial for new players
+- Automatic Class Features adding and removing
+- Automatic Spell slot calculation
+- Ability to set up spellbook from Class
+- Point-Buy system based on Pathfinder 1 rules - ported from PF1
+
+
+## 0.84.2
+### SRD
+- Added various missing Enhancements from SRD
+
+### Features
+- Added ability to use Magic Item Abilities directly from Char Sheet
+- Added ability to create Enhancements from Spells and Buffs
+
+## 0.84.1
+### SRD
+- Additional Spells have full implementation, thanks to BixSexy#9434
+- Base Weapon and Armor Enhancements
+- Specific Magic Weapons and Armor updates
+    - Specific Shields - added abilities and enhancements
+    - Specific Weapons - added abilities and enhancements
+
+### Features
+- Enhancement support
+- Base feats for attack rolls
+    - Power Attack (this also fixed [#39](https://github.com/Rughalt/D35E/issues/39))
+    - Manyshot and Greater Manyshot
+    - Rapid Shot
+- Two-Weapon Fighting support for attack rolls
+    - Automatic penalty application
+    - Automatic additional attacks for Greater and Improved Two-Weapon Fighting Feats
+- Ability to set damage type on Ammunition
+
+### Bug Fixes
+- Fixed Ammunition Bonus Damage being incorrectly added to damage roll.
+- [#52](https://github.com/Rughalt/D35E/issues/52) Randomize HP rolls up to HD sides instead of levels
+
+## 0.83.5
+### SRD
+- Fixed imported spells/powers with added fixes by BixSexy#9434
+- Fixed some monster import rules and added monster images/tokens
+
+### Features
+- Reduced module size by reducing icons size to 128x128
+- Moved Create Attack button on Weapon details screen to front
+- Spells automatically set correct level when dropping on spellbook with class set up
+
+### Bug Fixes 
+- Multiple rolls with Dice So Nice! do not longer occur.
+
+## 0.83.2
+### SRD
+- Fixed Monster compendium to be SRD compliant
+
+### Bug Fixes 
+- Removed DND copyrighted names from description and packge title and readme
+- Fixed spell icon
+- [#39](https://github.com/Rughalt/D35E/issues/39) - Turn Undead Uses is still not calculating correctly.
+- [#40](https://github.com/Rughalt/D35E/issues/40) - Dragging an Item from the sidebar into a character sheet doesn't retain Action data.
+
+## 0.83
+### SRD
+- Monster compendium
+- Fixes for Racial HD compendium
+- Conditions compendium
+
+### Features
+- Shapechange feature - access it on Buff - Shapechange tab. Create shapechange buffs by dragging NPC Actors into character sheet.
+    - Wildshape - melds used items and attacks, copies natural attack of monster and sets abilities
+    - Polymorph - melds natural attacks, copies natural attack of monster and sets abilities
+    - Alter self - changes appearance
+- [#15](https://github.com/Rughalt/D35E/issues/15) - Rolling NPC Hit Die
+
+### Bug Fixes   
+- Golem bonus HP now depends on size
+- Undead HP and Fortitude are no longer calculated using their Charisma modifier anymore
+- Sped up container updates
+- [#33](https://github.com/Rughalt/D35E/issues/34) - Conditions Compendium using Pathfinder conditions not 3.5
+- [#34](https://github.com/Rughalt/D35E/issues/34) - Racial HD compendium bugs
+- [#32](https://github.com/Rughalt/D35E/issues/32) - Bonus PowerPoints doesn't acount for item/custom racial Ability Score modifiers
+- [#35](https://github.com/Rughalt/D35E/issues/35) - Rogue class calculates sneak attack damage based on char level instead of rogue level
+- [#36](https://github.com/Rughalt/D35E/issues/36) - Turn Undead Uses doesn't calculate correctly
+- [#38](https://github.com/Rughalt/D35E/issues/38) - Revealing details for unidentified items
+
+## 0.82.1
+### Bug Fixes
+- Disabled Foundry VTT debug mode
+
+
+## 0.82
+### SRD
+- Fixes for Base Classes implementation (Paladin, Barbarian, NPC classes)
+- Added Soulknife special abilities
+- Converted Backpacks etc. to Containers
+- Added Magic Items from SRD - currently description and typing, no special properties
+
+### Features
+- Container item type and ability to assign items to containers (with support for Bags of Holding)
+- Toggleable custom skin for Foundry VTT
+- Application of Attack damage/Special buffs for targeted tokens
+- Ported spell- and power-based consumable creation from PF1
+
+### Bug Fixes
+- [#19](https://github.com/Rughalt/D35E/issues/19) - Armor doesn't have option for Masterwork bug
+- [#21](https://github.com/Rughalt/D35E/issues/21) - sizeRoll() given static value instead variable when creating an attack
+- [#13](https://github.com/Rughalt/D35E/issues/13) - Missing input for Ammo Bonus Damage formula
+- [#23](https://github.com/Rughalt/D35E/issues/23) - Applying a race from the compendium places a large color box on the NPC sheet in place of name or avatar
+- [#20](https://github.com/Rughalt/D35E/issues/20) - Attacks created from weapons are created as Ranged Weapon Attacks.
+- [#22](https://github.com/Rughalt/D35E/issues/22) - sizeRoll() increases the d4 and d6 by 2 steps instead of 1
+- [#16](https://github.com/Rughalt/D35E/issues/16) - Missing Grapple box on Player character sheet 
+- [#17](https://github.com/Rughalt/D35E/issues/17) - Changes tab still references CMB/CMD no way to add to Grapple
+- [#14](https://github.com/Rughalt/D35E/issues/14) - Grapple size modifier uses PF vales not 3.5
+- [#8](https://github.com/Rughalt/D35E/issues/8) - Class Compendium bugs
+- [#25](https://github.com/Rughalt/D35E/issues/25) - Damage bonus applied twice if more than one type of damage is present
+- [#24](https://github.com/Rughalt/D35E/issues/24) - Skill roll-up on character sheet doesn't show specialized skills
+
+## 0.81
+
+### SRD
+- Finished Base Classes (without Wilder and Soulknife special abilities)
+- Finished Races (without new icons tough)
+- Finished Racial HD
+
+### Features
+- Level adjustment for races
+- Buff time tracking
+- Use multiple items/features/classes charges at once
+- Ability to use ammunition with ranged weapon attacks
+- Ability to assign bonus damage to ammunition
+- Added party HUD
+- Added welcome screen
+
+### Bug Fixes
+- Fixed skill calculation for multiclass characters
+- Fixed character sheet text length
+- Fixes permission when GM rolls effect for player
+- [#2](https://github.com/Rughalt/D35E/issues/2) - Limited character sheet scrollbar
+- [#3](https://github.com/Rughalt/D35E/issues/3) - Saving throws rolled multiple times
+
+## 0.56 - 0.80
+A lot of things were fixed.
 
 ## 0.55
 Updated to 0.6.0 std's
